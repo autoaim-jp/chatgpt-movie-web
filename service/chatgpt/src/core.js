@@ -19,22 +19,44 @@ const init = async ({ setting, lib, amqpConnection, OpenAI }) => {
 
 const _fetchChatgpt = async ({ role, prompt }) => {
   const stream = await mod.openaiClient.chat.completions.create({
-    // model: 'gpt-4',
+    // model: 'gpt-4o',
     model: 'gpt-3.5-turbo',
     messages: [{ role, content: prompt }],
     stream: true,
   })
-  let response = ''
+  let responseMessage = ''
   for await (const part of stream) {
     // process.stdout.write(part.choices[0]?.delta?.content || '')
-    response += part.choices[0]?.delta?.content || ''
+    responseMessage += part.choices[0]?.delta?.content || ''
   }
 
-  const responseObj = { response }
-
-  return responseObj
+  return responseMessage 
 }
 
+const _createResponseBuffer = ({ requestId, responseBufferList }) => {
+  const currentDelimiter = Buffer.from(mod.lib.getUlid())
+  const delimiterDelimiter = Buffer.from('|')
+  let messageBuffer = Buffer.concat([
+    currentDelimiter,
+    delimiterDelimiter,
+    Buffer.from(requestId),
+  ])
+
+  responseBufferList.forEach((buffer) => {
+    messageBuffer = Buffer.concat([
+      messageBuffer,
+      currentDelimiter,
+      buffer,
+    ])
+  })
+
+  messageBuffer = Buffer.concat([
+    messageBuffer,
+    currentDelimiter,
+  ])
+
+  return messageBuffer
+}
 
 const startConsumer = async () => {
   const promptQueue = mod.setting.getValue('amqp.CHATGPT_PROMPT_QUEUE') 
@@ -56,12 +78,14 @@ const startConsumer = async () => {
       const role = requestJson.role || mod.setting.getValue('chatgpt.DEFAULT_ROLE')
       const prompt = requestJson.prompt || mod.setting.getValue('chatgpt.DEFAULT_ROLE')
 
-      const responseObj = await _fetchChatgpt({ role, prompt })
-      console.log('chatgpt response:')
-      console.log(responseObj)
-      const responseJson = { requestId, response: responseObj }
-      const responseJsonStr = JSON.stringify(responseJson)
-      mod.amqpResponseChannel.sendToQueue(responseQueue, Buffer.from(responseJsonStr))
+      const responseMessage = await _fetchChatgpt({ role, prompt })
+      console.log('chatgpt response:', responseBufferList.length)
+
+      const responseBufferList = []
+      responseBufferList.push(Buffer.from('chatgpt'))
+      responseBufferList.push(Buffer.from(responseMessage))
+      const responseBuffer = _createResponseBuffer({ requestId, responseBufferList })
+      mod.amqpResponseChannel.sendToQueue(responseQueue, responseBuffer)
 
       mod.amqpPromptChannel.ack(msg)
     } else {

@@ -1,5 +1,7 @@
 import dotenv from 'dotenv'
 import amqplib from 'amqplib'
+import { ulid } from 'ulid'
+import { spawn } from 'child_process'
 import OpenAI from 'openai'
 
 import setting from './setting.js'
@@ -14,6 +16,7 @@ const a = asocial
 const init = async () => {
   dotenv.config()
   a.setting.init({ env: process.env })
+  a.lib.init({ spawn, ulid })
   const { AMQP_USER: user, AMQP_PASS: pass, AMQP_HOST: host, AMQP_PORT: port } = a.setting.getList('env.AMQP_USER', 'env.AMQP_PASS', 'env.AMQP_HOST', 'env.AMQP_PORT')
   const amqpConnection = await a.lib.createAmqpConnection({ amqplib, user, pass, host, port })
   await core.init({ setting, lib, amqpConnection, OpenAI })
