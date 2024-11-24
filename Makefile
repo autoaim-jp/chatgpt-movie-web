@@ -36,6 +36,11 @@ init-env:
 		echo "Copying .env.sample to .env for movieEngine"; \
 		cp service/movieEngine/src/.env{.sample,}; \
 	fi
+	@if [ ! -f service/chatgpt/src/.env ]; then \
+		echo "Copying .env.sample to .env for chatgpt"; \
+		cp service/chatgpt/src/.env{.sample,}; \
+		echo "EDIT service/chatgpt/src/.env AND SET OPENAI_API_KEY!"; \
+	fi
 
 docker-compose-up:
 	docker compose -p ${DOCKER_PROJECT_NAME} up

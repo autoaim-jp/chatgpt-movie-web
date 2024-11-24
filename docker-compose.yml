@@ -4,7 +4,7 @@ services:
     container_name: movie-rabbitmq-rabbitmq
     image: rabbitmq:3.11-management
     environment:
-      - RABBITMQ_DEFAULT_USER=movierabbitmqadmin
+      - RABBITMQ_DEFAULT_USER=chatgpmoviewebadmin
       - RABBITMQ_DEFAULT_PASS=zlpL0xjKYY1iX0j365zoIjz
     volumes:
       - ./service/rabbitmq/data:/var/lib/rabbitmq
@@ -53,7 +53,22 @@ services:
       - RUN_MODE=production
     restart: unless-stopped
 
+  chatgpt:
+   build:
+     context: ./
+     dockerfile: ./service/chatgpt/docker/Dockerfile
+   tty: true
+   working_dir: /app
+   volumes:
+     - ./service/chatgpt/src:/app
+      - chatgpt-rabbitmq-cg-nm:/app/node_modules
+   command: sh -c "yarn run start"
+   depends_on:
+     rabbitmq:
+       condition: service_healthy
+
 volumes:
   movie-rabbitmq-ma-nm:
   movie-rabbitmq-me-nm:
+  chatgpt-rabbitmq-cg-nm:
 
