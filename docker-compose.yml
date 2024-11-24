@@ -1,0 +1,59 @@
+services:
+  rabbitmq:
+    hostname: movie-rabbitmq-rabbitmq
+    container_name: movie-rabbitmq-rabbitmq
+    image: rabbitmq:3.11-management
+    environment:
+      - RABBITMQ_DEFAULT_USER=movierabbitmqadmin
+      - RABBITMQ_DEFAULT_PASS=zlpL0xjKYY1iX0j365zoIjz
+    volumes:
+      - ./service/rabbitmq/data:/var/lib/rabbitmq
+    healthcheck:
+      test: rabbitmq-diagnostics check_port_connectivity
+      interval: 5s
+      timeout: 10s
+      retries: 20
+
+  movie_api:
+    container_name: movie-rabbitmq-movie-api
+    build:
+      context: ./
+      dockerfile: ./service/movieApi/docker/Dockerfile
+    tty: true
+    volumes:
+      - ./service/movieApi/src:/app
+      - movie-rabbitmq-ma-nm:/app/node_modules
+    command: sh -c "yarn run start"
+    ports:
+      - 127.0.0.1:25673:25673
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+
+  movie_engine:
+    container_name: movie-rabbitmq-movie-engine
+    build:
+      context: ./
+      dockerfile: ./service/movieEngine/docker/Dockerfile
+    tty: true
+    volumes:
+      - ./service/movieEngine/src:/app
+      - movie-rabbitmq-me-nm:/app/node_modules
+    command: sh -c "yarn run start"
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+
+  voicevox:
+    container_name: voicevox
+    image: voicevox/voicevox_engine:cpu-0.21.1
+    ports:
+      - 127.0.0.1:50021:50021
+    environment:
+      - RUN_MODE=production
+    restart: unless-stopped
+
+volumes:
+  movie-rabbitmq-ma-nm:
+  movie-rabbitmq-me-nm:
+
