@@ -46,6 +46,7 @@ const fork = ({ commandList, resultList }) => {
 
 
 export default {
+  init,
   getUlid,
   createAmqpConnection,
   awaitSleep,

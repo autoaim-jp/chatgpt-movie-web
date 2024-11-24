@@ -26,6 +26,7 @@ init-module:
 
 init-dir:
 	mkdir -p ./service/movieEngine/src/data/
+	mkdir -p ./service/movieApi/src/data/
 
 init-env:
 	@if [ ! -f service/movieApi/src/.env ]; then \

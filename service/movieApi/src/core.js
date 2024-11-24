@@ -206,12 +206,13 @@ const startConsumer = async () => {
       } else if (requestType === 'chatgpt') {
         // chatgpt
         const filePath = `${dirPath}story-by-chatgpt.txt`
-        const fileBuffer = splitResultList[2]
-        mod.output.saveFile({ filePath, fileBuffer })
+        const chatgptResponseBuffer = splitResultList[2]
+        mod.output.saveFile({ filePath, chatgptResponseBuffer })
         if (!store[requestId]) {
           store[requestId] = {}
         }
         store[requestId].status = 'creating-movie'
+        store[requestId].chatgpt = chatgptResponseBuffer.toString()
       } else {
         console.log(`invalid requestType: ${requestType}`)
       }

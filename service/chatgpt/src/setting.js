@@ -12,12 +12,13 @@ const init = ({ env }) => {
 
 setting.amqp = {}
 setting.amqp.CHATGPT_PROMPT_QUEUE = 'chatgpt-prompt-queue'
-setting.amqp.CHATGPT_RESPONSE_QUEUE = 'chatgpt-response-queue'
+setting.amqp.RESPONSE_QUEUE = 'movie-response-queue'
 
 setting.chatgpt = {}
 setting.chatgpt.DEFAULT_ROLE = 'creative assistant'
 setting.chatgpt.DEFAULT_PROMPT = 'create a story'
-setting.chatgpt.SLEEP_BEFORE_REQUEST_MS = 5 * 1000
+// setting.chatgpt.SLEEP_BEFORE_REQUEST_MS = 5 * 1000
+setting.chatgpt.SLEEP_BEFORE_REQUEST_MS = 0.1 * 1000
 
 const getList = (...keyList) => {
   /* eslint-disable no-param-reassign */
