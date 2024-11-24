@@ -62,7 +62,7 @@ const startConsumer = async () => {
   const promptQueue = mod.setting.getValue('amqp.CHATGPT_PROMPT_QUEUE') 
   await mod.amqpPromptChannel.assertQueue(promptQueue)
 
-  const responseQueue = mod.setting.getValue('amqp.CHATGPT_RESPONSE_QUEUE') 
+  const responseQueue = mod.setting.getValue('amqp.RESPONSE_QUEUE') 
   await mod.amqpResponseChannel.assertQueue(responseQueue)
 
   mod.amqpPromptChannel.consume(promptQueue, async (msg) => {
@@ -79,7 +79,7 @@ const startConsumer = async () => {
       const prompt = requestJson.prompt || mod.setting.getValue('chatgpt.DEFAULT_ROLE')
 
       const responseMessage = await _fetchChatgpt({ role, prompt })
-      console.log('chatgpt response:', responseBufferList.length)
+      console.log('chatgpt response:', responseMessage)
 
       const responseBufferList = []
       responseBufferList.push(Buffer.from('chatgpt'))

@@ -1,7 +1,7 @@
 services:
   rabbitmq:
-    hostname: chatgpt-movie-rabbitmq-rabbitmq
-    container_name: chatgpt-movie-rabbitmq-rabbitmq
+    hostname: chatgpt-movie-rabbitmq
+    container_name: chatgpt-movie-rabbitmq
     image: rabbitmq:3.11-management
     environment:
       - RABBITMQ_DEFAULT_USER=chatgpmoviewebadmin

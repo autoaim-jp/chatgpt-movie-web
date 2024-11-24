@@ -207,7 +207,7 @@ const startConsumer = async () => {
         // chatgpt
         const filePath = `${dirPath}story-by-chatgpt.txt`
         const chatgptResponseBuffer = splitResultList[2]
-        mod.output.saveFile({ filePath, chatgptResponseBuffer })
+        mod.output.saveFile({ filePath, fileBuffer: chatgptResponseBuffer })
         if (!store[requestId]) {
           store[requestId] = {}
         }
