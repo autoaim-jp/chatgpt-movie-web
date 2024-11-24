@@ -128,7 +128,7 @@ const handleRegisterMainPrompt = async ({ fileList, title, narrationCsv }) => {
 const handleLookupResponse = ({ requestId }) => {
   const handleResult = store[requestId]
   if (!handleResult) {
-    return { waiting: true }
+    return { status: 'waiting' }
   }
 
   return handleResult
@@ -150,6 +150,33 @@ const handleFileContent = ({ requestId, fileName }) => {
   return handleResultBuffer
 }
 
+// chatgpt
+const handleRegisterPrompt = async ({ prompt }) => {
+  const queue = mod.setting.getValue('amqp.CHATGPT_PROMPT_QUEUE') 
+  await mod.amqpChannel.assertQueue(queue)
+
+  const requestId = mod.lib.getUlid()
+  const requestObj = {
+    requestId,
+    prompt,
+  }
+  const requestObjStr = JSON.stringify(requestObj)
+
+  mod.amqpChannel.sendToQueue(queue, Buffer.from(requestObjStr))
+
+  const handleResult = { isRegistered: true, requestId }
+  return handleResult
+}
+
+const handleLookupChatgptResponse = ({ requestId }) => {
+  const handleResult = store[requestId]
+  if (!handleResult) {
+    return { status: 'waiting' }
+  }
+
+  return handleResult
+}
+
 const startConsumer = async () => {
   const queue = mod.setting.getValue('amqp.RESPONSE_QUEUE') 
   const MOVIE_DIR_PATH = mod.setting.getValue('path.MOVIE_DIR_PATH') 
@@ -166,13 +193,27 @@ const startConsumer = async () => {
       const requestId = splitResultList[0].toString()
       const requestType = splitResultList[1].toString()
 
+      const dirPath = `${MOVIE_DIR_PATH}${requestId}/`
+      mod.output.makeDir({ dirPath, })
       if (requestType === 'main') {
-        const dirPath = `${MOVIE_DIR_PATH}${requestId}/`
         const filePath = `${dirPath}output.mp4`
         const fileBuffer = splitResultList[2]
-        mod.output.makeDir({ dirPath, })
         mod.output.saveFile({ filePath, fileBuffer })
-        store[requestId] = 'ready'
+        if (!store[requestId]) {
+          store[requestId] = {}
+        }
+        store[requestId].status = 'complete'
+      } else if (requestType === 'chatgpt') {
+        // chatgpt
+        const filePath = `${dirPath}story-by-chatgpt.txt`
+        const fileBuffer = splitResultList[2]
+        mod.output.saveFile({ filePath, fileBuffer })
+        if (!store[requestId]) {
+          store[requestId] = {}
+        }
+        store[requestId].status = 'creating-movie'
+      } else {
+        console.log(`invalid requestType: ${requestType}`)
       }
     } else {
       console.log('Consumer cancelled by server')
@@ -189,6 +230,8 @@ export default {
   handleFileList,
   handleFileContent,
   handleLookupResponse,
+  handleRegisterPrompt,
+  handleLookupChatgptResponse,
   startConsumer,
 }
 

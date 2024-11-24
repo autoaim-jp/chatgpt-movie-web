@@ -11,11 +11,15 @@ const init = ({ env }) => {
 }
 
 setting.path = {}
+setting.path.PUBLIC_STATIC_DIR = 'view/static'
 setting.path.MOVIE_DIR_PATH = '/app/data/output/'
 
 setting.amqp = {}
 setting.amqp.REQUEST_QUEUE = 'movie-request-queue'
 setting.amqp.RESPONSE_QUEUE = 'movie-response-queue'
+// chatgpt
+setting.amqp.CHATGPT_PROMPT_QUEUE = 'chatgpt-prompt-queue'
+setting.amqp.CHATGPT_RESPONSE_QUEUE = 'chatgpt-response-queue'
 
 setting.key = {}
 setting.key.FORM_UPLOAD = 'file'
@@ -26,9 +30,13 @@ const API_ROOT_PATH = '/api/v1'
 setting.api.REGISTER_PROMPT_PING = `${API_ROOT_PATH}/prompt/register/ping`
 setting.api.REGISTER_PROMPT_DUMMY = `${API_ROOT_PATH}/prompt/register/dummy`
 setting.api.REGISTER_PROMPT_MAIN = `${API_ROOT_PATH}/prompt/register/main`
-setting.api.LOOKUP_RESPONSE = `${API_ROOT_PATH}/response/lookup`
+setting.api.LOOKUP_RESPONSE = `${API_ROOT_PATH}/file/response/lookup`
 setting.api.GET_FILE_LIST = `${API_ROOT_PATH}/file/list`
 setting.api.GET_FILE_CONTENT = `${API_ROOT_PATH}/file/content`
+
+// chatgpt
+setting.api.REGISTER_PROMPT = `${API_ROOT_PATH}/prompt/register/chatgpt`
+setting.api.LOOKUP_CHATGPT_RESPONSE = `${API_ROOT_PATH}/chatgpt/response/lookup`
 
 const getList = (...keyList) => {
   /* eslint-disable no-param-reassign */

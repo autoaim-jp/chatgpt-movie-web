@@ -24,7 +24,7 @@ const _getDefaultRouter = () => {
   const expressRouter = express.Router()
 
   const appPath = `${path.dirname(new URL(import.meta.url).pathname)}/`
-  // expressRouter.use(express.static(appPath + a.setting.getValue('static.PUBLIC_STATIC_DIR'), { index: 'index.html', extensions: ['html'] }))
+  expressRouter.use(express.static(appPath + a.setting.getValue('path.PUBLIC_STATIC_DIR'), { index: 'index.html', extensions: ['html'] }))
 
   expressRouter.use(bodyParser.urlencoded({ extended: true }))
   expressRouter.use(bodyParser.json())
@@ -37,6 +37,8 @@ const _getFunctionRouter = () => {
   const expressRouter = express.Router()
 
   const { REGISTER_PROMPT_PING, REGISTER_PROMPT_DUMMY, REGISTER_PROMPT_MAIN, LOOKUP_RESPONSE, GET_FILE_LIST, GET_FILE_CONTENT, FORM_UPLOAD, FILE_LIST_UPLOAD, } = a.setting.getList('api.REGISTER_PROMPT_PING', 'api.REGISTER_PROMPT_DUMMY', 'api.REGISTER_PROMPT_MAIN', 'api.LOOKUP_RESPONSE', 'api.GET_FILE_LIST', 'api.GET_FILE_CONTENT', 'key.FORM_UPLOAD', 'key.FILE_LIST_UPLOAD')
+  // chatgpt
+  const { REGISTER_PROMPT, LOOKUP_CHATGPT_RESPONSE } = a.setting.getList('api.REGISTER_PROMPT', 'api.LOOKUP_CHATGPT_RESPONSE')
 
   const fileUploadHandler = a.action.getHandlerFileUpload({
     FORM_UPLOAD,
@@ -80,6 +82,17 @@ const _getFunctionRouter = () => {
     handleFileContent: a.core.handleFileContent
   })
   expressRouter.get(GET_FILE_CONTENT, fileContentHandler)
+
+  // chatgpt
+  const registerPromptHandler = a.action.getHandlerRegisterPrompt({
+    handleRegisterPrompt: a.core.handleRegisterPrompt
+  })
+  expressRouter.post(REGISTER_PROMPT, registerPromptHandler)
+
+  const lookupChatgptResponseHandler = a.action.getHandlerLookupChatgptResponse({
+    handleLookupChatgptResponse: a.core.handleLookupChatgptResponse
+  })
+  expressRouter.get(LOOKUP_CHATGPT_RESPONSE, lookupChatgptResponseHandler)
 
   return expressRouter
 }
