@@ -209,18 +209,18 @@ const _startGenerateImageAndMovie = async ({ requestId, title, themeText, target
   mod.output.makeDir({ dirPath, })
   const tmpJsonDirPath = `${dirPath}tmpJson/`
   mod.output.makeDir({ dirPath: tmpJsonDirPath, })
-  const chatgptResultJsonFilePath = `${dirPath}chatgpt_result.json`
+  const chatgptResultJsonFilePath = `${dirPath}chatgpt_result_json.txt`
   mod.output.saveFile({ filePath: chatgptResultJsonFilePath, fileBuffer: Buffer.from(JSON.stringify({ requestId, title, themeText, targetText, prompt, chatgptResponse, narrationCsv, imagePromptList }, null, 2)) })
 
   const imageFilePathList = []
   const promiseList = imagePromptList.map((imagePrompt, i) => {
     const imageFilePath = `${dirPath}image_${i}${IMAGE_EXT}`
     imageFilePathList.push(imageFilePath)
-    const tmpJsonFilePath = `${tmpJsonDirPath}${i}.json`
+    const tmpJsonFilePath = `${tmpJsonDirPath}${i}_json.txt`
 
     return new Promise((resolve) => {
       const resultList = []
-      const commandList = ['/app/lib/dalle3/generate.sh', imageFilePath, tmpJsonFilePath, OPENAI_CHATGPT_API_KEY, imagePrompt]
+      const commandList = ['/app/lib/dalle3/generate.sh', imageFilePath, tmpJsonFilePath, `"${OPENAI_CHATGPT_API_KEY}"`, `"${imagePrompt.replace(/"/g, '')}"`]
 
       mod.lib.fork({ commandList, resultList }).then(() => {
         resolve()
@@ -233,6 +233,7 @@ const _startGenerateImageAndMovie = async ({ requestId, title, themeText, target
     return { originalname: filePath, buffer: mod.input.getFileContent({ filePath }) }
   })
   const messageBuffer = _getMainRequest({ requestId, fileList, title, narrationCsv })
+  const queue = mod.setting.getValue('amqp.REQUEST_QUEUE') 
   mod.amqpChannel.sendToQueue(queue, messageBuffer)
 
   console.log('done: _startGenerateImageAndMovie', requestId, title)

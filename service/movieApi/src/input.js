@@ -27,7 +27,11 @@ export const getFileContent = ({ filePath }) => {
   if (filePath.includes('..')) {
     return Buffer.from('fail')
   }
-  return mod.fs.readFileSync(filePath)
+  try {
+    return mod.fs.readFileSync(filePath)
+  } catch(e) {
+    return null
+  }
 }
 
 export default {}
