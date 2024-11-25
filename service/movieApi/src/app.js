@@ -38,7 +38,7 @@ const _getFunctionRouter = () => {
 
   const { REGISTER_PROMPT_PING, REGISTER_PROMPT_DUMMY, REGISTER_PROMPT_MAIN, LOOKUP_RESPONSE, GET_FILE_LIST, GET_FILE_CONTENT, FORM_UPLOAD, FILE_LIST_UPLOAD, } = a.setting.getList('api.REGISTER_PROMPT_PING', 'api.REGISTER_PROMPT_DUMMY', 'api.REGISTER_PROMPT_MAIN', 'api.LOOKUP_RESPONSE', 'api.GET_FILE_LIST', 'api.GET_FILE_CONTENT', 'key.FORM_UPLOAD', 'key.FILE_LIST_UPLOAD')
   // chatgpt
-  const { REGISTER_PROMPT, LOOKUP_CHATGPT_RESPONSE } = a.setting.getList('api.REGISTER_PROMPT', 'api.LOOKUP_CHATGPT_RESPONSE')
+  const { REGISTER_PROMPT, LOOKUP_CHATGPT_RESPONSE, REGISTER_STORY_PROMPT } = a.setting.getList('api.REGISTER_PROMPT', 'api.LOOKUP_CHATGPT_RESPONSE', 'api.REGISTER_STORY_PROMPT')
 
   const fileUploadHandler = a.action.getHandlerFileUpload({
     FORM_UPLOAD,
@@ -88,6 +88,11 @@ const _getFunctionRouter = () => {
     handleRegisterPrompt: a.core.handleRegisterPrompt
   })
   expressRouter.post(REGISTER_PROMPT, registerPromptHandler)
+
+  const registerStoryPromptHandler = a.action.getHandlerRegisterStoryPrompt({
+    handleRegisterStoryPrompt: a.core.handleRegisterStoryPrompt
+  })
+  expressRouter.post(REGISTER_STORY_PROMPT, registerStoryPromptHandler)
 
   const lookupChatgptResponseHandler = a.action.getHandlerLookupChatgptResponse({
     handleLookupChatgptResponse: a.core.handleLookupChatgptResponse

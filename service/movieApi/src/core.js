@@ -177,6 +177,68 @@ const handleLookupChatgptResponse = ({ requestId }) => {
   return handleResult
 }
 
+// # ===\n で囲まれる部分を抽出
+// ナレーションcsvを抽出
+const extractBetweenTag = ({ str }) => {
+  const regex = /# ===\n([\s\S]*?)# ===/
+  const match = str.match(regex)
+  return match ? match[1].trim().split('\n') : []
+}
+
+// 最後の5行から : のあとの部分を抽出
+// タイトル画像と4ページの画像生成プロンプトを抽出
+const extractLast5ColonPart = ({ str }) => {
+  const lineList = str.split('\n').filter(line => line.includes(':'))
+  const last5LineList = lineList.slice(-5)
+  return last5LineList.map(line => line.split(':').slice(1).join(':').trim())
+}
+
+const handleRegisterStoryPrompt = async ({ themeText, targetText }) => {
+  const queue = mod.setting.getValue('amqp.CHATGPT_PROMPT_QUEUE') 
+  const prompt = mod.setting.getValue('prompt.STORY_VER1')
+    .replace(/__THEME_TEXT__/g, themeText)
+    .replace(/__TARGET_TEXT__/g, targetText)
+
+  await mod.amqpChannel.assertQueue(queue)
+
+  const requestId = mod.lib.getUlid()
+  const requestObj = {
+    requestId,
+    prompt,
+  }
+  const requestObjStr = JSON.stringify(requestObj)
+
+  mod.amqpChannel.sendToQueue(queue, Buffer.from(requestObjStr))
+
+  // wait response
+  const waitChatgptResponseInterval = setInterval(() => {
+    const result = store[requestId]
+    if(result.status === 'creating-movie' && result.chatgpt !== undefined) {
+      console.log('====================下記がchatgptの結果')
+      console.log(result.chatgpt)
+      console.log('====================上記がchatgptの結果')
+
+      const narrationCsvStr = extractBetweenTag({ str: result.chatgpt })
+      console.log('====================下記がnarrationCsvStrの結果')
+      console.log(narrationCsvStr)
+      console.log('====================上記がnarrationCsvStrの結果')
+
+      const imagePromptList = extractLast5ColonPart({ str: result.chatgpt })
+      console.log('====================下記がimagePromptListの結果')
+      console.log(imagePromptList)
+      console.log('====================上記がimagePromptListの結果')
+
+      clearInterval(waitChatgptResponseInterval)
+    } else {
+      console.log('checking...:', requestId)
+    }
+  }, 1 * 1000)
+
+  const handleResult = { isRegistered: true, requestId }
+  return handleResult
+}
+
+
 const startConsumer = async () => {
   const queue = mod.setting.getValue('amqp.RESPONSE_QUEUE') 
   const MOVIE_DIR_PATH = mod.setting.getValue('path.MOVIE_DIR_PATH') 
@@ -233,6 +295,7 @@ export default {
   handleLookupResponse,
   handleRegisterPrompt,
   handleLookupChatgptResponse,
+  handleRegisterStoryPrompt,
   startConsumer,
 }
 

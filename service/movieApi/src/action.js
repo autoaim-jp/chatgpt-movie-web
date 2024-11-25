@@ -128,6 +128,18 @@ const getHandlerLookupChatgptResponse = ({ handleLookupChatgptResponse }) => {
   }
 }
 
+const getHandlerRegisterStoryPrompt = ({ handleRegisterStoryPrompt }) => {
+  return async (req, res) => {
+    const { themeText, targetText } = req.body
+
+    const handleResult = await handleRegisterStoryPrompt({ 
+      themeText, targetText
+    })
+
+    res.json({ result: handleResult })
+  }
+}
+
 export default {
   getHandlerFileUpload,
   getHandlerFileListUpload,
@@ -139,6 +151,7 @@ export default {
   getHandlerFileContent,
   getHandlerRegisterPrompt,
   getHandlerLookupChatgptResponse,
+  getHandlerRegisterStoryPrompt,
 }
 
 
