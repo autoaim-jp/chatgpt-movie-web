@@ -12,6 +12,7 @@ NARRATION_TEXT=$(cat ${SCRIPT_DIR_PATH}asset/narration.csv)
 curl -X POST \
   -F "title=test_シマリス兄弟とふしぎなショッピングモール。" \
   -F "narrationCsv=${NARRATION_TEXT}" \
+  -F "fileList[]=@${SCRIPT_DIR_PATH}asset/dummy_image0.png" \
   -F "fileList[]=@${SCRIPT_DIR_PATH}asset/dummy_image1.png" \
   -F "fileList[]=@${SCRIPT_DIR_PATH}asset/dummy_image2.png" \
   -F "fileList[]=@${SCRIPT_DIR_PATH}asset/dummy_image3.png" \

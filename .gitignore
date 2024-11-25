@@ -5,4 +5,6 @@ service/rabbitmq/data/
 service/movieEngine/src/data/
 service/movieApi/src/data/
 
+*.swp
+*.swo
 

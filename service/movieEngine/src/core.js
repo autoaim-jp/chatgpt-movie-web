@@ -37,10 +37,17 @@ const _callMain = async ({ requestId, titleBuffer, narrationCsvBuffer, imageBuff
   const title = titleBuffer.toString()
   mod.output.saveFile({ filePath: narrationCsvFilePath, fileBuffer: narrationCsvBuffer })
 
-  const imageDirPath = `/app/data/image_${requestId}/`
+  const requestDirPath = `/app/data/${requestId}/`
+  mod.output.makeDir({ dirPath: requestDirPath })
+  const titleImageFilePath = `${requestDirPath}title${IMAGE_EXT}`
+  mod.output.saveFile({ filePath: titleImageFilePath, fileBuffer: imageBufferList[0] })
+
+  const imageDirPath = `${requestDirPath}image/`
   mod.output.makeDir({ dirPath: imageDirPath })
+
   imageBufferList.forEach((fileBuffer, i) => {
-    if(fileBuffer === null) {
+    // 0 is title image
+    if(i === 0 || fileBuffer === null) {
       return
     }
     const filePath = `${imageDirPath}${i}${IMAGE_EXT}`
@@ -48,10 +55,7 @@ const _callMain = async ({ requestId, titleBuffer, narrationCsvBuffer, imageBuff
   })
   const resultList = []
 
-  // :TODO
-  const tmpTitleImageFilePath = `${imageDirPath}0${IMAGE_EXT}`
-
-  const commandList = ['cd', '/app/lib/xmodule-movie-core', '&&', './main.sh', outputFilePath, narrationCsvFilePath, title, tmpTitleImageFilePath, TEAM_NAME, imageDirPath, VOICE_ENGINE]
+  const commandList = ['cd', '/app/lib/xmodule-movie-core', '&&', './main.sh', outputFilePath, narrationCsvFilePath, title, titleImageFilePath, TEAM_NAME, imageDirPath, VOICE_ENGINE]
 
   console.log({ commandList })
   await mod.lib.fork({ commandList, resultList })
