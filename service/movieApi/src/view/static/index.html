@@ -8,10 +8,10 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/alpinejs" defer></script>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+<body class="bg-gray-100 flex items-center justify-center min-h-screen" x-data="formHandler()">
   <div class="container mx-auto">
     <!-- Form Card -->
-    <div class="bg-white rounded-lg shadow-lg p-8 max-w-lg mx-auto" x-data="formHandler()">
+    <div class="bg-white rounded-lg shadow-lg p-8 max-w-lg mx-auto">
       <h2 class="text-2xl font-bold text-center mb-4">Story Registration</h2>
       <form @submit.prevent="submitForm">
         <div class="mb-4">
@@ -27,10 +27,26 @@
     </div>
 
     <!-- Video Display Card -->
-    <div x-show="videoUrl" class="bg-white rounded-lg shadow-lg p-8 max-w-lg mx-auto mt-8" x-cloak>
+    <div class="bg-white rounded-lg shadow-lg p-8 max-w-lg mx-auto mt-8" x-cloak>
       <h2 class="text-2xl font-bold text-center mb-4">Generated Video</h2>
       <video controls class="w-full rounded-lg" :src="videoUrl"></video>
     </div>
+
+    <!-- File List Card -->
+    <div class="bg-white rounded shadow p-6 w-full max-w-lg mx-auto mt-6" x-init="startInterval">
+      <h2 class="text-xl font-semibold mb-4">Available Files</h2>
+      <ul class="space-y-2">
+        <template x-for="requestId in fileList" :key="requestId">
+          <li>
+            <a href="#" @click.prevent="updateVideoUrl(requestId)"
+               class="text-blue-500 hover:underline">
+              <span x-text="requestId"></span>
+            </a>
+          </li>
+        </template>
+      </ul>
+    </div>
+
   </div>
 
   <script>
@@ -41,6 +57,7 @@
         videoUrl: '',
         requestId: '',
         intervalId: null,
+        fileList: [],
 
         async submitForm() {
           try {
@@ -77,6 +94,27 @@
               console.error('Error checking video status:', error);
             }
           }, 1000);
+        },
+
+        fetchFileList() {
+          fetch('/api/v1/file/list')
+            .then(response => response.json())
+            .then(data => {
+              if (data.result && data.result.result && data.result.result.fileDirList) {
+                this.fileList = data.result.result.fileDirList.map(dir => dir.replace('/', ''));
+              }
+            })
+            .catch(error => console.error('Error fetching file list:', error));
+        },
+        startInterval() {
+          this.fetchFileList();
+          setInterval(() => {
+            this.fetchFileList()
+          }, 10*1000); // 10秒間隔で実行
+        },
+    
+        updateVideoUrl(requestId) {
+          this.videoUrl = `/api/v1/file/content?requestId=${requestId}&fileName=output.mp4`;
         },
       };
     }
