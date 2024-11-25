@@ -19,10 +19,11 @@ const init = async ({ setting, lib, amqpConnection, OpenAI }) => {
 
 const _fetchChatgpt = async ({ role, prompt }) => {
   const stream = await mod.openaiClient.chat.completions.create({
-    // model: 'gpt-4o',
-    model: 'gpt-3.5-turbo',
+    model: 'gpt-4o',
+    // model: 'gpt-3.5-turbo',
     messages: [{ role, content: prompt }],
     stream: true,
+    max_tokens: 8192,
   })
   let responseMessage = ''
   for await (const part of stream) {

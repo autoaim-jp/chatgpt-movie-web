@@ -213,7 +213,7 @@ const handleRegisterStoryPrompt = async ({ themeText, targetText }) => {
   // wait response
   const waitChatgptResponseInterval = setInterval(() => {
     const result = store[requestId]
-    if(result.status === 'creating-movie' && result.chatgpt !== undefined) {
+    if(result && result.status === 'creating-movie' && result.chatgpt !== undefined) {
       console.log('====================下記がchatgptの結果')
       console.log(result.chatgpt)
       console.log('====================上記がchatgptの結果')
