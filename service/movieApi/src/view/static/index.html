@@ -1,2 +1,86 @@
-<h2>hello rabbitmq</h2>
+<!DOCTYPE html>
+<!-- https://chatgpt.com/share/6744c8ba-7d34-8008-a6db-aa3323a99adf -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form with Video Fetch</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/alpinejs" defer></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+  <div class="container mx-auto">
+    <!-- Form Card -->
+    <div class="bg-white rounded-lg shadow-lg p-8 max-w-lg mx-auto" x-data="formHandler()">
+      <h2 class="text-2xl font-bold text-center mb-4">Story Registration</h2>
+      <form @submit.prevent="submitForm">
+        <div class="mb-4">
+          <label class="block text-gray-700 font-bold mb-2" for="themeText">Theme Text</label>
+          <input type="text" id="themeText" x-model="themeText" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div class="mb-4">
+          <label class="block text-gray-700 font-bold mb-2" for="targetText">Target Text</label>
+          <input type="text" id="targetText" x-model="targetText" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <button type="submit" class="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700">Submit</button>
+      </form>
+    </div>
+
+    <!-- Video Display Card -->
+    <div x-show="videoUrl" class="bg-white rounded-lg shadow-lg p-8 max-w-lg mx-auto mt-8" x-cloak>
+      <h2 class="text-2xl font-bold text-center mb-4">Generated Video</h2>
+      <video controls class="w-full rounded-lg" :src="videoUrl"></video>
+    </div>
+  </div>
+
+  <script>
+    function formHandler() {
+      return {
+        themeText: '',
+        targetText: '',
+        videoUrl: '',
+        requestId: '',
+        intervalId: null,
+
+        async submitForm() {
+          try {
+            const response = await fetch('/api/v1/prompt/register/story', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+              body: new URLSearchParams({
+                themeText: this.themeText,
+                targetText: this.targetText,
+              }),
+            });
+
+            const data = await response.json();
+            if (data.result && data.result.isRegistered) {
+              this.requestId = data.result.requestId;
+              this.checkVideoStatus();
+            }
+          } catch (error) {
+            console.error('Error during form submission:', error);
+          }
+        },
+
+        async checkVideoStatus() {
+          this.intervalId = setInterval(async () => {
+            try {
+              const response = await fetch(`/api/v1/file/content?requestId=${this.requestId}&fileName=output.mp4`);
+              const blob = await response.blob();
+
+              if (blob.size > 0) {
+                clearInterval(this.intervalId);
+                this.videoUrl = URL.createObjectURL(blob);
+              }
+            } catch (error) {
+              console.error('Error checking video status:', error);
+            }
+          }, 1000);
+        },
+      };
+    }
+  </script>
+</body>
+</html>
 

@@ -14,8 +14,8 @@ echo $JSON_FILE_PATH
 echo $PROMPT
 
 # jq を使用して JSON_STR を生成
-MODEL_NAME="dall-e-2"
-# MODEL_NAME="dall-e-3"
+# MODEL_NAME="dall-e-2"
+MODEL_NAME="dall-e-3"
 JSON_STR=$(jq -n --arg prompt "$PROMPT" --arg model "$MODEL_NAME" --arg n "1" --arg size "1024x1024" \
   '{
     model: $model,
