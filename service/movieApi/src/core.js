@@ -182,7 +182,7 @@ const handleLookupChatgptResponse = ({ requestId }) => {
 const extractBetweenTag = ({ str }) => {
   const regex = /# ===\n([\s\S]*?)# ===/
   const match = str.match(regex)
-  return match ? match[1].trim().split('\n') : []
+  return match ? match[1].trim() : ''
 }
 
 // 最後の5行から : のあとの部分を抽出
