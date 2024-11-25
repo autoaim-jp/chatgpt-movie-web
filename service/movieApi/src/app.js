@@ -7,6 +7,7 @@ import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 import multer from 'multer'
 import fs from 'fs'
+import { spawn } from 'child_process'
 
 import setting from './setting.js'
 import * as output from './output.js'
@@ -127,7 +128,7 @@ const init = async () => {
   const amqpConnection = await a.lib.createAmqpConnection({ amqplib, user, pass, host, port })
   input.init({ fs })
   await core.init({ setting, output, input, lib, amqpConnection })
-  lib.init({ ulid, multer })
+  lib.init({ spawn, ulid, multer })
 }
 
 const main = async () => {

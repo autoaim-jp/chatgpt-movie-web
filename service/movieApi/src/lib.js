@@ -1,5 +1,6 @@
 const mod = {}
-const init = ({ ulid, multer }) => {
+const init = ({ spawn, ulid, multer }) => {
+  mod.spawn = spawn
   mod.ulid = ulid
   mod.multer = multer
 }
@@ -87,6 +88,27 @@ const parseBufferList = ({ buffer, delimiterDelimiterBuffer }) => {
   return splitResultList
 }
 
+const fork = ({ commandList, resultList }) => {
+  return new Promise((resolve) => {
+    const proc = mod.spawn(commandList[0], commandList.slice(1), { shell: true })
+
+    proc.stderr.on('data', (err) => {
+      console.log({ at: 'lib.fork', error: err.toString() })
+      const result = ((err || '').toString() || '')
+      resultList.push(result)
+    })
+    proc.stdout.on('data', (data) => {
+      console.log({ at: 'lib.fork', data: data.toString() })
+      const result = ((data || '').toString() || '')
+      resultList.push(result)
+    })
+    proc.on('close', (code) => {
+      console.log('spawn', code)
+      resolve()
+    })
+  })
+}
+
 
 
 export default {
@@ -96,5 +118,6 @@ export default {
   parseMultipartFileUpload,
   parseMultipartFileListUpload,
   parseBufferList,
+  fork,
 }
 

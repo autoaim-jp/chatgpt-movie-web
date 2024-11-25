@@ -193,6 +193,51 @@ const extractLast5ColonPart = ({ str }) => {
   return last5LineList.map(line => line.split(':').slice(1).join(':').trim())
 }
 
+// 最初の : を含む行の処理
+// タイトルを抽出
+const extractFirstColonPart = ({ str }) => {
+  const lines = str.split('\n')
+  const firstColonLine = lines.find(line => line.includes(':'))
+  return firstColonLine ? firstColonLine.split(':').slice(1).join(':').trim() : null
+}
+
+const _startGenerateImageAndMovie = async ({ requestId, title, themeText, targetText, prompt, chatgptResponse, narrationCsv, imagePromptList }) => {
+  const OPENAI_CHATGPT_API_KEY = mod.setting.getValue('env.OPENAI_CHATGPT_API_KEY')
+  const MOVIE_DIR_PATH = mod.setting.getValue('path.MOVIE_DIR_PATH') 
+  const IMAGE_EXT = '.png'
+  const dirPath = `${MOVIE_DIR_PATH}${requestId}/`
+  mod.output.makeDir({ dirPath, })
+  const tmpJsonDirPath = `${dirPath}tmpJson/`
+  mod.output.makeDir({ dirPath: tmpJsonDirPath, })
+  const chatgptResultJsonFilePath = `${dirPath}chatgpt_result.json`
+  mod.output.saveFile({ filePath: chatgptResultJsonFilePath, fileBuffer: Buffer.from(JSON.stringify({ requestId, title, themeText, targetText, prompt, chatgptResponse, narrationCsv, imagePromptList }, null, 2)) })
+
+  const imageFilePathList = []
+  const promiseList = imagePromptList.map((imagePrompt, i) => {
+    const imageFilePath = `${dirPath}image_${i}${IMAGE_EXT}`
+    imageFilePathList.push(imageFilePath)
+    const tmpJsonFilePath = `${tmpJsonDirPath}${i}.json`
+
+    return new Promise((resolve) => {
+      const resultList = []
+      const commandList = ['/app/lib/dalle3/generate.sh', imageFilePath, tmpJsonFilePath, OPENAI_CHATGPT_API_KEY, imagePrompt]
+
+      mod.lib.fork({ commandList, resultList }).then(() => {
+        resolve()
+      })
+    })
+  })
+  await Promise.all(promiseList)
+
+  const fileList = imageFilePathList.map((filePath) => {
+    return { originalname: filePath, buffer: mod.input.getFileContent({ filePath }) }
+  })
+  const messageBuffer = _getMainRequest({ requestId, fileList, title, narrationCsv })
+  mod.amqpChannel.sendToQueue(queue, messageBuffer)
+
+  console.log('done: _startGenerateImageAndMovie', requestId, title)
+}
+
 const handleRegisterStoryPrompt = async ({ themeText, targetText }) => {
   const queue = mod.setting.getValue('amqp.CHATGPT_PROMPT_QUEUE') 
   const prompt = mod.setting.getValue('prompt.STORY_VER1')
@@ -214,19 +259,22 @@ const handleRegisterStoryPrompt = async ({ themeText, targetText }) => {
   const waitChatgptResponseInterval = setInterval(() => {
     const result = store[requestId]
     if(result && result.status === 'creating-movie' && result.chatgpt !== undefined) {
-      console.log('====================下記がchatgptの結果')
+      console.log('====================chatgptの結果')
       console.log(result.chatgpt)
-      console.log('====================上記がchatgptの結果')
 
-      const narrationCsvStr = extractBetweenTag({ str: result.chatgpt })
-      console.log('====================下記がnarrationCsvStrの結果')
-      console.log(narrationCsvStr)
-      console.log('====================上記がnarrationCsvStrの結果')
+      const narrationCsv = extractBetweenTag({ str: result.chatgpt })
+      console.log('====================narrationCsvの結果')
+      console.log(narrationCsv)
 
       const imagePromptList = extractLast5ColonPart({ str: result.chatgpt })
-      console.log('====================下記がimagePromptListの結果')
+      console.log('====================imagePromptListの結果')
       console.log(imagePromptList)
-      console.log('====================上記がimagePromptListの結果')
+
+      const title = extractFirstColonPart({ str: result.chatgpt })
+      console.log('====================titleの結果')
+      console.log(title)
+
+      _startGenerateImageAndMovie({ requestId, title, themeText, targetText, prompt, chatgptResponse: result.chatgpt, narrationCsv, imagePromptList })
 
       clearInterval(waitChatgptResponseInterval)
     } else {

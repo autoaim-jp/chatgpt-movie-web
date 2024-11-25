@@ -32,6 +32,7 @@ init-env:
 	@if [ ! -f service/movieApi/src/.env ]; then \
 		echo "Copying .env.sample to .env for movieApi"; \
 		cp service/movieApi/src/.env{.sample,}; \
+		echo "EDIT service/movieApi/src/.env AND SET OPENAI_API_KEY!"; \
 	fi
 	@if [ ! -f service/movieEngine/src/.env ]; then \
 		echo "Copying .env.sample to .env for movieEngine"; \
