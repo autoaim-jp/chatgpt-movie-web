@@ -1,0 +1,9 @@
+{
+  "created": 1732560805,
+  "data": [
+    {
+      "revised_prompt": "Draw an image of a man with a soft, remorseful expression returning to another man who is smiling in acceptance of the apology. The first man is characterized by his strong and robust figure. The second man is distinguished by his radiant smile. The scene is set within a dense forest. The whole artwork should make use of black and white lineart with heavy contrast to emphasise the emotion of the moment. No text should be included in the image.",
+      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-YKvmq4rtjvDyC1Tm8TQH0XSV.png?st=2024-11-25T17%3A53%3A25Z&se=2024-11-25T19%3A53%3A25Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-25T00%3A39%3A31Z&ske=2024-11-26T00%3A39%3A31Z&sks=b&skv=2024-08-04&sig=G9JDI0s7V/d1FI0x9WXq8kP/HBi7OTxYKsjPvA8D6UE%3D"
+    }
+  ]
+}

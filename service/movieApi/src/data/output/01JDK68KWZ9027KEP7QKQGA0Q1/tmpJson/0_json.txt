@@ -1,0 +1,9 @@
+{
+  "created": 1732589717,
+  "data": [
+    {
+      "revised_prompt": "Generate an image of a joyful squirrel, who shares the name Leon, adopting the role of a budding young scientist. This determined critter is standing upright in the middle of a lively and lush forest, embodying the thrill of adventure and the pursuit of knowledge. In his dainty paws, he's clutching a mini microscope and a notebook, tools of his trade. This enchanting session of forest exploration is to be depicted in the classic style of black and white line art, accentuating simplicity and charm. The atmosphere must echo the essence of friendliness and exploration. The image does not require any text.",
+      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-YKjBcxoed03Jf8FZc2NI24v2.png?st=2024-11-26T01%3A55%3A17Z&se=2024-11-26T03%3A55%3A17Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-26T00%3A21%3A51Z&ske=2024-11-27T00%3A21%3A51Z&sks=b&skv=2024-08-04&sig=1XKf3czPguNV%2BWn4BFtxW9aOgKcDmczVpHEnz0I1jX0%3D"
+    }
+  ]
+}

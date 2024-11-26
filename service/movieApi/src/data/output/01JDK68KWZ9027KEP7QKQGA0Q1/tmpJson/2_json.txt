@@ -1,0 +1,9 @@
+{
+  "created": 1732589716,
+  "data": [
+    {
+      "revised_prompt": "Create a black and white line art illustration of a tree-bound laboratory. Inside this cozy lab, there's a character named Leon, with an excited expression on his face, attentively examining a blue mushroom under a microscope. The lab is filled with small scientific tools and gives off a warm, friendly, and thrilling atmosphere due to an impending discovery. Ensure that no text is included in the image.",
+      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-R5QKI2LiOrmDWb4RLve5zZAG.png?st=2024-11-26T01%3A55%3A16Z&se=2024-11-26T03%3A55%3A16Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-25T09%3A30%3A13Z&ske=2024-11-26T09%3A30%3A13Z&sks=b&skv=2024-08-04&sig=HRSM%2BqNCg3mSptGIrs7BgRKp6O4Ak1PCI0snVq4FggU%3D"
+    }
+  ]
+}

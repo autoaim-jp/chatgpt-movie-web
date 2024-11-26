@@ -1,0 +1,9 @@
+{
+  "created": 1732578866,
+  "data": [
+    {
+      "revised_prompt": "Imagine a charming forest with an air of whimsy rendered in simplistic yet captivating black-and-white line art style. The dense canopy above and the thick undergrowth below create a cozy setting. The tangle of trees stand tall while curvy bushes and fanciful undergrowth contribute to the comforting ambiance. The juxtaposition of lights and shadows creates an enchanting world where the reality blends with the mystical, drawing lines with gentle grace and simplicity. The canvas should be free of any text.",
+      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-4G3pKdpTVseKP6ijPw97iPtf.png?st=2024-11-25T22%3A54%3A26Z&se=2024-11-26T00%3A54%3A26Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-25T00%3A42%3A47Z&ske=2024-11-26T00%3A42%3A47Z&sks=b&skv=2024-08-04&sig=FZgsasjNChjc1WJb3y5K17Dxc%2BGXZIwFg2vlhwDhKWM%3D"
+    }
+  ]
+}

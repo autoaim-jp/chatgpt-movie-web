@@ -1,0 +1,9 @@
+{
+  "created": 1732557572,
+  "data": [
+    {
+      "revised_prompt": "Generate a heartwarming image in detailed black and white line art. Mimi, a joyful girl with dark hair and Asian descent, is having a small concert with her forest friends. They are a variety of woodland creatures such as a fox, a bear, rabbits and an owl. There is a profound sense of community and fulfillment as they all engage in music together. The exuberance and camaraderie radiating from Mimi and the animals are the prominent features. The vibrant forest with tall trees, dense shrubs, and a clear stream serves as a magical backdrop. The overall art style should be tender and captivating, with no text present.",
+      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-yHoJv5vmdmR7O5xNDiyv8lbK.png?st=2024-11-25T16%3A59%3A32Z&se=2024-11-25T18%3A59%3A32Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-25T02%3A22%3A48Z&ske=2024-11-26T02%3A22%3A48Z&sks=b&skv=2024-08-04&sig=3rwfwEo1ETxD72mptFz5gC5uy3szxna2UCzlOG6WMgI%3D"
+    }
+  ]
+}

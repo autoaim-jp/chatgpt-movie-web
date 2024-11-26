@@ -1,0 +1,9 @@
+{
+  "created": 1732557574,
+  "data": [
+    {
+      "revised_prompt": "Create a black and white line art of a joyful moment featuring an Asian female named Mimi, who successfully creates a beautiful melody from her self-made piano. Mimi's face beams with satisfaction, highlighted under the shading of the black and white sketch. Various forest critters, like squirrels, rabbits, and birds, gather around the piano out of amazement. The scene is situated within a serene forest, with tall majestic trees as the backdrop and a bed of fascinating flowers carpeting the floor. The overall atmosphere is one of celebration, signified by the fluttering butterflies and dancing foliage. Maintain a warm and joyful art style, absent of any text.",
+      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-jPT8kDMu9gMbdRclgMtvTPD9.png?st=2024-11-25T16%3A59%3A34Z&se=2024-11-25T18%3A59%3A34Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-25T06%3A39%3A59Z&ske=2024-11-26T06%3A39%3A59Z&sks=b&skv=2024-08-04&sig=EQ4HprBm3LlbYaMQg7OCy0D%2B8OkWWOkqddwEJThereA%3D"
+    }
+  ]
+}

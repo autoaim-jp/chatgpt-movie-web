@@ -1,0 +1,9 @@
+{
+  "created": 1732578864,
+  "data": [
+    {
+      "revised_prompt": "Craft an image of a charming cooking spectacle taking place in a forest. An Asian woman named Lily is busily preparing a large pot of carrot soup. Simultaneously, a black man named Charlie is busily baking acorn cookies. Various animals - a squirrel, a bunny, an owl, a deer - are gathered around in anticipation, watching the food preparation. The characters should be anthropomorphic, possessing both human and animal traits. The entire portrayal should be rendered in refined and gentle black-and-white line art. Make sure there are no text elements included within the scene.",
+      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-KMjTgwJxc8o2uOIODF2qjuQR.png?st=2024-11-25T22%3A54%3A24Z&se=2024-11-26T00%3A54%3A24Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-25T12%3A26%3A38Z&ske=2024-11-26T12%3A26%3A38Z&sks=b&skv=2024-08-04&sig=smJUymMhNMoNbwpui3Waga/1uooGPyQZBvpQQMes/%2B8%3D"
+    }
+  ]
+}

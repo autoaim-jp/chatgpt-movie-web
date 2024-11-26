@@ -1,0 +1,94 @@
+【物語】
+タイトル: 森の料理大会
+
+ページ1: 森の仲間たち
+ある日のこと、森の中では楽しい料理大会が開かれることになりました。  
+ウサギのリリーは楽しそうに野菜を集め、リスのチャーリーは木の実をたくさん用意します。  
+みんなワクワクしながら準備を進めていました。
+
+ページ2: 料理スタート
+いよいよ料理大会が始まります。  
+リリーはにんじんスープを作り、チャーリーはどんぐりクッキーを焼きます。  
+その香りに森中の動物たちが集まりました。  
+みんなでおいしい料理を囲んで笑顔が溢れます。
+
+ページ3: お互いのサポート
+途中でリリーのスープが焦げそうになりましたが、チャーリーが助け舟を出し、  
+二人で一緒に改良することにしました。  
+それぞれの得意なことを活かしながら協力すると、料理はさらに美味しくなりました。
+
+ページ4: 教訓
+大会の終わりに、参加した動物たちはお互いの助け合いの大切さを学びました。  
+協力すると楽しいことがもっと楽しく、難しいことも乗り越えられるのです。  
+おしまい。
+
+【固定設定】
+登場人物の数: 2
+登場人物1: 動物、名前: リリー、年齢: 3歳、性別: メス、体型: 小柄、輪郭: 丸みのある顔、目の色: 黒、髪型: 耳が長いが特に髪はない、肌の色: 白、服装: 無地の白いエプロン、帽子: なし、持ち物: にんじん。
+登場人物2: 動物、名前: チャーリー、年齢: 4歳、性別: オス、体型: 小柄、輪郭: すらっとした体、目の色: 黒、髪型: 尻尾がもふもふ、肌の色: 茶色、服装: 無地の黒いエプロン、帽子: なし、持ち物: どんぐり。
+場所: 森、背景の色味: モノクロ（白黒）、主な特徴: 大きな木々、木製のテーブル、キャンプファイヤー。
+その他の条件: 強弱がある白黒の線画
+
+【ナレーションcsv】
+```
+# ===
+engine,voicevox,,
+# タイトル
+silent,1,,
+speak,n,1.0,森の料理大会
+silent,3,,
+
+# ページ1
+start-page,,,
+speak,n,1.0,ある日のこと、森の中では楽しい料理大会が開かれることになりました。
+silent,1,,
+speak,n,1.0,ウサギのリリーは楽しそうに野菜を集め、リスのチャーリーは木の実をたくさん用意します。
+silent,1,,
+speak,n,1.0,みんなワクワクしながら準備を進めていました。
+end-page,,,
+silent,3,,
+
+# ページ2
+start-page,,,
+speak,n,1.0,いよいよ料理大会が始まります。
+silent,1,,
+speak,n,1.0,リリーはにんじんスープを作り、チャーリーはどんぐりクッキーを焼きます。
+silent,1,,
+speak,n,1.0,その香りに森中の動物たちが集まりました。
+silent,1,,
+speak,n,1.0,みんなでおいしい料理を囲んで笑顔が溢れます。
+end-page,,,
+silent,3,,
+
+# ページ3
+start-page,,,
+speak,n,1.0,途中でリリーのスープが焦げそうになりましたが、チャーリーが助け舟を出し、
+silent,1,,
+speak,n,1.0,二人で一緒に改良することにしました。
+silent,1,,
+speak,n,1.0,それぞれの得意なことを活かしながら協力すると、料理はさらに美味しくなりました。
+end-page,,,
+silent,3,,
+
+# ページ4
+start-page,,,
+speak,n,1.0,大会の終わりに、参加した動物たちはお互いの助け合いの大切さを学びました。
+silent,1,,
+speak,n,1.0,協力すると楽しいことがもっと楽しく、難しいことも乗り越えられるのです。
+silent,1,,
+speak,n,1.0,おしまい。
+end-page,,,
+silent,3,,
+# ===
+```
+
+【画像生成プロンプト】
+title page: Create an image of a whimsical forest with a cozy atmosphere. The image should have no text and depict a simplistic yet charming black-and-white line art style.
+
+page1: Create an image of a lively forest gathering featuring an enthusiastic rabbit named Lily collecting vegetables and a squirrel named Charlie gathering nuts. Use a strong and soft black-and-white line art style, and avoid any text in the image. 
+
+page2: Create an image of a friendly cooking scene where Lily is preparing carrot soup and Charlie is baking acorn cookies in the forest. The scene should be full of animal characters gathering around, depicted in strong and soft black-and-white line art, without any text.
+
+page3: Illustrate a scene where Charlie helps Lily salvage her burnt soup, working together in harmony. Show the cooperative spirit in black-and-white line art with clear emotional expression, ensuring there is no text.
+
+page4: Create an image of a happy, reflective moment where woodland animals learn the importance of cooperation, basking in the joy of shared experiences. The image should be painted in a strong and soft black-and-white line art style, with no text.

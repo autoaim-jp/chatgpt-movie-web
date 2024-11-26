@@ -1,0 +1,9 @@
+{
+  "created": 1732558569,
+  "data": [
+    {
+      "revised_prompt": "Design an image in black and white line art depicting a dynamic and vibrant forest. Exhibit Ricky, a squirrel character, in the process of discovering a shiny coin hidden under a towering tree. The setting must be populated with trees exceeding 5 meters in height, while sunbeams pierce through the foliage, casting a pattern of light and shadows on the forest bed. The overall style should manifest a charming and magical ambiance. Make sure to exclude any textual elements in the composition.",
+      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-WxrzAdGK2lwo7IyLrpea4FiU.png?st=2024-11-25T17%3A16%3A09Z&se=2024-11-25T19%3A16%3A09Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-25T00%3A20%3A07Z&ske=2024-11-26T00%3A20%3A07Z&sks=b&skv=2024-08-04&sig=8m2aMQJUC%2B4/kc7bPTI/JB9%2BphFa5kSSwE7e1%2B0J7yU%3D"
+    }
+  ]
+}

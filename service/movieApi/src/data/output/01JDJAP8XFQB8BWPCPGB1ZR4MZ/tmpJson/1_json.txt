@@ -1,0 +1,9 @@
+{
+  "created": 1732560812,
+  "data": [
+    {
+      "revised_prompt": "Create an image of Ryuu and Kakeru, two squirrel brothers characterized by their playful and joyous expressions, engaged in a lively game in the heart of a forest. The forest is composed of trees of varying height and size, creating a captivating and immersive natural landscape. Rays of light gently make their way through the dense tangle of tree branches, casting a soft illumination on the ground. Keep the illustration simple yet expressive, executed entirely in black and white lineart. Emphasize a whimsical and adorable quality in the design of the characters and the overall depiction. The image should not contain any textual elements.",
+      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-n5Z3Pda6r9VBpHr1vtuxQqnN.png?st=2024-11-25T17%3A53%3A32Z&se=2024-11-25T19%3A53%3A32Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-25T00%3A45%3A44Z&ske=2024-11-26T00%3A45%3A44Z&sks=b&skv=2024-08-04&sig=9IGHkiJ4fBm7qDPX2UguWW1Fonq43x%2BGs0Imhp92QrQ%3D"
+    }
+  ]
+}

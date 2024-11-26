@@ -1,0 +1,99 @@
+【物語】
+タイトル: 森の小さな貯金箱
+
+ページ1: 森の出会い
+ある日の朝、元気なリスのリッキーは、森の中を駆け回っていました。リッキーはおこづかいが欲しくて、どうにかしてお金を貯めたいと考えていました。すると、大きな木の下で光る小さなコインを発見します。「これを集めれば、何か買えるかもしれない！」と彼は思いました。
+
+ページ2: コイン集めの冒険
+リッキーは毎日少しずつ、コインを集め始めました。彼は他の動物たちと協力し、地面や木々の間を探し回りました。彼らは楽しみながら見つけたコインを貯金箱に入れ、自分たちの小さな宝物を増やしていきました。
+
+ページ3: 森の仲間たち
+ある日、リッキーは率直に思いました。「これだけたくさんのコインがあれば、友だちも幸せにできる！」リッキーは他の動物たちにお礼としてお菓子やおもちゃを買い、みんなが笑顔になれるように心づかいを始めました。
+
+ページ4: 小さな努力の結果
+リッキーの行動に感動した仲間たちは、努力が大切であることを知ります。「塵も積もれば山となる。」彼らは力を合わせて何かを成し遂げる喜びを分かち合いました。そしてリッキーも、みんなと一緒に幸せな時間を過ごしました。おしまい。
+
+【固定設定】
+登場人物の数: 3
+
+登場人物1: 動物、リスのリッキー、8歳、男の子、小柄でほっそりとした体型、尖った耳と大きな目、茶色のふわふわした毛、黒い目、茶色の短い尻尾、かっぽう着（黒色、30cmの長さ）、無し、小さな巾着袋。
+
+登場人物2: 動物、ウサギのピーター、9歳、男の子、すらりとした体型、長い耳、白い毛、赤い目、白いふわふわの尻尾、Tシャツ（黒色、35cmの長さ）、無し、小さな運動帽子（黒色、15cm）。
+
+登場人物3: 動物、フクロウのオリバー、10歳、男の子、がっしりした体型、大きな丸い目、灰色の羽、黄色の目、少し尖ったクチバシ、羽織（黒と白の模様、50cmの長さ）、無し、小さな本を持っている。
+
+場所: 森、緑豊かな木々が高くそびえる（高さ5m以上）、地面は落ち葉に覆われ、カラフルなキノコが点在している。陽の光が木々の葉の間から差し込む明るい場所。
+
+その他の条件: 森の舞台に強弱のある白黒の線画でやさしく表現。
+
+【ナレーションcsv】
+```
+# ===
+engine,voicevox,,
+# タイトル
+silent,1,,
+speak,n,1.0,森の小さな貯金箱
+silent,3,,
+
+# ページ1: 森の出会い
+start-page,,,
+speak,n,1.0,ある日の朝、元気なリスのリッキーは、森の中を駆け回っていました。
+silent,1,,
+speak,n,1.0,リッキーはおこづかいが欲しくて、どうにかしてお金を貯めたいと考えていました。
+silent,1,,
+speak,n,1.0,すると、大きな木の下で光る小さなコインを発見します。
+silent,1,,
+speak,n,1.0,「これを集めれば、何か買えるかもしれない！」と彼は思いました。
+silent,1,,
+end-page,,,
+silent,3,,
+
+# ページ2: コイン集めの冒険
+start-page,,,
+speak,n,1.0,リッキーは毎日少しずつ、コインを集め始めました。
+silent,1,,
+speak,n,1.0,彼は他の動物たちと協力し、地面や木々の間を探し回りました。
+silent,1,,
+speak,n,1.0,彼らは楽しみながら見つけたコインを貯金箱に入れ、自分たちの小さな宝物を増やしていきました。
+silent,1,,
+end-page,,,
+silent,3,,
+
+# ページ3: 森の仲間たち
+start-page,,,
+speak,n,1.0,ある日、リッキーは率直に思いました。
+silent,1,,
+speak,n,1.0,「これだけたくさんのコインがあれば、友だちも幸せにできる！」
+silent,1,,
+speak,n,1.0,リッキーは他の動物たちにお礼としてお菓子やおもちゃを買い、みんなが笑顔になれるように心づかいを始めました。
+silent,1,,
+end-page,,,
+silent,3,,
+
+# ページ4: 小さな努力の結果
+start-page,,,
+speak,n,1.0,リッキーの行動に感動した仲間たちは、努力が大切であることを知ります。
+silent,1,,
+speak,n,1.0,「塵も積もれば山となる。」
+silent,1,,
+speak,n,1.0,彼らは力を合わせて何かを成し遂げる喜びを分かち合いました。
+silent,1,,
+speak,n,1.0,そしてリッキーも、みんなと一緒に幸せな時間を過ごしました。
+silent,1,,
+speak,n,1.0,おしまい。
+silent,1,,
+end-page,,,
+silent,3,,
+# ===
+```
+
+【画像生成プロンプト】
+title page: Create an image of a whimsical forest scene in black and white line art, featuring a small squirrel named Ricky holding a tiny pouch, a rabbit named Peter with a small cap, and an owl named Oliver with a small book. The style should be cute and enchanting without any text in the image.
+
+page1: Create an image of a lively forest in black and white line art. Show Ricky the squirrel discovering a shiny coin under a tall tree. The background should include trees over 5 meters tall and sunbeams filtering through the leaves. The style should be charming and magical, and exclude any text.
+
+page2: Create an image in black and white line art depicting Ricky and his animal friends, Peter the rabbit and Oliver the owl, collecting coins in the forest. Show them working together amidst fallen leaves and colorful mushrooms. The mood should be joyful and cooperative, and the image should not contain any text.
+
+page3: Create an image in black and white line art showing Ricky, Peter, and Oliver giving items like candies and toys to other forest animals. The animals should appear happy and grateful, set against the backdrop of the forest. The illustration should be heartwarming and exclude any text.
+
+page4: Create an image in black and white line art illustrating the forest animals sharing a joyful moment. Highlight the theme of small efforts leading to great achievements, with Ricky, Peter, and Oliver as central figures. The ambiance should be uplifting and exclude any text.

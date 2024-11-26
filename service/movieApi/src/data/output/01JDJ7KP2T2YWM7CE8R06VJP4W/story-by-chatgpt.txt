@@ -1,0 +1,127 @@
+【物語】
+
+タイトル: ピアノを弾く森のキツネ
+
+ページ1: 愛しいピアノ
+小さな森の中に、ミミというキツネの女の子が住んでいました。彼女の夢は、いつか素敵なピアノを弾くことでした。しかし、森にはピアノがありません。ミミは自分でピアノを作ることにしました。
+
+ページ2: 努力の日々
+ミミは木の枝を集め、石をこすって鍵盤を作りました。森の仲間たちは「そんなの無理だよ！」と言いましたが、ミミは毎日少しずつ頑張りました。彼女のひたむきな姿に仲間たちも手伝うことにしました。
+
+ページ3: 素敵な音色
+ついに、自分で作ったピアノが完成しました。鍵盤に指を置き初めての音を鳴らしたその瞬間、森中に美しいメロディが響き渡りました。仲間たちは驚きと喜びでいっぱいになりました。
+
+ページ4: 努力の果てに
+ミミは努力がすべての扉を開くことを知りました。仲間たちと一緒に、小さなコンサートを開くことにしました。みんなで音楽を楽しむ夜、ミミの心は温かく満たされました。「努力は素晴らしいことだね、新しい夢にも挑戦しよう。」とミミは決意しました。
+
+おしまい。
+
+---
+
+【固定設定】
+
+登場人物の数: 1
+
+登場人物1: 
+- 人間または動物の名前: ミミ
+- 種類: キツネ
+- 年齢: 6歳相当
+- 性別: 女の子
+- 体型: 身長50cm、体重4kgの小柄でスリムなキツネ
+- 髪型: フサフサした尾を持ち、頭部の毛はやや長め
+- 毛色: 明るいオレンジと白
+- 目の色: 明るい緑色
+- 服装: 簡素なリボンを首に巻いている
+- 帽子: なし
+- 持ち物: 木の枝で作った手製のピアノ
+- その他特徴: 優しくて好奇心旺盛
+
+場所: 
+- 森: 自然豊かで緑が多い
+- 環境: 大きな古い木がそびえ立ち、緑の葉が生い茂る
+- 背景: 青空と輝く星々
+- 建物や構造物: なし
+- その他の条件: 強弱がある白黒の線画
+
+---
+
+【ナレーションcsv】
+
+# ===
+engine,voicevox,,
+# タイトル
+silent,1,,
+speak,n,1.0,ピアノを弾く森のキツネ
+silent,3,,
+
+# ページ1: 愛しいピアノ
+start-page,,,
+speak,n,1.0,小さな森の中に、ミミというキツネの女の子が住んでいました。
+silent,1,,
+speak,n,1.0,彼女の夢は、いつか素敵なピアノを弾くことでした。
+silent,1,,
+speak,n,1.0,しかし、森にはピアノがありません。
+silent,1,,
+speak,n,1.0,ミミは自分でピアノを作ることにしました。
+silent,1,,
+end-page,,,
+silent,3,,
+
+# ページ2: 努力の日々
+start-page,,,
+speak,n,1.0,ミミは木の枝を集め、石をこすって鍵盤を作りました。
+silent,1,,
+speak,n,1.0,森の仲間たちはそんなの無理だよと言いましたが、
+silent,1,,
+speak,n,1.0,ミミは毎日少しずつ頑張りました。
+silent,1,,
+speak,n,1.0,彼女のひたむきな姿に仲間たちも手伝うことにしました。
+silent,1,,
+end-page,,,
+silent,3,,
+
+# ページ3: 素敵な音色
+start-page,,,
+speak,n,1.0,ついに、自分で作ったピアノが完成しました。
+silent,1,,
+speak,n,1.0,鍵盤に指を置き初めての音を鳴らしたその瞬間、
+silent,1,,
+speak,n,1.0,森中に美しいメロディが響き渡りました。
+silent,1,,
+speak,n,1.0,仲間たちは驚きと喜びでいっぱいになりました。
+silent,1,,
+end-page,,,
+silent,3,,
+
+# ページ4: 努力の果てに
+start-page,,,
+speak,n,1.0,ミミは努力がすべての扉を開くことを知りました。
+silent,1,,
+speak,n,1.0,仲間たちと一緒に、小さなコンサートを開くことにしました。
+silent,1,,
+speak,n,1.0,みんなで音楽を楽しむ夜、ミミの心は温かく満たされました。
+silent,1,,
+speak,n,1.0,努力は素晴らしいことだね、新しい夢にも挑戦しよう。
+silent,1,,
+speak,n,1.0,とミミは決意しました。
+silent,1,,
+speak,n,1.0,おしまい。
+silent,1,,
+end-page,,,
+silent,3,,
+
+# ===
+
+---
+
+【画像生成プロンプト】
+
+title page: Create an image of a whimsical forest scene in detailed black and white line art, focusing on a quaint fox named Mimi, characterized by her bright orange and white fur and curious green eyes. She is wearing a simple ribbon around her neck and stands with an expression of wonder amidst towering ancient trees under a starry sky. The style should be cute and inviting, avoiding any ominous tones. Ensure no text is included.
+
+page1: Create an image of Mimi the fox in a magical forest, working on building a piano out of twigs and stones in detailed black and white line art. The image should capture her determination and creativity, with a focus on her bright orange and white fur and simple ribbon. Ancient trees provide a lush, natural backdrop. The style should be charming and gentle, with no text included.
+
+page2: Illustrate Mimi the fox surrounded by her forest friends in a supportive manner, as she continues to build her piano. Use detailed black and white line art. The friends, small animals, watch with admiration. The setting should showcase the vibrant, lively forest where Mimi's efforts take center stage. Ensure the art style is endearing and tasteful, with no text visible.
+
+page3: Depict the joyful moment when Mimi successfully creates a beautiful sound from her handmade piano. Use detailed black and white line art to highlight her satisfaction and the amazement of the forest animals. The image should have a serene forest background, exuding an atmosphere of celebration. Keep the art style warm and joyful, with no text shown.
+
+page4: Finally, create an image of a heartwarming scene where Mimi and her forest friends are having a small concert. Capture the sense of community and fulfillment in detailed black and white line art. Focus on the camaraderie and joy radiating from Mimi and the animals. The vibrant forest serves as a magical backdrop. Ensure the style is tender and captivating, with no text present.
