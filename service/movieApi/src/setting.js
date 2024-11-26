@@ -80,7 +80,7 @@ setting.prompt.STORY_VER1 = `【物語の要望】に従って、絵本に使う
 
 
 【ナレーションcsvのルール】
-# ファイルの最初と最後の行は# ===を表示
+# ファイルの、最初の行と最後の行は# ===を表示
 # まず最初はengine,voicevox,,を表示
 # タイトルはsilent,1,,とsilent,3,,の行で挟む
 # 各ページの最初はstart-page,,,の行
@@ -112,6 +112,11 @@ silent,3,,
 start-page,,,
 speak,f1,1.0,タケルが困っていると、森の大きな木が話しかけてきました。
 
+# (中略)
+
+end-page,,,
+silent,3,,
+# ===
 
 【画像生成プロンプトの例】
 title page: Create an image...
