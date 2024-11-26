@@ -1,0 +1,9 @@
+{
+  "created": 1732604308,
+  "data": [
+    {
+      "revised_prompt": "Illustrate a charming, black and white line art of a children's storybook concept. Picture a small, fluffy, and stylized rabbit named Luna with long floppy ears shown in detail. Luna is seen inquisitively gazing at a starry night sky backdrop which subtly glimmers. Alongside her, position a shimmering yacht that almost mirrors a star's structure and brightness. Keep the setting whimsical and endearing. Do not incorporate any textual elements.",
+      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-1Ygy6uEKzcNxHfQ7HpD8Xyld.png?st=2024-11-26T05%3A58%3A28Z&se=2024-11-26T07%3A58%3A28Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-26T01%3A07%3A10Z&ske=2024-11-27T01%3A07%3A10Z&sks=b&skv=2024-08-04&sig=y%2B6nONA8J6H9l0xUyIZqq07Z4aaSOKdJ4OPVJfaVgkY%3D"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "created": 1732595530,
+  "data": [
+    {
+      "revised_prompt": "Construct an image that depicts three friends, Lily, Peter, and Oliver, immersed in a forest setting. They are relishing the soup they cooked collectively, their faces lit up with cheerful  expressions and the ambiance emanating a strong feeling of unity. Pen pictures predominated by shades of black and white, focusing on their joyful facial expressions and the warm companionship they share. Ensure no textual content is visible in the frame.",
+      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-O0ncDt9kG2hgCuoIJd7wYK6F.png?st=2024-11-26T03%3A32%3A10Z&se=2024-11-26T05%3A32%3A10Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-26T01%3A26%3A31Z&ske=2024-11-27T01%3A26%3A31Z&sks=b&skv=2024-08-04&sig=5LWg4zoHJ/nOLfb79RAVv2xGo%2BJ4f205Pdrn47O9Gfs%3D"
+    }
+  ]
+}

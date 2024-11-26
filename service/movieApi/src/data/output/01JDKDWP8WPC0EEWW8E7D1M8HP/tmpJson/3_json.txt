@@ -1,0 +1,9 @@
+{
+  "created": 1732597703,
+  "data": [
+    {
+      "revised_prompt": "Draw an intricate black-and-white line art of a tranquil forest. In this scenic display, include a squirrel named as 'Rick' slowly wandering around. Bring to life Rick's actions as he keenly eyes the birds nearby, his attention is drawn to a babbling stream, and the aroma of freshly fallen nuts permeating through the atmosphere. Keep the illustration text-free.",
+      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-ydLIVoaoEbfPYI8bC4YZSD9w.png?st=2024-11-26T04%3A08%3A23Z&se=2024-11-26T06%3A08%3A23Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-25T19%3A15%3A31Z&ske=2024-11-26T19%3A15%3A31Z&sks=b&skv=2024-08-04&sig=Hl4%2B0GFGqcwl2Sn4EcNkDGQPU/8f0E5C6EQB3dmqru0%3D"
+    }
+  ]
+}

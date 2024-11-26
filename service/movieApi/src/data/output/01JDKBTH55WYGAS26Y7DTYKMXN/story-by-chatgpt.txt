@@ -1,0 +1,100 @@
+【物語】
+
+タイトル: 森での楽しい料理
+
+ページ1: クッキングフォレスト
+小さなウサギのリリーは、森の中で美味しい料理が大好きでした。ある日、彼女は特別なレシピを思いつきました。森の友達を集めて、一緒に料理を楽しむことにしました。
+
+ページ2: 材料集め
+リリーと仲間たちは、森の中を駆け回り、新鮮な野菜や果物を集めました。リスのピーターは、木の実を集めるのが得意でした。「このベリーはきっとスープにぴったりだよ！」とピーター。
+
+ページ3: 料理の始まり
+材料がそろったリリーたちは、川のそばに設けた小さなキッチンで料理を始めました。みんなが協力して野菜を切り、鍋に入れました。「これで森の最高のスープができるわ！」とリリーは嬉しそうに言いました。
+
+ページ4: 料理の楽しさ
+スープが出来上がると、みんなは一緒に味わいました。リリーは言いました。「料理は、一緒に楽しむともっとおいしいね！」みんなは大笑いし、楽しい時間を過ごしました。料理を通じて友情が深まったのです。
+おしまい。
+
+【固定設定】
+
+登場人物の数: 3
+
+登場人物1: ウサギ、リリー、10歳、女の子、小さくてふわふわ、耳が長い、白色、目は黒い。丸い顔で、笑顔が多い。無地の黒いエプロンを着け、黒いキャップを被る。緑の草をポケットに持つ。
+
+登場人物2: リス、ピーター、8歳、男の子、小柄で敏捷、尾がふさふさとしている。茶色。大きな目を持ち、好奇心旺盛。黒いバンダナを首に巻き、無地の黒いTシャツを着用。口にくるみをくわえている。
+
+登場人物3: カメ、オリバー、12歳、男の子、のんびりしていて親切、甲羅は丸くて黒色。体はグレー。小さな帽子を被り、無地の黒いジャケットをはおっている。川辺で料理を始める。
+
+場所: 森の中、緑がかった背景。木々は20mほどの高さ。小川沿い、石で組まれた簡易の焚き火キッチン。白黒の配色で、強弱がある線画スタイル。楽しげで優しい。
+
+その他の条件: 強弱がある白黒の線画。かわいい絵にして、不気味ではないように。
+
+【ナレーションcsv】
+
+# ===
+engine,voicevox,,
+# タイトル
+silent,1,,
+speak,n,1.0,森での楽しい料理。
+silent,3,,
+
+# ページ1: クッキングフォレスト
+start-page,,,
+speak,n,1.0,小さなウサギのリリーは、森の中で美味しい料理が大好きでした。
+silent,1,,
+speak,n,1.0,ある日、彼女は特別なレシピを思いつきました。
+silent,1,,
+speak,n,1.0,森の友達を集めて、一緒に料理を楽しむことにしました。
+end-page,,,
+silent,3,,
+
+# ページ2: 材料集め
+start-page,,,
+speak,n,1.0,リリーと仲間たちは、森の中を駆け回り、新鮮な野菜や果物を集めました。
+silent,1,,
+speak,f1,1.0,このベリーはきっとスープにぴったりだよ！
+silent,1,,
+speak,n,1.0,とピーター。
+end-page,,,
+silent,3,,
+
+# ページ3: 料理の始まり
+start-page,,,
+speak,n,1.0,材料がそろったリリーたちは、川のそばに設けた小さなキッチンで料理を始めました。
+silent,1,,
+speak,n,1.0,みんなが協力して野菜を切り、鍋に入れました。
+silent,1,,
+speak,f1,1.0,これで森の最高のスープができるわ！
+silent,1,,
+speak,n,1.0,とリリーは嬉しそうに言いました。
+end-page,,,
+silent,3,,
+
+# ページ4: 料理の楽しさ
+start-page,,,
+speak,n,1.0,スープが出来上がると、みんなは一緒に味わいました。
+silent,1,,
+speak,n,1.0,リリーは言いました。
+silent,1,,
+speak,f1,1.0,料理は、一緒に楽しむともっとおいしいね！
+silent,1,,
+speak,n,1.0,みんなは大笑いし、楽しい時間を過ごしました。
+silent,1,,
+speak,n,1.0,料理を通じて友情が深まったのです。
+silent,1,,
+speak,n,1.0,おしまい。
+end-page,,,
+silent,3,,
+# ===
+
+【画像生成プロンプト】
+
+title page: Create an image of a serene and cute forest setting without any text. The foliage is rich and detailed with clear outlines, using a black and white color scheme in a friendly and charming style.
+
+page1: Create an image of a small, fluffy white rabbit named Lily, wearing a black apron and cap, in a forest setting with trees. The scene should be in black and white with strong contrast to emphasize the joy of the rabbit. The style should be cute and not eerie.
+
+page2: Create an image in a forest setting where a small brown squirrel named Peter, wearing a black bandana and T-shirt, is gathering berries. The scene is in black and white with strong contrasts to convey an adventurous spirit. The style should be inviting and not spooky.
+
+page3: Create an image of Lily, Peter, and a slow-moving gray turtle named Oliver cooking in the forest near a small river. Oliver wears a small hat and black jacket. They are around a makeshift stone fire kitchen. The scene is detailed in black and white, showing teamwork and joy.
+
+page4: Create an image of the characters, Lily, Peter, and Oliver, in a forest setting enjoying the soup they made together. The scene is in black and white with emphasis on their joyous expressions and the sense of togetherness in a charming and friendly style. No text should be displayed.

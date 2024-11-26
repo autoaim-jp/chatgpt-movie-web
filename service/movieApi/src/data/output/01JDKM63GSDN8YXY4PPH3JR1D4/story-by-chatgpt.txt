@@ -1,0 +1,95 @@
+【物語】
+
+タイトル: 星のヨットとウサギの冒険
+
+ページ1: 冒険のはじまり
+ある宇宙ステーションに住むウサギのルナは、星々を巡るヨットを手に入れました。ヨットは白銀に輝き、星のように瞬いていました。ウサギはそのヨットで果てしない宇宙の冒険に出発します。
+
+ページ2: 星への旅
+ルナはヨットに乗り、いくつもの星を巡りました。黄色く光る星、青く静かな星、遠くには赤く燃える星が見えます。星々がプラネタリウムのように周りを光らせ、ルナの心は踊りました。
+
+ページ3: 遥かなる宇宙
+しかし、宇宙の孤独を感じ始めたルナは、家族のことを思い出しました。星々の美しさに感動しながらも、家に帰りたいという気持ちが強くなってきました。
+
+ページ4: 帰還の決意
+ルナは決意しました。「家族と一緒に、この美しい星空を見よう！」と。その思いでヨットを操り、宇宙ステーションへと戻ります。宇宙の探索で得たのは、何よりも大事な家族の絆。おしまい。
+
+---
+
+【固定設定】
+
+登場人物の数: 1
+
+登場人物1: 動物、名前: ルナ、年齢: 8歳相当、性別: 女性、体型: 小柄でふわふわの毛並み、輪郭: 丸くかわいらしい、目の色: 黒、髪の色: なし（ウサギのため）、服装: シンプルな白のシャツ、黒のズボン、帽子: なし、持ち物: 星のヨット、その他特徴: 長い耳が特徴的で活発な性格。
+
+場所: 宇宙、背景の色味: 黒と白を基調、主な特徴: 凍るような星々や流れるような小惑星群、宇宙ステーションは白と黒でデザインされ、ドーム形状、高さは50メートルほどで、窓は直径2メートルのものが20個。
+
+その他の条件: 強弱がある白黒の線画
+
+---
+
+【ナレーションcsv】
+
+# ===
+engine,voicevox,,
+# タイトル
+silent,1,,
+speak,n,1.0,星のヨットとウサギの冒険
+silent,3,,
+
+# ページ1: 冒険のはじまり
+start-page,,,
+speak,n,1.0,ある宇宙ステーションに住むウサギのルナは、星々を巡るヨットを手に入れました。
+silent,1,,
+speak,n,1.0,ヨットは白銀に輝き、星のように瞬いていました。
+silent,1,,
+speak,n,1.0,ウサギはそのヨットで果てしない宇宙の冒険に出発します。
+end-page,,,
+silent,3,,
+
+# ページ2: 星への旅
+start-page,,,
+speak,n,1.0,ルナはヨットに乗り、いくつもの星を巡りました。
+silent,1,,
+speak,n,1.0,黄色く光る星、青く静かな星、遠くには赤く燃える星が見えます。
+silent,1,,
+speak,n,1.0,星々がプラネタリウムのように周りを光らせ、ルナの心は踊りました。
+end-page,,,
+silent,3,,
+
+# ページ3: 遥かなる宇宙
+start-page,,,
+speak,n,1.0,しかし、宇宙の孤独を感じ始めたルナは、家族のことを思い出しました。
+silent,1,,
+speak,n,1.0,星々の美しさに感動しながらも、家に帰りたいという気持ちが強くなってきました。
+end-page,,,
+silent,3,,
+
+# ページ4: 帰還の決意
+start-page,,,
+speak,n,1.0,ルナは決意しました。
+silent,1,,
+speak,n,1.0,「家族と一緒に、この美しい星空を見よう！」と。
+silent,1,,
+speak,n,1.0,その思いでヨットを操り、宇宙ステーションへと戻ります。
+silent,1,,
+speak,n,1.0,宇宙の探索で得たのは、何よりも大事な家族の絆。
+silent,1,,
+speak,n,1.0,おしまい。
+end-page,,,
+silent,3,,
+# ===
+
+---
+
+【画像生成プロンプト】
+
+title page: Create a cute and whimsical title page for a children's storybook titled "星のヨットとウサギの冒険". Show a stylized illustration of a small and fluffy rabbit named Luna with long ears. Luna is looking at a starry sky backdrop, with a shimmering, star-like yacht beside her. Use strong black and white line art. Do not include any text.
+
+page1: Create an image of Luna the rabbit at a futuristic space station. Show the station with a dome shape, up to 50 meters tall, in black and white. Feature windows, each 2 meters in diameter. Luna should look excited next to her white-silver yacht. Use strong black and white line art. Do not include any text.
+
+page2: Illustrate Luna sailing through the universe on her yacht. Show stars in multiple colors: yellow starlight, blue peace, and distant red flames. The stars should resemble a planetarium. Luna looks joyful. Use strong black and white line art. Do not include any text.
+
+page3: Show Luna feeling a sense of loneliness in space. She reflects under the starlit sky, thinking about her family. Display a calm, vast universe with twinkling stars. Use strong black and white line art. Do not include any text.
+
+page4: Depict Luna steering her yacht back towards the space station. Her expression is determined, showcasing her realization of the importance of family. The distant station appears welcoming. Use strong black and white line art. Do not include any text.

@@ -1,0 +1,9 @@
+{
+  "created": 1732604313,
+  "data": [
+    {
+      "revised_prompt": "Create a picture of an excited rabbit named Luna situated next to her white-silver yacht at a futuristic space station. The dome-shaped station is around 50 meters in height, featuring numerous 2 meter wide windows. It's presented in strong black and white line art. Luna should look thrilled to embark on her journey, and no text should be included in the image.",
+      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-6JjBEwH7gZJPj1M2GKbnxo56.png?st=2024-11-26T05%3A58%3A33Z&se=2024-11-26T07%3A58%3A33Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-25T14%3A38%3A47Z&ske=2024-11-26T14%3A38%3A47Z&sks=b&skv=2024-08-04&sig=tyRGWToOyk6ZPVaGVCWQ4ODRpO6XqaZmZ6FfP4rEYX8%3D"
+    }
+  ]
+}

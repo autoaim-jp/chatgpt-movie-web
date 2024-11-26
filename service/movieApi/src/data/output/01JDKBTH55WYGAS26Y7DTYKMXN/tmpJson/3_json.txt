@@ -1,0 +1,9 @@
+{
+  "created": 1732595533,
+  "data": [
+    {
+      "revised_prompt": "Create a detailed black and white image of Lily, a Caucasian woman, Peter, a South Asian man, and a slow-moving gray turtle named Oliver cooking in a forest near a small river. Oliver the turtle is wearing a small hat and black jacket. They are situated around a makeshift stone fire kitchen. The scene should exude the essence of teamwork and joy.",
+      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-IXFlgSE21x8kPsaTpvmKEN6v.png?st=2024-11-26T03%3A32%3A13Z&se=2024-11-26T05%3A32%3A13Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-26T00%3A28%3A10Z&ske=2024-11-27T00%3A28%3A10Z&sks=b&skv=2024-08-04&sig=GgFWi4u56nhuDYzGeJgeYFzyMbgQvCs8IGqgLujpSec%3D"
+    }
+  ]
+}

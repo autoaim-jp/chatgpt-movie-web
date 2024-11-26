@@ -1,0 +1,9 @@
+{
+  "created": 1732598632,
+  "data": [
+    {
+      "revised_prompt": "Create a black and white line art style illustration depicting a gathering of forest animals attentively listening to a wise creature with shining green eyes, who is smiling and sharing wisdom. The scene radiates a sense of unity and hope. This individual, the centre of attention, has a charismatic nature and displays an aura of courage. Please ensure there is no text included in the image.",
+      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-oQZ6eUeGx4sxbUqCmD6VjxsF.png?st=2024-11-26T04%3A23%3A52Z&se=2024-11-26T06%3A23%3A52Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-26T00%3A32%3A00Z&ske=2024-11-27T00%3A32%3A00Z&sks=b&skv=2024-08-04&sig=6TB7OQL/atRNeJEg%2BEqsiCByigqEUUsBhJUUhXsrWs4%3D"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "created": 1732604305,
+  "data": [
+    {
+      "revised_prompt": "Create an image of Luna, feeling alone in the vast expanse of space, gazing at the starlit sky and reflecting on her family. The universe around her should be calm and infinite, filled with twinkling stars. The entire scene should be rendered in a strong black and white line art style. There should be no text included in this image.",
+      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-sv4fiLaFzOfSqaOkWoXzhHW8.png?st=2024-11-26T05%3A58%3A25Z&se=2024-11-26T07%3A58%3A25Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-26T01%3A40%3A07Z&ske=2024-11-27T01%3A40%3A07Z&sks=b&skv=2024-08-04&sig=mWf9X3Wj6ficQ/TQx3p0tr1ZP7EWqCJF/b2XLHdR35E%3D"
+    }
+  ]
+}
