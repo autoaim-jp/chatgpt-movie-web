@@ -1,0 +1,9 @@
+{
+  "created": 1732675318,
+  "data": [
+    {
+      "revised_prompt": "Visualize an image in black and white of a small, slender rabbit with short white fur and blue eyes, named Lyra. Lyra is standing on a vast plain, gazing at the bright sky and green grass beneath her. She is donned in a simple white dress. No text inclusion.",
+      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-uDyvQ45kFYoQ4EeiCxIonuRp.png?st=2024-11-27T01%3A41%3A58Z&se=2024-11-27T03%3A41%3A58Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-27T00%3A27%3A42Z&ske=2024-11-28T00%3A27%3A42Z&sks=b&skv=2024-08-04&sig=3hCYw5fd47EIJhn/A%2B%2BAvlLUTWFilVb1Mxz6Jg%2Bkg/Y%3D"
+    }
+  ]
+}

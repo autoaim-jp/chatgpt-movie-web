@@ -1,0 +1,9 @@
+{
+  "created": 1732672363,
+  "data": [
+    {
+      "revised_prompt": "A young rabbit named Noah is standing confidently at the beginning of his adventure in an expansive meadow. He's equipped with a small backpack and has his ears perked up with anticipation. The image is rendered in black and white line art, depicting a clear sunny day with a handful of clouds in the sky, ensuring that there's no trace of text anywhere.",
+      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-S4BPIKXfAoZVHUUHEcDGdohm.png?st=2024-11-27T00%3A52%3A43Z&se=2024-11-27T02%3A52%3A43Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-27T00%3A25%3A18Z&ske=2024-11-28T00%3A25%3A18Z&sks=b&skv=2024-08-04&sig=PPA9sWIobczLAC9AwVbb5v7OESGAlDio4E6UE5jhttI%3D"
+    }
+  ]
+}

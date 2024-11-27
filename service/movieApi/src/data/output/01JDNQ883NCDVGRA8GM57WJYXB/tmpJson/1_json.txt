@@ -1,0 +1,9 @@
+{
+  "created": 1732674648,
+  "data": [
+    {
+      "revised_prompt": "Generate an image of an impressive lion, with a golden mane and a sturdy build. The lion, which remains unnamed, possesses piercing brown eyes and stands proudly in the midst of a forest. Render the scene in black and white line art to convey an authoritative aura. Ensure that no text is present in this depiction.",
+      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-vhRdbitdkEN1s10cylvqR9Ih.png?st=2024-11-27T01%3A30%3A48Z&se=2024-11-27T03%3A30%3A48Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-26T23%3A54%3A15Z&ske=2024-11-27T23%3A54%3A15Z&sks=b&skv=2024-08-04&sig=MxCRRoBYIxMyIkXSGfU7bjVeJfWbv5MH%2BnVtTnyRtrk%3D"
+    }
+  ]
+}

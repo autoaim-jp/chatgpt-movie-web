@@ -1,0 +1,9 @@
+{
+  "created": 1732674650,
+  "data": [
+    {
+      "revised_prompt": "Depict a wise red fox named Fox engaging in friendly interaction with a majestic lion and a wise owl. The fox sports sleek red fur and sharp green eyes. While the characters are in a friendly and warm atmosphere, portray the image as black and white line art, creating a striking contrast. The scene should be devoid of any text.",
+      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-qgdUKl0Ho8BzhWGZtIJyRZCe.png?st=2024-11-27T01%3A30%3A50Z&se=2024-11-27T03%3A30%3A50Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-27T00%3A23%3A26Z&ske=2024-11-28T00%3A23%3A26Z&sks=b&skv=2024-08-04&sig=77LLpOndz5KuxrGHVG%2B8vF65hLh8d4IPIN9aw3YKqnI%3D"
+    }
+  ]
+}

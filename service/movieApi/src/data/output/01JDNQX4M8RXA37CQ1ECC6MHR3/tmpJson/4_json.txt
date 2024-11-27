@@ -1,0 +1,9 @@
+{
+  "created": 1732675316,
+  "data": [
+    {
+      "revised_prompt": "Create a black and white fantasy illustration featuring two youths, Lyra and Karel, standing in a breathtakingly beautiful futuristic world. The landscape is whimsical, pulsating with elements of unbridled imagination and nature mingling in an enchanting symphony. The pair, in awe of their surrounds, are a testament to the importance of nourishing creativity and spirit, depicted through subtle visual elements such as their eyes lit with inspiration or their hands holding art tools. Please exclude any text from this image.",
+      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-KmFzMRaTQSe81CtTFZxsiIRz.png?st=2024-11-27T01%3A41%3A56Z&se=2024-11-27T03%3A41%3A56Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-27T00%3A08%3A00Z&ske=2024-11-28T00%3A08%3A00Z&sks=b&skv=2024-08-04&sig=H/5U7kJANGAL9fVLOefB348Pz56cB%2B6/xNC5m7fCVb0%3D"
+    }
+  ]
+}

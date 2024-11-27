@@ -1,0 +1,79 @@
+【物語】
+タイトル: 未来を切り開くウサギのライラ
+ページ1: 新たな冒険のはじまり
+ある日、小さなウサギのライラは、広い平原で青い空と緑の草を眺めていました。彼女には、誰よりも遠くへ行く夢があったのです。「もっと広い世界を見たい！」とライラは心の中で叫び、早速冒険に出る決意をしました。
+
+ページ2: 仲間との出会い
+ライラは旅の途中で、知恵のあるカラスのカレルと出会います。「一緒に新しい世界を探そう」とカレルは提案しました。二人は自然の美しさに目を奪われながらも、未来の自分たちを信じて進み続けました。
+
+ページ3: 困難を乗り越えて
+山道で嵐が襲ってきますが、ライラとカレルはお互いを支え合いながら乗り越えました。その経験を通して、二人は絆を深め、知識と勇気を蓄えていきました。
+
+ページ4: 未来を想像する心
+冒険の果てにたどり着いたのは、美しい未来の世界。「創造する心と力を信じ続ければ、どんな未来でも切り開ける」とライラは悟り、再び旅立つ準備をしました。おしまい。
+
+【固定設定】
+登場人物の数: 2
+登場人物1: 動物、ライラ、30歳、女性、小柄で細身、短い白い毛、青い目、無地のシンプルな白いワンピース、帽子なし、手ぶら。
+登場人物2: 動物、カレル、35歳、男性、スリム、黒い羽毛、鋭い黒い目、無地の黒いケープ、帽子なし、地図を持っている。
+場所: 明るい白黒の線画の平原で、青い空と緑の草を白黒で表現します。高さ3メートルある大きな木が散在している。木々には小さな白い花が咲いており、風に揺れる草の描写がある。
+
+【ナレーションcsv】
+# ===
+engine,voicevox,,
+# タイトル
+silent,1,,
+speak,n,1.0,未来を切り開くウサギのライラ
+silent,3,,
+
+# ページ1: 新たな冒険のはじまり
+start-page,,,
+speak,n,1.0,ある日、小さなウサギのライラは、広い平原で青い空と緑の草を眺めていました。
+silent,1,,
+speak,n,1.0,「もっと広い世界を見たい！」
+silent,1,,
+speak,n,1.0,とライラは心の中で叫び、早速冒険に出る決意をしました。
+end-page,,,
+silent,3,,
+
+# ページ2: 仲間との出会い
+start-page,,,
+speak,n,1.0,ライラは旅の途中で、知恵のあるカラスのカレルと出会います。
+silent,1,,
+speak,n,1.0,「一緒に新しい世界を探そう」
+silent,1,,
+speak,n,1.0,とカレルは提案しました。
+silent,1,,
+speak,n,1.0,二人は自然の美しさに目を奪われながらも、未来の自分たちを信じて進み続けました。
+end-page,,,
+silent,3,,
+
+# ページ3: 困難を乗り越えて
+start-page,,,
+speak,n,1.0,山道で嵐が襲ってきますが、ライラとカレルはお互いを支え合いながら乗り越えました。
+silent,1,,
+speak,n,1.0,その経験を通して、二人は絆を深め、知識と勇気を蓄えていきました。
+end-page,,,
+silent,3,,
+
+# ページ4: 未来を想像する心
+start-page,,,
+speak,n,1.0,冒険の果てにたどり着いたのは、美しい未来の世界。
+silent,1,,
+speak,n,1.0,「創造する心と力を信じ続ければ、どんな未来でも切り開ける」とライラは悟り、再び旅立つ準備をしました。
+silent,1,,
+speak,n,0.75,おしまい。
+end-page,,,
+silent,3,,
+# ===
+
+【画像生成プロンプト】
+title page: Create an image of a whimsical and charming title page for a story about a small rabbit named Lyra embarking on an adventure, illustrating her spirit of creativity and determination. The image should be a strong black and white line drawing, capturing a sense of energy and curiosity. Do not include text.
+
+page1: Create an image of a small rabbit named Lyra standing on a vast plain, looking at a bright sky and green grass in black and white. Lyra should appear small and slender with short white fur and blue eyes. She wears a plain white dress. Do not include text.
+
+page2: Create an image of Lyra meeting a wise crow named Karel in black and white. Karel should be slim with black feathers and sharp black eyes, wearing a plain black cape and holding a map. They are surrounded by a vast plain with large trees scattered around. Lyra looks hopeful and determined. Do not include text.
+
+page3: Create an image of Lyra and Karel supporting each other in a stormy mountain path in black and white. Show the bond forming between them as they overcome challenges, with Lyra's determination and Karel's wisdom evident. The scene should convey a sense of struggle and teamwork. Do not include text.
+
+page4: Create an image of Lyra and Karel reaching a beautiful future world, in a black and white fantasy styled illustration. The landscape should be whimsical, showing elements of nature and creativity. Lyra understands the importance of maintaining a creative heart and spirit. Do not include text.

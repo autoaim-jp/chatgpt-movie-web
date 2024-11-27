@@ -1,0 +1,107 @@
+【物語】
+
+タイトル: トランプ大統領と自然の国
+
+ページ1: 大胆な発言
+ある静かな森の中に、トランプという名のライオンが住んでいました。彼はその力強い声で、いつも他の動物たちに講演を行い、賢い戦略を考えることが大好きでした。
+
+ページ2: 友の挑戦
+ある日、友のフクロウが言いました。「なぜ、そんなに戦術が必要なの？平和に暮らすためには知恵も大事よ。」トランプは少し考え込んでしまいました。
+
+ページ3: 結びつきの大切さ
+フォックスというキツネが口を開きます。「みんなが協力すれば、もっと大きな力になるんだ。」その言葉に周りの仲間がうなずき、トランプも考えを改めることに。
+
+ページ4: 平和への一歩
+トランプは声高らかに宣言します。「協力し、共に手を取り合おう。」皆が一致団結し、森はより一層豊かになりました。おしまい。
+
+
+【固定設定】
+
+登場人物の数: 3
+
+登場人物1: 動物の名前: トランプ、年齢: 10歳、性別: 雄、体型: 体重190kgのがっちり型、髪型・髪色: たてがみのある金色の毛皮、服装: なし、帽子: なし、持ち物: なし、その他特徴: 威厳のある大きな茶色の目、身長120cm。
+
+登場人物2: 動物の名前: フクロウ、年齢: 5歳、性別: 雌、体型: 体重1.5kgの小柄な体型、髪型・髪色: ふわふわした白い羽毛、服装: なし、帽子: なし、持ち物: なし、その他特徴: 知的な光を放つ青い目、翼の長さ50cm。
+
+登場人物3: 動物の名前: フォックス、年齢: 8歳、性別: 雄、体型: 体重6kgのほっそりした体型、髪型・髪色: しなやかで赤い毛並み、服装: なし、帽子: なし、持ち物: なし、その他特徴: 鋭い目付きの緑の目、体長70cm。
+
+場所: 背景の色味: 自然の柔らかい緑、主な特徴: 木々の生い茂った森、ところどころに光が差し込む。木の高さは約30m、緑の濃い木々が並ぶ森林内。
+
+その他の条件: 強弱がある白黒の線画
+
+
+【ナレーションcsv】
+
+```
+# ===
+engine,voicevox,,
+# タイトル
+silent,1,,
+speak,n,1.0,トランプ大統領と自然の国。
+silent,3,,
+
+# ページ1: 大胆な発言
+start-page,,,
+speak,n,1.0,ある静かな森の中にトランプという名のライオンが住んでいました。
+silent,1,,
+speak,n,1.0,彼はその力強い声でいつも他の動物たちに講演を行い、
+silent,1,,
+speak,n,1.0,賢い戦略を考えることが大好きでした。
+silent,1,,
+end-page,,,
+silent,3,,
+
+# ページ2: 友の挑戦
+start-page,,,
+speak,n,1.0,ある日、友のフクロウが言いました。
+silent,1,,
+speak,f1,1.0,「なぜ、そんなに戦術が必要なの？」
+silent,1,,
+speak,n,1.0,「平和に暮らすためには知恵も大事よ。」
+silent,1,,
+speak,n,1.0,トランプは少し考え込んでしまいました。
+silent,1,,
+end-page,,,
+silent,3,,
+
+# ページ3: 結びつきの大切さ
+start-page,,,
+speak,n,1.0,フォックスというキツネが口を開きます。
+silent,1,,
+speak,m1,1.0,「みんなが協力すれば、もっと大きな力になるんだ。」
+silent,1,,
+speak,n,1.0,その言葉に周りの仲間がうなずき、
+silent,1,,
+speak,n,1.0,トランプも考えを改めることに。
+silent,1,,
+end-page,,,
+silent,3,,
+
+# ページ4: 平和への一歩
+start-page,,,
+speak,n,1.0,トランプは声高らかに宣言します。
+silent,1,,
+speak,m1,1.0,「協力し、共に手を取り合おう。」
+silent,1,,
+speak,n,1.0,皆が一致団結し、森はより一層豊かになりました。
+silent,1,,
+speak,n,1.0,おしまい。
+end-page,,,
+silent,3,,
+# ===
+```
+
+
+【画像生成プロンプト】
+
+```
+title page: Create an image of a serene forest landscape in black and white line art style. The focus is on tall, lush trees with soft sunlight filtering through. Ensure the image looks inviting and peaceful. No text should be on this page.
+
+page1: Create an image of a regal lion named Trump with a golden mane, standing proudly in the forest. The lion has a strong build and intense brown eyes. The style is black and white line art, depicting an authoritative presence. No text should be on this page.
+
+page2: Illustrate a small owl perched on a tree branch, gently questioning the lion Trump. The owl has fluffy white feathers and intelligent blue eyes. The background is a dense forest, drawn in a black and white line art style. No text should be on this page.
+
+page3: Show a wise fox named Fox interacting with the lion Trump and the owl. The fox has sleek red fur and sharp green eyes. The scene is friendly and warm, depicted in black and white line art. No text should be on this page.
+
+page4: Display a united scene of the lion, owl, and fox in the lush forest, symbolizing cooperation. The image should capture a sense of harmony and growth, in a black and white line art style. No text should be on this page.
+```
