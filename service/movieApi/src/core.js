@@ -87,6 +87,7 @@ const _getMainRequest = ({ requestId, fileList, title, narrationCsv }) => {
 
   return messageBuffer
 }
+
 const handleRegisterPingPrompt = async ({ fileBuffer, rightTopText, leftTopText, rightBottomText }) => {
   const queue = mod.setting.getValue('amqp.REQUEST_QUEUE') 
   await mod.amqpChannel.assertQueue(queue)
@@ -138,7 +139,7 @@ const handleFileList = ({ requestId }) => {
   const MOVIE_DIR_PATH = mod.setting.getValue('path.MOVIE_DIR_PATH') 
   const dirPath = requestId? `${MOVIE_DIR_PATH}${requestId}/`: MOVIE_DIR_PATH
   console.log({ dirPath })
-  const fileDirList = mod.input.getFileDirList({ dirPath })
+  const fileDirList = mod.input.getFileDirListWithTitle({ dirPath })
   const handleResult = { result: { fileDirList } }
   return handleResult
 }

@@ -12,15 +12,15 @@
   <div class="container mx-auto">
     <!-- Form Card -->
     <div class="bg-white rounded-lg shadow-lg p-8 max-w-lg mx-auto">
-      <h2 class="text-2xl font-bold text-center mb-4">Story Registration</h2>
+      <h2 class="text-2xl font-bold text-center mb-4">動画生成フォーム</h2>
       <form @submit.prevent="submitForm">
         <div class="mb-4">
-          <label class="block text-gray-700 font-bold mb-2" for="themeText">Theme Text</label>
-          <input type="text" id="themeText" x-model="themeText" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" :disabled="isSubmitting">
+          <label class="block text-gray-700 font-bold mb-2" for="themeText">動画のテーマ</label>
+          <input type="text" id="themeText" x-model="themeText" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="森、宇宙、一石二鳥、笑う門には福来る":disabled="isSubmitting">
         </div>
         <div class="mb-4">
-          <label class="block text-gray-700 font-bold mb-2" for="targetText">Target Text</label>
-          <input type="text" id="targetText" x-model="targetText" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" :disabled="isSubmitting">
+          <label class="block text-gray-700 font-bold mb-2" for="targetText">動画のターゲット</label>
+          <input type="text" id="targetText" x-model="targetText" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="8歳の男の子、5歳の女の子" :disabled="isSubmitting">
         </div>
         <button type="submit" class="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700" x-show="!isSubmitting">Submit</button>
         <div x-show="isSubmitting" class="flex justify-center items-center">
@@ -35,26 +35,28 @@
 
     <!-- Video Display Card -->
     <div class="bg-white rounded-lg shadow-lg p-8 max-w-lg mx-auto mt-8" x-cloak>
-      <h2 class="text-2xl font-bold text-center mb-4">Generated Video</h2>
+      <h2 class="text-2xl font-bold text-center mb-4">生成AIで作成した絵本</h2>
       <video controls class="w-full rounded-lg" :src="videoUrl"></video>
     </div>
 
     <!-- File List Card -->
     <div class="bg-white rounded shadow p-6 w-full max-w-lg mx-auto mt-6" x-init="startInterval">
-      <h2 class="text-xl font-semibold mb-4">Available Files</h2>
+      <h2 class="text-xl font-semibold mb-4">これまでに作成した絵本</h2>
       <ul class="space-y-2">
-        <template x-for="requestId in fileList" :key="requestId">
+        <template x-for="title in titleList" :key="title">
           <li>
-            <a href="#" @click.prevent="updateVideoUrl(requestId)"
+            <a href="#" @click.prevent="updateVideoUrl(title)"
                class="text-blue-500 hover:underline">
-              <span x-text="requestId"></span>
+              <span x-text="title"></span>
             </a>
           </li>
         </template>
       </ul>
     </div>
 
+    <a href='/slide.html' target='_blank'>スライド</a>
   </div>
+
 
   <script>
     function formHandler() {
@@ -64,7 +66,8 @@
         videoUrl: '',
         requestId: '',
         intervalId: null,
-        fileList: [],
+        titleList: [],
+        fileDirList: {},
         isSubmitting: false,
 
         async submitForm() {
@@ -113,7 +116,9 @@
             .then(response => response.json())
             .then(data => {
               if (data.result && data.result.result && data.result.result.fileDirList) {
-                this.fileList = data.result.result.fileDirList.map(dir => dir.replace('/', ''));
+                // :TODO
+                this.fileDirList = data.result.result.fileDirList;
+                this.titleList = Object.values(this.fileDirList);
               }
             })
             .catch(error => console.error('Error fetching file list:', error));
@@ -125,8 +130,17 @@
           }, 10*1000); // 10秒間隔で実行
         },
     
-        updateVideoUrl(requestId) {
-          this.videoUrl = `/api/v1/file/content?requestId=${requestId}&fileName=output.mp4`;
+        updateVideoUrl(title) {
+          let titleRequestId = null
+          for (const [requestId, currentTitle] of Object.entries(this.fileDirList)) {
+            if (currentTitle === title) {
+              titleRequestId = requestId
+            }
+          }
+          if (!titleRequestId) {
+            return alert('動画が見つかりません。')
+          }
+          this.videoUrl = `/api/v1/file/content?requestId=${titleRequestId}&fileName=output.mp4`;
         },
       };
     }
