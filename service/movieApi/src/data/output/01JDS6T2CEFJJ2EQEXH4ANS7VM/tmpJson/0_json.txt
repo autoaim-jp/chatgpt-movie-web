@@ -1,0 +1,9 @@
+{
+  "created": 1732791647,
+  "data": [
+    {
+      "revised_prompt": "Create an image featuring an owl character, not associated with any copyright, in a cartoon-style. This owl, with the imaginative name Kou, presents wide gray wings, piercing large eyes in hues of yellow-brown, and small black claws. Kou is found situated in the midst of a forest, under the subtle glow of moonlight. The scene emphasizes black and white line art, maintaining an approach which exudes soft, friendly tones. Please ensure no textual elements are included in this creation.",
+      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-obAIvMYV9nNYO7Ydy8JMYOJn.png?st=2024-11-28T10%3A00%3A46Z&se=2024-11-28T12%3A00%3A46Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-28T03%3A22%3A37Z&ske=2024-11-29T03%3A22%3A37Z&sks=b&skv=2024-08-04&sig=dtmQm3tr2lJsByJpO7z7EhppB/HOoPSy9QOzkLeC/yc%3D"
+    }
+  ]
+}

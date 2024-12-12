@@ -1,0 +1,9 @@
+{
+  "created": 1732791622,
+  "data": [
+    {
+      "revised_prompt": "Produce an image that shows an owl and a hedgehog named Harrii comfortably situated at the edge of a forest. Both of them look relieved and satisfied after a long journey, their body language communicating peace and fulfillment. The art style should mirror that of black and white illustrations from the late 19th century, with delicate line work and subtle tonal gradations. The surrounding environment contributes to the overall serene atmosphere, hinting the termination of the duo's journey. Absolutely no text visualization is required in this picture.",
+      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-Ilt82Jg28FurZBmCQwye4crJ.png?st=2024-11-28T10%3A00%3A22Z&se=2024-11-28T12%3A00%3A22Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-28T03%3A10%3A26Z&ske=2024-11-29T03%3A10%3A26Z&sks=b&skv=2024-08-04&sig=NpqOI51jkZTVpqtKzEhGehVvP2R%2BTkGVR6uYY5Bv%2B%2Bk%3D"
+    }
+  ]
+}

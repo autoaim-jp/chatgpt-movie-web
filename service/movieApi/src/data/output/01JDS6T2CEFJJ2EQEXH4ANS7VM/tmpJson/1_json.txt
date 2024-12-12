@@ -1,0 +1,9 @@
+{
+  "created": 1732791613,
+  "data": [
+    {
+      "revised_prompt": "Generate an image in a cartoon-style, featuring an owl character not named, but looking similar to description given in page 1. The owl should be active and vigilant in a moonlit forest filled with tall oak trees approximately 30 meters in height. Use black and white line art to create this peaceful, inviting scene. Remember, the owl is intended to look alert and prepared but the surrounding environment should remain serene and non-threatening. No textual elements should be included in this image.",
+      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-lK7oZ1v78XIj5Wui5urhThNb.png?st=2024-11-28T10%3A00%3A13Z&se=2024-11-28T12%3A00%3A13Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-28T03%3A35%3A49Z&ske=2024-11-29T03%3A35%3A49Z&sks=b&skv=2024-08-04&sig=dSxnsID3KsschG%2BEfJyrrFtvk09vFEpzjbrGk0qwdLU%3D"
+    }
+  ]
+}
