@@ -25,7 +25,7 @@ services:
       - chatgpt-movie-rabbitmq-ma-nm:/app/node_modules
     command: sh -c "yarn run start"
     ports:
-      - 127.0.0.1:25673:25673
+      - 10.0.0.2:25673:25673
     depends_on:
       rabbitmq:
         condition: service_healthy
