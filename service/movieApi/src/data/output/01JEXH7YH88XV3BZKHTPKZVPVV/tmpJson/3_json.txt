@@ -1,0 +1,9 @@
+{
+  "created": 1734010510,
+  "data": [
+    {
+      "revised_prompt": "Create an image in a black-and-white, intriguing line-art style showcasing a knowledgeable owl in an engaging conversation with two bear siblings in a lush forest. The owl embodies wisdom, composure, and possesses penetrating eyes. The bear brothers are beholding the owl, with expressions of deep thought. The forest backdrop is peaceful, detailed with various flora and fauna. The overall visualization should exude a spectrum of cuteness entirely without words.",
+      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-oUEj3PHHLzM219aEhDyTrJKd.png?st=2024-12-12T12%3A35%3A10Z&se=2024-12-12T14%3A35%3A10Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-12-12T02%3A58%3A50Z&ske=2024-12-13T02%3A58%3A50Z&sks=b&skv=2024-08-04&sig=RqwwvLli8/%2BTCz65bNJzisLx1/ephjlpKi2r/25DYA0%3D"
+    }
+  ]
+}
