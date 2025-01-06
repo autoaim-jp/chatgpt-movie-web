@@ -1,9 +1,0 @@
-{
-  "created": 1732674651,
-  "data": [
-    {
-      "revised_prompt": "A peaceful black and white line art image of a serene forest scene. The landscape is populated with tall, lush trees swaying gently in the breeze, creating a canopy of textured layers. Soft beaming rays of sunlight filter through the dense foliage, creating a dappled effect on the forest floor. The environment exudes a sense of tranquility and invites the viewer to appreciate the beauty of untouched nature. No writing or text elements are present in this scenery.",
-      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-guPc6oOZpBLwGahehanCiXbl.png?st=2024-11-27T01%3A30%3A51Z&se=2024-11-27T03%3A30%3A51Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-27T01%3A07%3A40Z&ske=2024-11-28T01%3A07%3A40Z&sks=b&skv=2024-08-04&sig=AOwIYsVuuDLqqXCBpmfpyYa/6DEmyTEIqYaBkyx9VVo%3D"
-    }
-  ]
-}

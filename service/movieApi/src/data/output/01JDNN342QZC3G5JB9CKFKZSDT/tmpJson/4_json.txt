@@ -1,9 +1,0 @@
-{
-  "created": 1732672364,
-  "data": [
-    {
-      "revised_prompt": "Generate an image depicting Noah, a Middle-Eastern man in ancient attire, back in his homeland after the flood. He is surrounded by a variety of animals, including elephants, giraffes, and birds, signifying his bond and wisdom learned over years. This calm, serene scene is portrayed in a powerful yet subtle black and white line art style. Ensure there is no text visible in the image.",
-      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-9cvSeuXmU4MxV2qoRJi5wtfj.png?st=2024-11-27T00%3A52%3A44Z&se=2024-11-27T02%3A52%3A44Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-27T00%3A24%3A07Z&ske=2024-11-28T00%3A24%3A07Z&sks=b&skv=2024-08-04&sig=AvGidK1jLSEtDbFPxF%2BMbtd5ROQwp5AOPCObKnBtVuM%3D"
-    }
-  ]
-}

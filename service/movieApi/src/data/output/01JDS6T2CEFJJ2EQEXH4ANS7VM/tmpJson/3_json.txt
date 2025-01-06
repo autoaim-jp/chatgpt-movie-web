@@ -1,9 +1,0 @@
-{
-  "created": 1732791618,
-  "data": [
-    {
-      "revised_prompt": "Create an image depicting two fantastical creatures, Kou and Harrii, working together in a dense forest. Kou is characterized by his broad wings, which are in use to provide guidance to Harrii. Harrii, on the other hand, is identifiable by his petite ears, utilizing them in the situation. The visual style to be employed is akin to a friendly monochrome cartoon, making use of black and white line art. The emphasis is on their teamwork and no text additions are required.",
-      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-5TmbFJr5XTBWKHGKNWfzj6ES.png?st=2024-11-28T10%3A00%3A18Z&se=2024-11-28T12%3A00%3A18Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-28T03%3A18%3A43Z&ske=2024-11-29T03%3A18%3A43Z&sks=b&skv=2024-08-04&sig=lW8qQh6ldT5RRu8C/K2QlMysGJSSUtkgf1yWxXXliM0%3D"
-    }
-  ]
-}

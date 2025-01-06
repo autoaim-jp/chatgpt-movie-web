@@ -1,9 +1,0 @@
-{
-  "created": 1732597703,
-  "data": [
-    {
-      "revised_prompt": "Generate an image of a small brown squirrel with a distinctively human-like smile, contentedly exploring the verdant beauty of its forest environment. The environment includes towering trees with textured bark, dense shrubberies, and layers of fallen leaves. The image should feature a drawing style defined by varied line weights and be colored entirely in black and white. No text should appear within this image.",
-      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-enDHkOfPSlk2eVwDSJ4TYo8E.png?st=2024-11-26T04%3A08%3A23Z&se=2024-11-26T06%3A08%3A23Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-25T21%3A02%3A35Z&ske=2024-11-26T21%3A02%3A35Z&sks=b&skv=2024-08-04&sig=K6U7/ZsuUAeBEN3X2bLGGY5sbF3/Y8c/sgdtnH4aagI%3D"
-    }
-  ]
-}

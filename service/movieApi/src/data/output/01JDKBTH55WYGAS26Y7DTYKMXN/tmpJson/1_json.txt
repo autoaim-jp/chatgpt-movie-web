@@ -1,9 +1,0 @@
-{
-  "created": 1732595534,
-  "data": [
-    {
-      "revised_prompt": "Create an image of a small, fluffy white rabbit affectionately known as Lily. This adorable rabbit is adorned with a black apron and cap, creating a striking contrast against its white fur. Lily is set against the backdrop of a forest, filled with tall, towering trees which give a sense of adventure and mystery. Render this image in black and white, with a strong contrast that emphasizes the palpable joy of the rabbit in its forest home. The overall style must evoke a sense of cuteness and charm, completely devoid of any unnerving or eerie elements.",
-      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-XSQpfJxnu3BY18HbKT14Nwmf.png?st=2024-11-26T03%3A32%3A14Z&se=2024-11-26T05%3A32%3A14Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-25T18%3A35%3A41Z&ske=2024-11-26T18%3A35%3A41Z&sks=b&skv=2024-08-04&sig=k4Iaw760JNha6H4iLHTAg33AvM/zelCy6U%2BaeFhSv0w%3D"
-    }
-  ]
-}

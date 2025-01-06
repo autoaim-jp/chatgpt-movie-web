@@ -1,9 +1,0 @@
-{
-  "created": 1732595533,
-  "data": [
-    {
-      "revised_prompt": "Create a captivating monochromatic scene set in a dense forest. In this scene, a small spirited squirrel with brown fur, bearing the name 'Peter', is busily gathering a plethora of berries. Dressed adorably in a small black T-shirt and a matching bandana, the little squirrel adds an adventurous touch to the serene setting. The composition of the image should be filled with contrasting light and shadows to exemplify the adventurous spirit without veering into the unsettling or spooky territory.",
-      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-m0CFaSiMIGvIPL8E6oM8RkGD.png?st=2024-11-26T03%3A32%3A13Z&se=2024-11-26T05%3A32%3A13Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-25T18%3A27%3A35Z&ske=2024-11-26T18%3A27%3A35Z&sks=b&skv=2024-08-04&sig=mQEgFoxhkbPe6YmLYPcDrEM5DFWKCO9nNORHUey8oFQ%3D"
-    }
-  ]
-}

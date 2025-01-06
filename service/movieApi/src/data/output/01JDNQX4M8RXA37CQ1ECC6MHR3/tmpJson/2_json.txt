@@ -1,9 +1,0 @@
-{
-  "created": 1732675323,
-  "data": [
-    {
-      "revised_prompt": "Generate a monochrome image of a hopeful and determined looking girl meeting a wise crow. The crow, dubbed as Karel, is slim with black feathers and sharp black eyes. It is wearing a plain black cape and holding a map in its claws. The scene is set in the midst of a vast plain where large trees are scattered sporadically.",
-      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-Gk8CvGQKYXN8py6TvlcQ0r3t.png?st=2024-11-27T01%3A42%3A03Z&se=2024-11-27T03%3A42%3A03Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-27T00%3A20%3A37Z&ske=2024-11-28T00%3A20%3A37Z&sks=b&skv=2024-08-04&sig=CCR3azjVM68%2BV11IM%2BxcR5aUj2zGwIvwTOLcZBIc9PA%3D"
-    }
-  ]
-}

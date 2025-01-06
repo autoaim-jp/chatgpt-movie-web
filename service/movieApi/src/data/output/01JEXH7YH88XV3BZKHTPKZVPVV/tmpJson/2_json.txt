@@ -1,9 +1,0 @@
-{
-  "created": 1734010506,
-  "data": [
-    {
-      "revised_prompt": "Render an image in black-and-white lineart style. It depicts two adorable bear siblings of non-specific descent, named Kou and Yuu. They have turned their backs on each other, and they're walking down separate paths in a whimsical forest teeming with various types of plants. Kou and Yuu are small in size compared to the towering trees surrounding them. This image is expected to portray a sense of melancholic separation between the two bears, despite their cute outward appearances. There are no words or dialogues to be added.",
-      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-r6wOMKRxy4NPko0ucJbZxLZ5.png?st=2024-12-12T12%3A35%3A06Z&se=2024-12-12T14%3A35%3A06Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-12-12T03%3A01%3A13Z&ske=2024-12-13T03%3A01%3A13Z&sks=b&skv=2024-08-04&sig=KWRtXOCQyNDTF0YnWQuz6O0IQ2T/NgueeMpwg/oyHOo%3D"
-    }
-  ]
-}

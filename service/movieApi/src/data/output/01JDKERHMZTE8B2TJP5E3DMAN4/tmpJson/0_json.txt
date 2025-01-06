@@ -1,9 +1,0 @@
-{
-  "created": 1732598634,
-  "data": [
-    {
-      "revised_prompt": "Render an image in the style of black and white line art, characterized by a gentle and cute ambience. The scene is set within a picturesque forest, with a delightful squirrel character as the protagonist. Give the squirrel distinctive long, silver hair and vibrant green eyes. Dress him in a quaint white shirt, and have him sport a captivating hat made from a green leaf. Please do not include any text in the image.",
-      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-7sucdZoesxseQfdccvPa2Sou.png?st=2024-11-26T04%3A23%3A54Z&se=2024-11-26T06%3A23%3A54Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-26T02%3A02%3A52Z&ske=2024-11-27T02%3A02%3A52Z&sks=b&skv=2024-08-04&sig=AoUqZZXnMlOXsDzix6D6pSIH72Gw6NH7iI4Cxy%2B4UTY%3D"
-    }
-  ]
-}

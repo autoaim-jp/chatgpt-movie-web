@@ -1,4 +1,10 @@
 include setting/version.conf
+
+# .env が存在する場合のみ読み込む
+ifneq (,$(wildcard setting/.env))
+  include setting/.env
+endif
+
 SHELL=/bin/bash
 PHONY=default init run rebuild help 
 
@@ -9,12 +15,15 @@ default: run-d
 init: init-submodule init-module init-dir init-env
 run-d: docker-compose-up-detatch
 run: docker-compose-up
+down: docker-compose-down
 rebuild: docker-compose-down docker-compose-build
 
 help:
 	@echo "Usage: make init"
 	@echo "Usage: make run-d"
 	@echo "Usage: make run"
+	@echo "Usage: make down"
+	@echo "Usage: make rebuild"
 	@echo "Usage: make help"
 
 init-submodule:
@@ -31,6 +40,10 @@ init-dir:
 	mkdir -p ./service/movieApi/src/data/
 
 init-env:
+	@if [ ! -f setting/.env ]; then \
+		echo "Copying .env.sample to .env for Makefile"; \
+	  cp setting/.env.sample setting/.env; \
+	fi
 	@if [ ! -f service/movieApi/src/.env ]; then \
 		echo "Copying .env.sample to .env for movieApi"; \
 		cp service/movieApi/src/.env{.sample,}; \
@@ -47,16 +60,16 @@ init-env:
 	fi
 
 docker-compose-up-detatch:
-	docker compose -p ${DOCKER_PROJECT_NAME} up -d
+	docker compose --env-file setting/.env -p ${DOCKER_PROJECT_NAME}_${APP_ENV} up -d
 
 docker-compose-up:
-	docker compose -p ${DOCKER_PROJECT_NAME} up
+	docker compose --env-file setting/.env -p ${DOCKER_PROJECT_NAME}_${APP_ENV} up
 
 docker-compose-down:
-	docker compose -p ${DOCKER_PROJECT_NAME} down --volumes
+	docker compose --env-file setting/.env -p ${DOCKER_PROJECT_NAME}_${APP_ENV} down --volumes
 
 docker-compose-build:
-	docker compose -p ${DOCKER_PROJECT_NAME} build
+	docker compose --env-file setting/.env -p ${DOCKER_PROJECT_NAME}_${APP_ENV} build
 
 
 

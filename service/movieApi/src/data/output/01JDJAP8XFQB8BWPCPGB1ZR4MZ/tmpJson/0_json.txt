@@ -1,9 +1,0 @@
-{
-  "created": 1732560808,
-  "data": [
-    {
-      "revised_prompt": "Design a book cover illustration using black and white line art. The scene is set in a vibrant forest depicted with a delicate balance of strong and weak lines to create a playful and charming aesthetic. Two squirrel brothers are the highlights of the scene, playing joyfully amongst the trees. The older squirrel, Ryuu, has a plump and sturdy body, while the younger one, Kakeru, features a slender figure with playful, sparkling eyes. They are both filled with joy and energy, symbolizing the heartwarming bond of brotherhood. Remember not to include any text in the image.",
-      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-EPlPGou1DjkX8sbxxHq9xiu3.png?st=2024-11-25T17%3A53%3A28Z&se=2024-11-25T19%3A53%3A28Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-25T13%3A47%3A00Z&ske=2024-11-26T13%3A47%3A00Z&sks=b&skv=2024-08-04&sig=MCR4SXXATj6aOs3d8wZAmUqlXL13o5OlFhUPvJmRiEs%3D"
-    }
-  ]
-}

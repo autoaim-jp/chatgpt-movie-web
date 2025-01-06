@@ -1,9 +1,0 @@
-{
-  "created": 1732589721,
-  "data": [
-    {
-      "revised_prompt": "Create an image of a squirrel named Leon, discovering a mysterious blue mushroom in a lush, dense forest. His eyes are widened and sparkling with curiosity, demonstrating his fascinated reaction. The squirrel is surrounded by tall, majestic trees, creating a canopy of leaves overhead. The forest scene is filled with a sense of wonder and intrigue, adding to the mystique of his discovery. Render the image in black-and-white line art style, which gives off a cute and approachable vibe. There is no requirement for text in the image.",
-      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-Pk89IALq0dNRyq8MExThsnhN.png?st=2024-11-26T01%3A55%3A21Z&se=2024-11-26T03%3A55%3A21Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-25T19%3A30%3A44Z&ske=2024-11-26T19%3A30%3A44Z&sks=b&skv=2024-08-04&sig=zXMq6jKYN9FsKijSVLSC8m0mVgx2G7Mb7KuIb5CPDvQ%3D"
-    }
-  ]
-}

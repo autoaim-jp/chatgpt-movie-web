@@ -1,9 +1,0 @@
-{
-  "created": 1732672365,
-  "data": [
-    {
-      "revised_prompt": "Generate an image of a young gray bunny called Noah with short ears. He is standing on an expansive field with a clear blue sky hosting fluffy white clouds overhead. Noah is seen carrying a small backpack. The overall image should evoke a sense of cuteness and be executed in strong yet gentle black and white line art, reminiscent of late 19th-century illustrations. There should be no text included in this image.",
-      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-n9sjCB3TYHs8qGRDYSAPkCLZ.png?st=2024-11-27T00%3A52%3A45Z&se=2024-11-27T02%3A52%3A45Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-27T00%3A10%3A17Z&ske=2024-11-28T00%3A10%3A17Z&sks=b&skv=2024-08-04&sig=Xm6hyzZqIrtKOcurtRS7ygHqsbQgtmvqsRsZcd76qqo%3D"
-    }
-  ]
-}

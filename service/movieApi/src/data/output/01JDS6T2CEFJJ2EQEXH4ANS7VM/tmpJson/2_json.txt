@@ -1,9 +1,0 @@
-{
-  "created": 1732791617,
-  "data": [
-    {
-      "revised_prompt": "In the style of late 19th-century black and white cartoons, depict an owl named Kou with wide wings and a hedgehog named Harrii with black spikes. These amiable creatures are navigating through a dark path covered in leaves, with hidden obstacles. This adventurous journey should be depicted in a friendly cartoon style. The scene should encapsulate their caution and curiosity, but ensure the image is solely black and white line art with no written text.",
-      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-70qpVPzWCzxqrQS306f0xlTf.png?st=2024-11-28T10%3A00%3A17Z&se=2024-11-28T12%3A00%3A17Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-28T03%3A09%3A33Z&ske=2024-11-29T03%3A09%3A33Z&sks=b&skv=2024-08-04&sig=9eYjc0yIdj158PAcAY4lQKBjUGYVkmMjqB6FtmcmDqQ%3D"
-    }
-  ]
-}

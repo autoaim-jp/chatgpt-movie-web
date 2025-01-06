@@ -1,9 +1,0 @@
-{
-  "created": 1732674646,
-  "data": [
-    {
-      "revised_prompt": "Illustrate a small owl with fluffy white feathers and intelligent blue eyes perched on a tree branch, gently questioning a big lion. The lion has a mane similar to that of a dignitary, underlining its importance. The backdrop is a dense forest rendered in black and white line art style. No text should be on this image.",
-      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-zmo2KyXhwAUGBkoS6m81BJHL.png?st=2024-11-27T01%3A30%3A46Z&se=2024-11-27T03%3A30%3A46Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-27T00%3A59%3A32Z&ske=2024-11-28T00%3A59%3A32Z&sks=b&skv=2024-08-04&sig=GVrh42/1McGPcImvXSmkruyuTc2yyRUwSCvl2xbNob4%3D"
-    }
-  ]
-}

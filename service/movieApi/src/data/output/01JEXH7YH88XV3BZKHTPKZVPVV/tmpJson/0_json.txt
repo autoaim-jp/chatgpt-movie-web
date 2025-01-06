@@ -1,9 +1,0 @@
-{
-  "created": 1734010511,
-  "data": [
-    {
-      "revised_prompt": "Generate a monochrome line art picture featuring two friendly bear brothers in a verdant forest glade. One bear, muscular and appealing, is assigned the name Kou. The other bear is witty, and his name is Yuu. They stand together in a lush, green woodland clearing. The general atmosphere of the illustration should be charming, playful, and devoid of any words. This whimsical depiction should really highlight the deep bond between the two brother bears.",
-      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-384M2QBMgvQSgFyNqzfjycVf.png?st=2024-12-12T12%3A35%3A11Z&se=2024-12-12T14%3A35%3A11Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-12-12T03%3A58%3A23Z&ske=2024-12-13T03%3A58%3A23Z&sks=b&skv=2024-08-04&sig=d81nRXpAyY28dH2Q%2B/TTYICpyFlfk/5A1/j1wNZAtEg%3D"
-    }
-  ]
-}

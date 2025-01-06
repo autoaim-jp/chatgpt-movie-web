@@ -1,9 +1,0 @@
-{
-  "created": 1732557574,
-  "data": [
-    {
-      "revised_prompt": "Generate a detailed black and white line art image of a whimsical forest scene. Center the scene around a fox character named Mimi, characterized by an obvious two-tone pattern, suggesting bright orange and white fur without resorting to color, her eyes full of curiosity. Mimi wears a simple ribbon around her neck and stands with an expression of wonder amidst towering ancient trees under a sky filled with stars. The style should feel warm and friendly, creating a cute and inviting atmosphere, while intentionally avoiding any ominous tones. Make sure no text is included in the image.",
-      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-3TfQIXM91C3IV1BTMk168oli.png?st=2024-11-25T16%3A59%3A34Z&se=2024-11-25T18%3A59%3A34Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-25T12%3A33%3A58Z&ske=2024-11-26T12%3A33%3A58Z&sks=b&skv=2024-08-04&sig=nEx17mgqLOxBusHHhfwxaWTXgLif0tZaZ2VPa%2BtxESs%3D"
-    }
-  ]
-}
