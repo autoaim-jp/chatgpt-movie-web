@@ -10,9 +10,9 @@ import fs from 'fs'
 import { spawn } from 'child_process'
 
 import setting from './setting.js'
-import * as output from './output.js'
+import output from './output.js'
 import core from './core.js'
-import * as input from './input.js'
+import input from './input.js'
 import action from './action.js'
 import lib from './lib.js'
 

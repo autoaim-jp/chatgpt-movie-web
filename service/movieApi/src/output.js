@@ -1,16 +1,10 @@
-const mod = {}
+import { init } from './output/init.js'
+import { saveFile } from './output/saveFile.js'
+import { makeDir } from './output/makeDir.js'
 
-export const init = ({ fs }) => {
-  mod.fs = fs
+export default {
+  init,
+  saveFile,
+  makeDir,
 }
-
-export const saveFile = ({ filePath, fileBuffer }) => {
-  return mod.fs.writeFileSync(filePath, Buffer.from(fileBuffer))
-}
-
-export const makeDir = ({ dirPath }) => {
-  return mod.fs.mkdirSync(dirPath, { recursive: true })
-}
-
-export default {}
 
