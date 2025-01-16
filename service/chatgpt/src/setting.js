@@ -20,6 +20,9 @@ setting.chatgpt.DEFAULT_PROMPT = 'create a story'
 // setting.chatgpt.SLEEP_BEFORE_REQUEST_MS = 5 * 1000
 setting.chatgpt.SLEEP_BEFORE_REQUEST_MS = 0.1 * 1000
 
+setting.server = {}
+setting.server.DATA_DIR_PATH = '/app/data/'
+
 const getList = (...keyList) => {
   /* eslint-disable no-param-reassign */
   const constantList = keyList.reduce((prev, key) => {
