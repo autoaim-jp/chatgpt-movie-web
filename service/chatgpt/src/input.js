@@ -5,7 +5,7 @@ const init = ({ fs }) => {
 }
 
 const readFile = ({ filePath }) => {
-  return fs.readFileSync(filePath, 'utf-8')
+  return mod.fs.readFileSync(filePath, 'utf-8')
 }
 
 export default {

@@ -3,6 +3,8 @@ node_modules/
 
 service/rabbitmq/data/
 service/movieEngine/src/data/
+service/chatgpt/src/data/
+service/movieApi/src/data/
 
 *.swp
 *.swo
