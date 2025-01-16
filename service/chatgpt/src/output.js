@@ -5,11 +5,11 @@ const init = ({ fs }) => {
 }
 
 const mkdir = ({ dirPath }) => {
-  fs.mkdirSync(dirPath, { recursive: 'true' })
+  mod.fs.mkdirSync(dirPath, { recursive: true })
 }
 
 const saveFile = ({ filePath, content }) => {
-  fs.writeFileSync(filePath, content)
+  mod.fs.writeFileSync(filePath, content)
 }
 
 export default {

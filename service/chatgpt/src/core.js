@@ -84,6 +84,8 @@ const handleRequest = async ({ requestJson }) => {
     responseBufferList.push(Buffer.from('chatgpt'))
     responseBufferList.push(Buffer.from(responseMessage))
     const responseBuffer = _createResponseBuffer({ requestId, responseBufferList })
+  
+    const responseQueue = mod.setting.getValue('amqp.RESPONSE_QUEUE') 
     mod.amqpResponseChannel.sendToQueue(responseQueue, responseBuffer)
 
   } else {

@@ -8,6 +8,7 @@ export const handleRegisterPrompt = async ({ prompt }) => {
   const requestId = mod.lib.getUlid()
   const requestObj = {
     requestId,
+    requestType: 'text',
     prompt,
   }
   const requestObjStr = JSON.stringify(requestObj)
