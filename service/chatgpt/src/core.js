@@ -1,7 +1,7 @@
 const mod = {}
 const store = {}
 
-const init = async ({ setting, output, lib, amqpConnection, OpenAI }) => {
+const init = async ({ setting, output, input, lib, amqpConnection }) => {
   const amqpPromptChannel = await amqpConnection.createChannel()
   mod.amqpPromptChannel = amqpPromptChannel
   const amqpResponseChannel = await amqpConnection.createChannel()
@@ -9,30 +9,9 @@ const init = async ({ setting, output, lib, amqpConnection, OpenAI }) => {
 
   mod.setting = setting
   mod.output = output
+  mod.input = input
   mod.lib = lib
 
-  const OPENAI_CHATGPT_API_KEY = mod.setting.getValue('env.OPENAI_CHATGPT_API_KEY')
-  const openaiClient = new OpenAI({
-    apiKey: OPENAI_CHATGPT_API_KEY
-  })
-  mod.openaiClient = openaiClient
-}
-
-const _fetchChatgpt = async ({ role, prompt }) => {
-  const stream = await mod.openaiClient.chat.completions.create({
-    model: 'gpt-4o',
-    // model: 'gpt-3.5-turbo',
-    messages: [{ role, content: prompt }],
-    stream: true,
-    max_tokens: 8192,
-  })
-  let responseMessage = ''
-  for await (const part of stream) {
-    // process.stdout.write(part.choices[0]?.delta?.content || '')
-    responseMessage += part.choices[0]?.delta?.content || ''
-  }
-
-  return responseMessage 
 }
 
 const _createResponseBuffer = ({ requestId, responseBufferList }) => {
@@ -64,7 +43,6 @@ const handleRequest = async ({ requestJson }) => {
   const { requestType } = requestJson
   if (requestType === 'openai_text') {
     const { requestId } = requestJson 
-    const role = requestJson.role || mod.setting.getValue('chatgpt.DEFAULT_ROLE')
     const prompt = requestJson.prompt || mod.setting.getValue('chatgpt.DEFAULT_ROLE')
 
     // ./data/requestId/ ディレクトリ作成
@@ -85,9 +63,19 @@ const handleRequest = async ({ requestJson }) => {
     const promptJsonStr = JSON.stringify(promptJson)
     mod.output.saveFile({ filePath: promptJsonFilePath, content: promptJsonStr })
 
-
-    const commandList = ['/app/lib/openai_text.sh', responseJsonFilePath, promptJsonFilePath]
+    const OPENAI_CHATGPT_API_KEY = mod.setting.getValue('env.OPENAI_CHATGPT_API_KEY')
+    const commandList = [`OPENAI_CHATGPT_API_KEY="${OPENAI_CHATGPT_API_KEY}"`, '/app/lib/openai_text.sh', responseJsonFilePath, promptJsonFilePath]
     await mod.lib.fork({ commandList, resultList: [] })
+
+    const responseJson = JSON.parse(mod.input.readFile({ filePath: responseJsonFilePath }))
+    const responseMessage = responseJson.choices[0].message.content
+    console.log('chatgpt response:', responseMessage)
+    const responseBufferList = []
+    responseBufferList.push(Buffer.from('chatgpt'))
+    responseBufferList.push(Buffer.from(responseMessage))
+    const responseBuffer = _createResponseBuffer({ requestId, responseBufferList })
+    mod.amqpResponseChannel.sendToQueue(responseQueue, responseBuffer)
+
   } else {
     console.log(`invalid requestType: ${requestType}`)
   }

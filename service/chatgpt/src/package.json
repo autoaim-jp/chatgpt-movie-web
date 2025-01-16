@@ -7,7 +7,6 @@
   "dependencies": {
     "amqplib": "^0.10.3",
     "dotenv": "^16.3.1",
-    "openai": "^4.14.1",
     "ulid": "^2.3.0"
   },
   "devDependencies": {
