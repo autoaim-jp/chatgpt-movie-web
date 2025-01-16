@@ -3,7 +3,6 @@ const setting = {}
 const init = ({ env }) => {
   setting.env = {}
   setting.env.SERVER_PORT = env.SERVER_PORT
-  setting.env.OPENAI_CHATGPT_API_KEY = env.OPENAI_CHATGPT_API_KEY
 
   setting.env.AMQP_USER = env.AMQP_USER
   setting.env.AMQP_PASS = env.AMQP_PASS

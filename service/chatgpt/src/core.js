@@ -41,7 +41,7 @@ const _createResponseBuffer = ({ requestId, responseBufferList }) => {
 
 const handleRequest = async ({ requestJson }) => {
   const { requestType } = requestJson
-  if (requestType === 'openai_text') {
+  if (requestType === 'text') {
     const { requestId } = requestJson 
     const prompt = requestJson.prompt || mod.setting.getValue('chatgpt.DEFAULT_ROLE')
 
@@ -63,9 +63,19 @@ const handleRequest = async ({ requestJson }) => {
     const promptJsonStr = JSON.stringify(promptJson)
     mod.output.saveFile({ filePath: promptJsonFilePath, content: promptJsonStr })
 
-    const OPENAI_CHATGPT_API_KEY = mod.setting.getValue('env.OPENAI_CHATGPT_API_KEY')
-    const commandList = [`OPENAI_CHATGPT_API_KEY="${OPENAI_CHATGPT_API_KEY}"`, '/app/lib/openai_text.sh', responseJsonFilePath, promptJsonFilePath]
-    await mod.lib.fork({ commandList, resultList: [] })
+    const TEXT_AI_PLATFORM = mod.setting.getValue('env.TEXT_AI_PLATFORM')
+    if (TEXT_AI_PLATFORM === 'openai') {
+      const OPENAI_CHATGPT_API_KEY = mod.setting.getValue('env.OPENAI_CHATGPT_API_KEY')
+      const commandList = [`OPENAI_CHATGPT_API_KEY="${OPENAI_CHATGPT_API_KEY}"`, '/app/lib/openai_text.sh', responseJsonFilePath, promptJsonFilePath]
+      await mod.lib.fork({ commandList, resultList: [] })
+    } else if (TEXT_AI_PLATFORM === 'azureai') {
+      const AZUREAI_GPT4_API_KEY = mod.setting.getValue('env.AZUREAI_GPT4_API_KEY')
+      const commandList = [`AZUREAI_GPT4_API_KEY="${AZUREAI_GPT4_API_KEY}"`, '/app/lib/azureai_text.sh', responseJsonFilePath, promptJsonFilePath]
+      await mod.lib.fork({ commandList, resultList: [] })
+    } else {
+      console.log(`invalid ai platform: ${TEXT_AI_PLATFORM}`)
+      return
+    }
 
     const responseJson = JSON.parse(mod.input.readFile({ filePath: responseJsonFilePath }))
     const responseMessage = responseJson.choices[0].message.content

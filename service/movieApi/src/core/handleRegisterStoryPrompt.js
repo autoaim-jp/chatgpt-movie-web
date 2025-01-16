@@ -12,6 +12,7 @@ export const handleRegisterStoryPrompt = async ({ themeText, targetText }) => {
   const requestId = mod.lib.getUlid()
   const requestObj = {
     requestId,
+    requestType: 'text',
     prompt,
   }
   const requestObjStr = JSON.stringify(requestObj)
