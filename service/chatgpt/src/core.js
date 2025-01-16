@@ -43,7 +43,7 @@ const handleRequest = async ({ requestJson }) => {
   const { requestType } = requestJson
   if (requestType === 'text') {
     const { requestId } = requestJson 
-    const prompt = requestJson.prompt || mod.setting.getValue('chatgpt.DEFAULT_ROLE')
+    const prompt = requestJson.prompt
 
     // ./data/requestId/ ディレクトリ作成
     const dirPath = `${mod.setting.getValue('server.DATA_DIR_PATH')}${requestId}/`
