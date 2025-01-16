@@ -9,7 +9,7 @@ RESPONSE_JSON_FILE_PATH=${1:-/tmp/response.json}
 PROMPT_JSON_FILE_PATH=${2:-/tmp/prompt.json}
 
 # APIエンドポイント
-API_URL="$ENDPOINT/openai/deployments/$DEPLOYMENT_NAME/chat/completions?api-version=2024-08-01-preview"
+API_URL="${AZUREAI_ENDPOINT}/openai/deployments/${DEPLOYMENT_NAME}/chat/completions?api-version=2024-08-01-preview"
 
 # APIキーのチェック
 if [ -z "$AZUREAI_GPT4_API_KEY" ]; then

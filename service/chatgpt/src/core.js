@@ -70,7 +70,8 @@ const handleRequest = async ({ requestJson }) => {
       await mod.lib.fork({ commandList, resultList: [] })
     } else if (TEXT_AI_PLATFORM === 'azureai') {
       const AZUREAI_GPT4_API_KEY = mod.setting.getValue('env.AZUREAI_GPT4_API_KEY')
-      const commandList = [`AZUREAI_GPT4_API_KEY="${AZUREAI_GPT4_API_KEY}"`, '/app/lib/azureai_text.sh', responseJsonFilePath, promptJsonFilePath]
+      const AZUREAI_ENDPOINT = mod.setting.getValue('env.AZUREAI_ENDPOINT')
+      const commandList = [`AZUREAI_ENDPOINT=${AZUREAI_ENDPOINT}`, `AZUREAI_GPT4_API_KEY="${AZUREAI_GPT4_API_KEY}"`, '/app/lib/azureai_text.sh', responseJsonFilePath, promptJsonFilePath]
       await mod.lib.fork({ commandList, resultList: [] })
     } else {
       console.log(`invalid ai platform: ${TEXT_AI_PLATFORM}`)
