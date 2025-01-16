@@ -1,8 +1,9 @@
 const mod = {}
 
-const init = ({ spawn, ulid }) => {
+const init = ({ spawn, ulid, fs }) => {
   mod.spawn = spawn
   mod.ulid = ulid
+  mod.fs = fs
 }
 
 const getUlid = () => {
@@ -43,7 +44,21 @@ const fork = ({ commandList, resultList }) => {
   })
 }
 
+const formatDate = ({ format, date }) => {
+  if (format === undefined) {
+    format = 'YYYY-MM-DD hh:mm:ss'
+  }
+  if (date === undefined) {
+    date = new Date()
+  }
 
+  return format.replace(/YYYY/g, date.getFullYear())
+    .replace(/MM/g, (`0${date.getMonth() + 1}`).slice(-2))
+    .replace(/DD/g, (`0${date.getDate()}`).slice(-2))
+    .replace(/hh/g, (`0${date.getHours()}`).slice(-2))
+    .replace(/mm/g, (`0${date.getMinutes()}`).slice(-2))
+    .replace(/ss/g, (`0${date.getSeconds()}`).slice(-2))
+}
 
 export default {
   init,
@@ -51,5 +66,6 @@ export default {
   createAmqpConnection,
   awaitSleep,
   fork,
+  formatDate,
 }
 

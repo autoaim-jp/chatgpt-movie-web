@@ -1,13 +1,14 @@
 const mod = {}
 const store = {}
 
-const init = async ({ setting, lib, amqpConnection, OpenAI }) => {
+const init = async ({ setting, output, lib, amqpConnection, OpenAI }) => {
   const amqpPromptChannel = await amqpConnection.createChannel()
   mod.amqpPromptChannel = amqpPromptChannel
   const amqpResponseChannel = await amqpConnection.createChannel()
   mod.amqpResponseChannel = amqpResponseChannel
 
   mod.setting = setting
+  mod.output = output
   mod.lib = lib
 
   const OPENAI_CHATGPT_API_KEY = mod.setting.getValue('env.OPENAI_CHATGPT_API_KEY')
@@ -59,6 +60,39 @@ const _createResponseBuffer = ({ requestId, responseBufferList }) => {
   return messageBuffer
 }
 
+const handleRequest = async ({ requestJson }) => {
+  const { requestType } = requestJson
+  if (requestType === 'openai_text') {
+    const { requestId } = requestJson 
+    const role = requestJson.role || mod.setting.getValue('chatgpt.DEFAULT_ROLE')
+    const prompt = requestJson.prompt || mod.setting.getValue('chatgpt.DEFAULT_ROLE')
+
+    // ./data/requestId/ ディレクトリ作成
+    const dirPath = `${mod.setting.getValue('server.DATA_DIR_PATH')}${requestId}/`
+    mod.output.mkdir({ dirPath })
+
+    const dateStr = mod.lib.formatDate({ format: 'YYYYMMDD_hhmmss' })
+    const promptJsonFilePath = `${dirPath}${dateStr}_prompt.json`
+    const responseJsonFilePath = `${dirPath}${dateStr}_response.json`
+    // ./data/requestId/<時刻>_prompt.jsonにプロンプトを保存
+    const promptJson = {
+      model: "gpt-4o",
+      messages: [
+        {role: "system", content: "You are a helpful assistant."},
+        {role: "user", content: prompt}
+      ]
+    }
+    const promptJsonStr = JSON.stringify(promptJson)
+    mod.output.saveFile({ filePath: promptJsonFilePath, content: promptJsonStr })
+
+
+    const commandList = ['/app/lib/openai_text.sh', responseJsonFilePath, promptJsonFilePath]
+    await mod.lib.fork({ commandList, resultList: [] })
+  } else {
+    console.log(`invalid requestType: ${requestType}`)
+  }
+}
+
 const startConsumer = async () => {
   const promptQueue = mod.setting.getValue('amqp.CHATGPT_PROMPT_QUEUE') 
   await mod.amqpPromptChannel.assertQueue(promptQueue)
@@ -75,18 +109,7 @@ const startConsumer = async () => {
 
       const requestJson = JSON.parse(msg.content.toString())
 
-      const { requestId } = requestJson 
-      const role = requestJson.role || mod.setting.getValue('chatgpt.DEFAULT_ROLE')
-      const prompt = requestJson.prompt || mod.setting.getValue('chatgpt.DEFAULT_ROLE')
-
-      const responseMessage = await _fetchChatgpt({ role, prompt })
-      console.log('chatgpt response:', responseMessage)
-
-      const responseBufferList = []
-      responseBufferList.push(Buffer.from('chatgpt'))
-      responseBufferList.push(Buffer.from(responseMessage))
-      const responseBuffer = _createResponseBuffer({ requestId, responseBufferList })
-      mod.amqpResponseChannel.sendToQueue(responseQueue, responseBuffer)
+      const handleRequestResult = await handleRequest({ requestJson })
 
       mod.amqpPromptChannel.ack(msg)
     } else {
