@@ -1,33 +1,40 @@
 #!/bin/bash
 
-source .env
 DEPLOYMENT_NAME="dall-e-3"
 
-CURRENT_TIME=$(date '+%Y%m%d_%H%M%S')
-RESPONSE_DIR_PATH="./image/"
-RESPONSE_FILE_PATH="${RESPONSE_DIR_PATH}__response.json"
-IMAGE_FILE_PATH="${RESPONSE_DIR_PATH}${CURRENT_TIME}.png"
+RESULT_IMAGE_FILE_PATH="${1:-"/tmp/generated_image.png"}"
+TMP_JSON_FILE_PATH="${2:-"/tmp/result.json"}"
+PROMPT_JSON_FILE_PATH="${3:-"/tmp/prompt.json"}"
 
-mkdir -p $RESPONSE_DIR_PATH
+# input
+PROMPT="${4:-"cat"}"
 
-# 生成したい画像の説明（プロンプト）
-PROMPT=${1:-"Create an image of the rocket flying through space, with the squirrel and turtle peering out of small windows, surrounded by twinkling stars. The style is black-and-white. Do not include any text in the image."}
+# APIエンドポイント
+API_URL="${AZUREAI_ENDPOINT}/openai/deployments/${DEPLOYMENT_NAME}/images/generations?api-version=2024-02-15-preview"
+
+# APIキーのチェック
+if [ -z "$AZUREAI_GPT4_API_KEY" ]; then
+  echo "Error: The environment variable OPENAI_CHATGPT_API_KEY is not set."
+  exit 1
+fi
+
+JSON_STR=$(jq -n --arg prompt "$PROMPT" --arg n "1" --arg size "1024x1024" \
+  '{
+    prompt: $prompt,
+    n: ($n | tonumber),
+    size: $size
+  }')
+
+echo "$JSON_STR" > $PROMPT_JSON_FILE_PATH
+
 
 # 画像生成APIへのリクエスト
-curl -o $RESPONSE_FILE_PATH -X POST \
-  "$ENDPOINT/openai/deployments/$DEPLOYMENT_NAME/images/generations?api-version=2024-02-15-preview" \
+curl -o $TMP_JSON_FILE_PATH -X POST $API_URL \
   -H "Content-Type: application/json" \
-  -H "api-key: $API_KEY" \
-  -d "{
-        \"prompt\": \"$PROMPT\",
-        \"n\": 1,
-        \"size\": \"1024x1024\"
-      }"
+  -H "api-key: $AZUREAI_GPT4_API_KEY" \
+  -d "$JSON_STR"
 
-IMAGE_URL=$(cat $RESPONSE_FILE_PATH | jq -r '.data[0].url')
+IMAGE_URL=$(jq -r 'try .data[0].url // empty' ${TMP_JSON_FILE_PATH})
 
-wget -O $IMAGE_FILE_PATH $IMAGE_URL
+curl -o ${RESULT_IMAGE_FILE_PATH} "${IMAGE_URL}"
 
-# rm -i $RESPONSE_FILE_PATH
-
-echo "see: $IMAGE_FILE_PATH"

@@ -11,7 +11,6 @@ const init = async ({ setting, output, input, lib, amqpConnection }) => {
   mod.output = output
   mod.input = input
   mod.lib = lib
-
 }
 
 const _createResponseBuffer = ({ requestId, responseBufferList }) => {
