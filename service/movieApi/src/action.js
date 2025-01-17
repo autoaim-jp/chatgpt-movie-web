@@ -9,6 +9,7 @@ import { getHandlerFileContent } from './action/getHandlerFileContent.js'
 import { getHandlerRegisterPrompt } from './action/getHandlerRegisterPrompt.js'
 import { getHandlerLookupChatgptResponse } from './action/getHandlerLookupChatgptResponse.js'
 import { getHandlerRegisterStoryPrompt } from './action/getHandlerRegisterStoryPrompt.js'
+import { getHandlerRegisterImagePrompt } from './action/getHandlerRegisterImagePrompt.js'
 
 export default {
   getHandlerFileUpload,
@@ -22,6 +23,7 @@ export default {
   getHandlerRegisterPrompt,
   getHandlerLookupChatgptResponse,
   getHandlerRegisterStoryPrompt,
+  getHandlerRegisterImagePrompt,
 }
 
 
