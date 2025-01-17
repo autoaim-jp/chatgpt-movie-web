@@ -38,8 +38,10 @@ setting.api.GET_FILE_CONTENT = `${API_ROOT_PATH}/file/content`
 setting.api.REGISTER_PROMPT = `${API_ROOT_PATH}/prompt/register/chatgpt`
 setting.api.LOOKUP_CHATGPT_RESPONSE = `${API_ROOT_PATH}/chatgpt/response/lookup`
 setting.api.REGISTER_STORY_PROMPT = `${API_ROOT_PATH}/prompt/register/story`
+setting.api.REGISTER_IMAGE_PROMPT = `${API_ROOT_PATH}/prompt/register/image`
 
 setting.prompt = {}
+setting.prompt.IMAGE_TEST = '海、山、革、鳥、チーター、コアラ、猫'
 setting.prompt.STORY_VER1 = `【物語の要望】に従って、絵本に使う【物語】を作成してください。その後、【物語の要望】【物語】【固定設定の要望】に従って【固定設定】を整理してください。さらに、【ナレーションcsvのルール】に従い、【ナレーションcsvの例】を参考に、【物語】を【ナレーションcsv】に変換して表示してください。最後に、【物語の要望】【物語】【条件】【固定設定】に従って、【画像生成プロンプトの例】を参考に、絵本の表紙と各ページごとに画像を表示するための【画像生成プロンプト】を作成してください。全体を通して、【前提】は守ってください。
 改めて整理すると、生成してほしいのは以下の4つです。
 【物語】【固定設定】【ナレーションcsv】【画像生成プロンプト】

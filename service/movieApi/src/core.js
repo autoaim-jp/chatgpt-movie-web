@@ -11,6 +11,7 @@ import { extractBetweenTag } from './core/extractBetweenTag.js'
 import { extractLast5ColonPart } from './core/extractLast5ColonPart.js'
 import { extractFirstColonPart } from './core/extractFirstColonPart.js'
 import { handleRegisterStoryPrompt } from './core/handleRegisterStoryPrompt.js'
+import { handleRegisterImagePrompt } from './core/handleRegisterImagePrompt.js'
 import { startConsumer } from './core/startConsumer.js'
 
 
@@ -25,6 +26,7 @@ export default {
   handleRegisterPrompt,
   handleLookupChatgptResponse,
   handleRegisterStoryPrompt,
+  handleRegisterImagePrompt,
   startConsumer,
 }
 
