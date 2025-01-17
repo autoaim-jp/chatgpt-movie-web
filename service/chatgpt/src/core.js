@@ -89,6 +89,41 @@ const handleRequest = async ({ requestJson }) => {
     const responseQueue = mod.setting.getValue('amqp.RESPONSE_QUEUE') 
     mod.amqpResponseChannel.sendToQueue(responseQueue, responseBuffer)
 
+  } else if (requestType === 'image') {
+    const { requestId } = requestJson 
+    const prompt = requestJson.prompt
+
+    const dirPath = `${mod.setting.getValue('server.DATA_DIR_PATH')}${requestId}/`
+    mod.output.mkdir({ dirPath })
+
+    const dateStr = mod.lib.formatDate({ format: 'YYYYMMDD_hhmmss' })
+    const promptJsonFilePath = `${dirPath}${dateStr}_prompt.json`
+    const tmpJsonFilePath = `${dirPath}${dateStr}_tmp.json`
+    const resultImageFilePath = `${dirPath}${dateStr}_image.png`
+
+    const IMAGE_AI_PLATFORM = mod.setting.getValue('env.IMAGE_AI_PLATFORM')
+    if (IMAGE_AI_PLATFORM === 'openai') {
+      const OPENAI_CHATGPT_API_KEY = mod.setting.getValue('env.OPENAI_CHATGPT_API_KEY')
+      const commandList = [`OPENAI_CHATGPT_API_KEY="${OPENAI_CHATGPT_API_KEY}"`, '/app/lib/openai_image.sh', resultImageFilePath, tmpJsonFilePath, promptJsonFilePath]
+      await mod.lib.fork({ commandList, resultList: [] })
+    } else if (IMAGE_AI_PLATFORM === 'azureai') {
+      const AZUREAI_GPT4_API_KEY = mod.setting.getValue('env.AZUREAI_GPT4_API_KEY')
+      const AZUREAI_ENDPOINT = mod.setting.getValue('env.AZUREAI_ENDPOINT')
+      const commandList = [`AZUREAI_ENDPOINT=${AZUREAI_ENDPOINT}`, `AZUREAI_GPT4_API_KEY="${AZUREAI_GPT4_API_KEY}"`, '/app/lib/azureai_image.sh', resultImageFilePath, tmpJsonFilePath, promptJsonFilePath, prompt.replace(/"/g, '')]
+      await mod.lib.fork({ commandList, resultList: [] })
+    } else {
+      console.log(`invalid ai platform: ${IMAGE_AI_PLATFORM}`)
+      return
+    }
+
+    const resultImageBuffer = mod.input.readFileBuffer({ filePath: resultImageFilePath })
+    const responseBufferList = []
+    responseBufferList.push(Buffer.from('image'))
+    responseBufferList.push(resultImageBuffer)
+    const responseBuffer = _createResponseBuffer({ requestId, responseBufferList })
+  
+    const responseQueue = mod.setting.getValue('amqp.RESPONSE_QUEUE') 
+    mod.amqpResponseChannel.sendToQueue(responseQueue, responseBuffer)
   } else {
     console.log(`invalid requestType: ${requestType}`)
   }
