@@ -3,7 +3,7 @@ FROM node:20-slim
 WORKDIR /app
 
 RUN apt update -y
-RUN apt install -y curl
+RUN apt install -y curl jq
 
 COPY ./service/chatgpt/src/package.json /app/
 
