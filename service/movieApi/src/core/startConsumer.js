@@ -14,7 +14,7 @@ export const startConsumer = async () => {
       const delimiterDelimiterBuffer = Buffer.from('|')
       const splitResultList = mod.lib.parseBufferList({ buffer: responseBuffer, delimiterDelimiterBuffer })
 
-      const requestId = splitResultList[0].toString()
+      const requestId = splitResultList[0].toString().replace(/-.*/, '')
       const requestType = splitResultList[1].toString()
 
       const dirPath = `${MOVIE_DIR_PATH}${requestId}/`
