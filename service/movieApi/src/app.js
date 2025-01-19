@@ -40,7 +40,7 @@ const _getFunctionRouter = () => {
   const { REGISTER_PROMPT_PING, REGISTER_PROMPT_DUMMY, REGISTER_PROMPT_MAIN, LOOKUP_RESPONSE, GET_FILE_LIST, GET_FILE_CONTENT, FORM_UPLOAD, FILE_LIST_UPLOAD, } = a.setting.getList('api.REGISTER_PROMPT_PING', 'api.REGISTER_PROMPT_DUMMY', 'api.REGISTER_PROMPT_MAIN', 'api.LOOKUP_RESPONSE', 'api.GET_FILE_LIST', 'api.GET_FILE_CONTENT', 'key.FORM_UPLOAD', 'key.FILE_LIST_UPLOAD')
   // chatgpt
   const { REGISTER_PROMPT, LOOKUP_CHATGPT_RESPONSE, REGISTER_STORY_PROMPT, REGISTER_IMAGE_PROMPT } = a.setting.getList('api.REGISTER_PROMPT', 'api.LOOKUP_CHATGPT_RESPONSE', 'api.REGISTER_STORY_PROMPT', 'api.REGISTER_IMAGE_PROMPT')
-  const { REGISTER_CHAT_PROMPT } = a.setting.getList('api.REGISTER_CHAT_PROMPT')
+  const { REGISTER_CHAT_PROMPT, GET_LATEST_FILE_LIST } = a.setting.getList('api.REGISTER_CHAT_PROMPT', 'api.GET_LATEST_FILE_LIST')
 
   const fileUploadHandler = a.action.getHandlerFileUpload({
     FORM_UPLOAD,
@@ -107,11 +107,17 @@ const _getFunctionRouter = () => {
   })
   expressRouter.post(REGISTER_IMAGE_PROMPT, registerImagePromptHandler)
 
+  // chat page
   const registerChatPromptHandler = a.action.getHandlerRegisterChatPrompt({
     handleRegisterChatPrompt: a.core.handleRegisterChatPrompt,
     startGenerateImageAndMovie: a.core.startGenerateImageAndMovie,
   })
   expressRouter.post(REGISTER_CHAT_PROMPT, registerChatPromptHandler)
+
+  const latestLatestFileListHandler = a.action.getHandlerLatestFileList({
+    handleLatestFileList: a.core.handleLatestFileList
+  })
+  expressRouter.get(GET_LATEST_FILE_LIST, fileListHandler)
 
   return expressRouter
 }

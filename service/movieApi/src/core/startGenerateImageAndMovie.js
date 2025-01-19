@@ -1,17 +1,20 @@
 import { mod, store } from './init.js'
 export default {}
 
-export const startGenerateImageAndMovie = async ({ requestId, title, themeText, targetText, prompt, chatgptResponse, narrationCsv, imagePromptList }) => {
+export const startGenerateImageAndMovie = async ({ requestId, title, themeText, targetText, prompt, chatgptResponse, narrationCsv, imagePromptList, resultFileName }) => {
   const OPENAI_CHATGPT_API_KEY = mod.setting.getValue('env.OPENAI_CHATGPT_API_KEY')
   const MOVIE_DIR_PATH = mod.setting.getValue('path.MOVIE_DIR_PATH') 
   const IMAGE_EXT = '.png'
   const dateStr = mod.lib.formatDate({ format: 'YYYYMMDD_hhmmss' })
   const dirPath = `${MOVIE_DIR_PATH}${requestId}/${dateStr}/`
   mod.output.makeDir({ dirPath, })
-  const tmpJsonDirPath = `${dirPath}tmpJson/`
-  mod.output.makeDir({ dirPath: tmpJsonDirPath, })
-  const chatgptResultJsonFilePath = `${dirPath}chatgpt_result_json.txt`
-  mod.output.saveFile({ filePath: chatgptResultJsonFilePath, fileBuffer: Buffer.from(JSON.stringify({ requestId, title, themeText, targetText, prompt, chatgptResponse, narrationCsv, imagePromptList }, null, 2)) })
+  const chatgptResultJsonFilePath = `${dirPath}${resultFileName}`
+  mod.output.saveFile({ filePath: chatgptResultJsonFilePath, fileBuffer: Buffer.from(JSON.stringify({ requestId, title, themeText, prompt, chatgptResponse, narrationCsv, imagePromptList }, null, 2)) })
+  const pathCompatibleForIndexPage = `${MOVIE_DIR_PATH}${requestId}/${resultFileName}`
+  mod.output.copyFile({ filePathFrom: chatgptResultJsonFilePath, filePathTo: pathCompatibleForIndexPage })
+
+  console.log('done debug')
+  return
 
   const chatgptQueue = mod.setting.getValue('amqp.CHATGPT_PROMPT_QUEUE') 
   await mod.amqpChannel.assertQueue(chatgptQueue)

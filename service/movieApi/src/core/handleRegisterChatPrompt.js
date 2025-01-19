@@ -5,6 +5,7 @@ export const handleRegisterChatPrompt = async ({ themeText, startGenerateImageAn
   const queue = mod.setting.getValue('amqp.CHATGPT_PROMPT_QUEUE') 
   const prompt = mod.setting.getValue('prompt.STORY_VER2')
     .replace(/__THEME_TEXT__/g, themeText)
+  const resultFileName = 'chatgpt_result_json_chat.txt'
 
   await mod.amqpChannel.assertQueue(queue)
 
@@ -37,7 +38,7 @@ export const handleRegisterChatPrompt = async ({ themeText, startGenerateImageAn
       console.log('====================titleの結果')
       console.log(title)
 
-      startGenerateImageAndMovie({ requestId, title, themeText, targetText, prompt, chatgptResponse: result.chatgpt, narrationCsv, imagePromptList })
+      startGenerateImageAndMovie({ requestId, title, themeText, prompt, chatgptResponse: result.chatgpt, narrationCsv, imagePromptList, resultFileName })
 
       clearInterval(waitChatgptResponseInterval)
     } else {
