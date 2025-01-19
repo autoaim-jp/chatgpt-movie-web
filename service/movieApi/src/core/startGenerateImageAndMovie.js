@@ -13,9 +13,6 @@ export const startGenerateImageAndMovie = async ({ requestId, title, themeText, 
   const pathCompatibleForIndexPage = `${MOVIE_DIR_PATH}${requestId}/${resultFileName}`
   mod.output.copyFile({ filePathFrom: chatgptResultJsonFilePath, filePathTo: pathCompatibleForIndexPage })
 
-  console.log('done debug')
-  return
-
   const chatgptQueue = mod.setting.getValue('amqp.CHATGPT_PROMPT_QUEUE') 
   await mod.amqpChannel.assertQueue(chatgptQueue)
 

@@ -45,6 +45,9 @@
         <div class="mb-4">
           <p class="block text-gray-700 font-bold mb-2">画像</p>
           <div x-ref="imageDiv">
+            <template x-for="(fileName, id) in imageFileNameList" :key="fileName">
+              <img :src="URL.createObjectURL(this.imageList[fileName])" class="w-full rounded-lg mb-2" alt="Uploaded Image" />
+            </template>
           </div>
         </div>
 
@@ -65,10 +68,10 @@
     </div>
 
     <!-- File List Card -->
-    <div class="bg-white rounded shadow p-6 w-full max-w-4xl mx-auto mt-6" x-init="startInterval">
+    <div class="bg-white rounded shadow p-6 w-full max-w-4xl mx-auto mt-6" x-init="startInterval" x-cloak>
       <h2 class="text-xl font-semibold mb-4">これまでに作成した絵本</h2>
       <ul class="space-y-2">
-        <template x-for="title in titleList" :key="title">
+        <template x-for="(title, id) in titleList" :key="id">
           <li>
             <a href="#" @click.prevent="updateVideoUrl(title)"
                class="text-blue-500 hover:underline">
@@ -118,7 +121,7 @@
         targetText: '',
         videoUrl: '',
         requestId: '',
-        titleList: [],
+        titleList: {},
         fileDirList: {},
         imageList: {},
         isSubmitting: false,
@@ -138,6 +141,7 @@
             const data = await response.json();
             if (data.result && data.result.isRegistered) {
               this.requestId = data.result.requestId;
+              this.imageList = {}
               this.checkVideoStatus();
               this.checkAssetStatus();
             }
@@ -195,13 +199,19 @@
                   const imageFileNameList = json.result.result.fileDirList.filter((fileName) => {
                     return /\.png$/.test(fileName)
                   })
-                  clearInterval(intervalId)
+                  // 常に更新し続けるためclearしない
+                  // clearInterval(intervalId)
 
                   imageFileNameList.forEach(async (fileName) => {
+                    if(this.imageList[fileName]) {
+                      // ファイルをすでにダウンロード済みならば終了
+                      return
+                    }
                     const response = await fetch(`/api/v1/file/content?requestId=${this.requestId}&fileName=${fileName}`);
                     const blob = await response.blob();
 
                     this.imageList[fileName] = blob
+                    this.imageFileNameList = Object.keys(this.imageList).sort()
                   })
                 })
                 .catch(error => {
@@ -212,8 +222,6 @@
             }
           }, 1000);
         },
-
-
 
         async checkVideoStatus() {
           const intervalId = setInterval(async () => {
@@ -233,11 +241,10 @@
         },
 
         fetchFileList() {
-          fetch('/api/v1/file/list')
+          fetch('/api/v1/file/list?checkFileName=chatgpt_result_json_chat.txt')
             .then(response => response.json())
             .then(data => {
               if (data.result && data.result.result && data.result.result.fileDirList) {
-                // :TODO
                 this.fileDirList = data.result.result.fileDirList;
                 this.titleList = Object.values(this.fileDirList);
               }
@@ -261,7 +268,36 @@
           if (!titleRequestId) {
             return alert('動画が見つかりません。')
           }
+
+          // debug
           this.videoUrl = `/api/v1/file/content?requestId=${titleRequestId}&fileName=output.mp4`;
+          return
+
+          try {
+            fetch(`/api/v1/file/latest?requestId=${this.requestId}`)
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error('Network response was not ok')
+                }
+                return response.json()
+              })
+              .then(json => {
+                console.log({ debug: 'updateVideoUrl', json })
+                const imageFileNameList = json.result.result.fileDirList.filter((fileName) => {
+                  return /\.mp4/.test(fileName)
+                })
+                if (imageFileNameList.length === 0) {
+                  alert('動画は作成中です。')
+                }
+                this.videoUrl = `/api/v1/file/content?requestId=${titleRequestId}&fileName=${imageFileNameList[0]}`;
+              })
+              .catch(error => {
+                console.error('Fetch error checking image status:', error)
+              })
+          } catch (error) {
+            console.error('Error checking image status:', error);
+          }
+
         },
       };
     }
