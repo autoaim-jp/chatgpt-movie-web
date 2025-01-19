@@ -7,6 +7,8 @@ endif
 
 SHELL=/bin/bash
 PHONY=default init run rebuild help 
+UID := $(shell id -u)
+GID := $(shell id -g)
 
 .PHONY: $(PHONY)
 
@@ -60,10 +62,10 @@ init-env:
 	fi
 
 docker-compose-up-detatch:
-	docker compose --env-file setting/.env -p ${DOCKER_PROJECT_NAME}_${APP_ENV} up -d
+	UID=$(UID) GID=$(GID) docker compose --env-file setting/.env -p ${DOCKER_PROJECT_NAME}_${APP_ENV} up -d
 
 docker-compose-up:
-	docker compose --env-file setting/.env -p ${DOCKER_PROJECT_NAME}_${APP_ENV} up
+	UID=$(UID) GID=$(GID) docker compose --env-file setting/.env -p ${DOCKER_PROJECT_NAME}_${APP_ENV} up
 
 docker-compose-down:
 	docker compose --env-file setting/.env -p ${DOCKER_PROJECT_NAME}_${APP_ENV} down --volumes
