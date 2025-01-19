@@ -15,7 +15,7 @@
       <form @submit.prevent="submitForm">
         <div class="mb-4">
           <label class="block text-gray-700 font-bold mb-2" for="themeText">動画のテーマ</label>
-          <textarea rows="10" id="themeText" x-model="themeText" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="社訓を社内に浸透させたい。そのための動画。
+          <textarea rows="10" id="themeText" x-model="themeText" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="社訓を社内に浸透させたい。社員に見てもらうための動画。
 社訓: 未来を切り拓く創造の心と力を持とう
 4ページ。現代社会について、未来を切り拓くとは、創造の心と力とは、まとめ、を1ページずつ。
 各ページはナレーターが説明し、男と女が一言ずつ発言する。" :disabled="isSubmitting"></textarea>
@@ -31,12 +31,12 @@
       </form>
     </div>
 
-    <div class="bg-white rounded-lg shadow-lg p-8 max-w-4xl mx-auto mt-8" x-cloak>
+    <div class="bg-white rounded-lg shadow-lg p-8 max-w-4xl mx-auto mt-8">
       <h2 class="text-2xl font-bold text-center mb-4">編集フォーム</h2>
       <form @submit.prevent="submitForm">
         <div class="mb-4">
           <label class="block text-gray-700 font-bold mb-2" for="titleText">動画のタイトル</label>
-          <input type="text" id="titleText" x-model="titleText" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="">
+          <input type="text" id="titleText" x-model="titleText" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="" />
 
           <label class="block text-gray-700 font-bold mb-2" for="narrationText">ナレーションテキスト</label>
           <textarea rows="10" id="narrationText" x-model="narrationText" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder=""></textarea>
@@ -45,8 +45,12 @@
         <div class="mb-4">
           <p class="block text-gray-700 font-bold mb-2">画像</p>
           <div x-ref="imageDiv">
-            <template x-for="(fileName, id) in imageFileNameList" :key="fileName">
-              <img :src="URL.createObjectURL(this.imageList[fileName])" class="w-full rounded-lg mb-2" alt="Uploaded Image" />
+            <template x-for="fileName in Object.keys(imageList).sort()" :key="fileName">
+              <div>
+                <p class="block text-gray-700 mb-1 ml-2" x-text="fileName.replace(/^.*\//g, '')"></p>
+                <img :src="URL.createObjectURL(imageList[fileName])" class="w-full rounded-lg mb-2" alt="Uploaded Image" />
+                <input type="file" @change="onFileChange($event, fileName)" class="mt-4 p-2 border rounded" />
+              </div>
             </template>
           </div>
         </div>
@@ -112,9 +116,9 @@
   <script>
     function formHandler() {
       return {
-        themeText: `社訓を社内に浸透させたい。そのための動画。
-社訓: 未来を切り拓く創造の心と力を持とう
-4ページ。現代社会について、未来を切り拓くとは、創造の心と力とは、まとめ、を1ページずつ。
+        themeText: `社訓を社内に浸透させたい。社員に見てもらうための動画。
+社訓: どんな時でも約束を守り、責任の持てる完全な仕事をしよう
+4ページ。それぞれのページは、現代社会について、約束とはなにか、責任とはなにか、まとめ、を1ページずつ。
 各ページはナレーターが説明し、男と女が一言ずつ発言する。`,
         titleText: '',
         narrationText: '',
@@ -125,6 +129,9 @@
         fileDirList: {},
         imageList: {},
         isSubmitting: false,
+        videoStatusInterval: null,
+        assetStatusInterval: null,
+        imageStatusInterval: null,
 
         async submitForm() {
           this.isSubmitting = true;
@@ -144,6 +151,7 @@
               this.imageList = {}
               this.checkVideoStatus();
               this.checkAssetStatus();
+              this.checkImageStatus();
             }
           } catch (error) {
             console.error('Error during form submission:', error);
@@ -152,7 +160,8 @@
         },
 
         async checkAssetStatus() {
-          const intervalId = setInterval(async () => {
+          clearInterval(this.assetStatusInterval)
+          this.assetStatusInterval = setInterval(async () => {
             try {
               fetch(`/api/v1/file/content?requestId=${this.requestId}&fileName=chatgpt_result_json_chat.txt`)
                 .then(response => {
@@ -170,9 +179,7 @@
                   if (json && json.title) {
                     this.titleText = json.title
                     this.narrationText = json.narrationCsv
-                    clearInterval(intervalId)
-
-                    this.checkImageStatus()
+                    clearInterval(this.assetStatusInterval)
                   }
                 })
                 .catch(error => {
@@ -185,7 +192,8 @@
         },
 
         async checkImageStatus() {
-          const intervalId = setInterval(async () => {
+          clearInterval(this.imageStatusInterval)
+          this.imageStatusInterval = setInterval(async () => {
             try {
               fetch(`/api/v1/file/latest?requestId=${this.requestId}`)
                 .then(response => {
@@ -195,12 +203,12 @@
                   return response.json()
                 })
                 .then(json => {
-                  console.log({ debug: 'checkImageStatus', json })
+                  // console.log({ debug: 'checkImageStatus', json })
                   const imageFileNameList = json.result.result.fileDirList.filter((fileName) => {
                     return /\.png$/.test(fileName)
                   })
                   // 常に更新し続けるためclearしない
-                  // clearInterval(intervalId)
+                  // clearInterval(this.imageStatusInterval)
 
                   imageFileNameList.forEach(async (fileName) => {
                     if(this.imageList[fileName]) {
@@ -210,8 +218,8 @@
                     const response = await fetch(`/api/v1/file/content?requestId=${this.requestId}&fileName=${fileName}`);
                     const blob = await response.blob();
 
+                    console.log({ debug: 'checkImageStatus', fileName })
                     this.imageList[fileName] = blob
-                    this.imageFileNameList = Object.keys(this.imageList).sort()
                   })
                 })
                 .catch(error => {
@@ -224,13 +232,14 @@
         },
 
         async checkVideoStatus() {
-          const intervalId = setInterval(async () => {
+          clearInterval(this.videoStatusInterval)
+          this.videoStatusInterval = setInterval(async () => {
             try {
               const response = await fetch(`/api/v1/file/content?requestId=${this.requestId}&fileName=output.mp4`);
               const blob = await response.blob();
 
               if (blob.size > 0) {
-                clearInterval(intervalId);
+                clearInterval(this.videoStatusInterval);
                 this.videoUrl = URL.createObjectURL(blob);
                 this.isSubmitting = false;
               }
@@ -271,6 +280,13 @@
 
           // debug
           this.videoUrl = `/api/v1/file/content?requestId=${titleRequestId}&fileName=output.mp4`;
+
+          this.requestId = titleRequestId
+          this.imageList = {}
+          this.checkVideoStatus();
+          this.checkAssetStatus();
+          this.checkImageStatus();
+
           return
 
           try {
@@ -299,6 +315,16 @@
           }
 
         },
+        onFileChange(event, fileName) {
+          const files = event.target.files;
+          if (files && files[0]) {
+            this.imageList[fileName] = files[0];
+          }
+        },
+        getImageBlob(fileName) {
+          console.log({ debug: 'getImageBlob', fileName })
+          return URL.createObjectURL(this.imageList[fileName])
+        }
       };
     }
   </script>
