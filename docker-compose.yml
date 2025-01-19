@@ -1,7 +1,6 @@
 services:
   rabbitmq:
     hostname: chatgpt-movie-rabbitmq
-    container_name: chatgpt-movie-rabbitmq
     image: rabbitmq:3.11-management
     environment:
       - RABBITMQ_DEFAULT_USER=chatgpmoviewebadmin
@@ -15,7 +14,6 @@ services:
       retries: 20
 
   movie_api:
-    container_name: chatgpt-movie-rabbitmq-movie-api
     build:
       context: ./
       dockerfile: ./service/movieApi/docker/Dockerfile
@@ -25,13 +23,12 @@ services:
       - chatgpt-movie-rabbitmq-ma-nm:/app/node_modules
     command: sh -c "yarn run start"
     ports:
-      - 10.0.0.2:25673:25673
+      - "${MOVIE_API_IP}:${MOVIE_API_PORT}:25673"
     depends_on:
       rabbitmq:
         condition: service_healthy
 
   movie_engine:
-    container_name: chatgpt-movie-rabbitmq-movie-engine
     build:
       context: ./
       dockerfile: ./service/movieEngine/docker/Dockerfile
@@ -45,16 +42,12 @@ services:
         condition: service_healthy
 
   voicevox:
-    container_name: voicevox
     image: voicevox/voicevox_engine:cpu-0.21.1
-    ports:
-      - 127.0.0.1:50021:50021
     environment:
       - RUN_MODE=production
     restart: unless-stopped
 
   chatgpt:
-    container_name: chatgpt-movie-rabbitmq-chatgpt
     build:
       context: ./
       dockerfile: ./service/chatgpt/docker/Dockerfile

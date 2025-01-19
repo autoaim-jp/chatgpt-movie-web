@@ -1,144 +1,15 @@
-const getHandlerUploadFile = ({
-  handleUploadFile, createResponse, multer, FormData, Readable,
-}) => {
-  return async (req, res) => {
-    const { accessToken } = req.session.auth
-
-    const handleResult = await handleUploadFile({
-      req, accessToken, multer, FormData, Readable,                                                      
-    })  
-
-    createResponse({ req, res, handleResult })
-  }
-}
-
-// ファイルアップロード処理 req.file.bufferを作成
-// ファイルアップロードでエラーなら終了
-const getHandlerFileUpload = ({ FORM_UPLOAD, parseMultipartFileUpload }) => {
-  return async (req, res, next) => {
-    const uploadResult = await parseMultipartFileUpload({ req, formKey: FORM_UPLOAD })
-    console.log({ uploadResult })
-    if (!uploadResult) {
-      res.json({ result: uploadResult })
-      return
-    }
-
-    next()
-  }
-}
-
-// 複数ファイルアップロード
-const getHandlerFileListUpload = ({ FILE_LIST_UPLOAD, parseMultipartFileListUpload }) => {
-  return async (req, res, next) => {
-    const uploadResult = await parseMultipartFileListUpload({ req, formKey: FILE_LIST_UPLOAD })
-    console.log({ uploadResult })
-    if (!uploadResult) {
-      res.json({ result: uploadResult })
-      return
-    }
-
-    next()
-  }
-}
-
-const getHandlerRegisterPingPrompt = ({ handleRegisterPingPrompt }) => {
-  return async (req, res) => {
-    const { rightTopText, leftTopText, rightBottomText } = req.body
-    // console.log({ debug: true, request: 'ok!', prompt })
-    const fileBuffer = req.file.buffer
-
-    const handleResult = await handleRegisterPingPrompt({ 
-      rightTopText, leftTopText, rightBottomText,
-      fileBuffer, 
-    })
-
-    res.json({ result: handleResult })
-  }
-}
-
-const getHandlerRegisterDummyPrompt = ({ handleRegisterDummyPrompt }) => {
-  return async (req, res) => {
-    // console.log({ debug: true, request: 'ok!', prompt })
-    const handleResult = await handleRegisterDummyPrompt({})
-
-    res.json({ result: handleResult })
-  }
-}
-
-const getHandlerRegisterMainPrompt = ({ handleRegisterMainPrompt }) => {
-  return async (req, res) => {
-    // console.log({ debug: true, request: 'ok!', prompt })
-    const fileList = req.files
-    const { title, narrationCsv } = req.body
-    const handleResult = await handleRegisterMainPrompt({ fileList, title, narrationCsv })
-
-    res.json({ result: handleResult })
-  }
-}
-
-const getHandlerLookupResponse = ({ handleLookupResponse }) => {
-  return async (req, res) => {
-    const { requestId } = req.query
-
-    const handleResult = handleLookupResponse({ requestId })
-
-    res.json({ result: handleResult })
-  }
-}
-
-const getHandlerFileList = ({ handleFileList }) => {
-  return async (req, res) => {
-    const { requestId } = req.query
-    const handleResult = handleFileList({ requestId  })
-
-    res.json({ result: handleResult })
-  }
-}
-
-const getHandlerFileContent = ({ handleFileContent }) => {
-  return async (req, res) => {
-    const { requestId, fileName } = req.query
-
-    const handleResultBuffer = handleFileContent({ requestId, fileName })
-
-    // res.json({ result: handleResult })
-    res.end(handleResultBuffer)
-  }
-}
-
-// chatgpt
-const getHandlerRegisterPrompt = ({ handleRegisterPrompt }) => {
-  return async (req, res) => {
-    const { prompt } = req.body
-    console.log({ debug: true, request: 'ok!', prompt })
-
-    const handleResult = await handleRegisterPrompt({ prompt })
-
-    res.json({ result: handleResult })
-  }
-}
-
-const getHandlerLookupChatgptResponse = ({ handleLookupChatgptResponse }) => {
-  return async (req, res) => {
-    const { requestId } = req.query
-
-    const handleResult = handleLookupChatgptResponse({ requestId })
-
-    res.json({ result: handleResult })
-  }
-}
-
-const getHandlerRegisterStoryPrompt = ({ handleRegisterStoryPrompt }) => {
-  return async (req, res) => {
-    const { themeText, targetText } = req.body
-
-    const handleResult = await handleRegisterStoryPrompt({ 
-      themeText, targetText
-    })
-
-    res.json({ result: handleResult })
-  }
-}
+import { getHandlerFileUpload } from './action/getHandlerFileUpload.js'
+import { getHandlerFileListUpload } from './action/getHandlerFileListUpload.js'
+import { getHandlerRegisterPingPrompt } from './action/getHandlerRegisterPingPrompt.js'
+import { getHandlerRegisterDummyPrompt } from './action/getHandlerRegisterDummyPrompt.js'
+import { getHandlerRegisterMainPrompt } from './action/getHandlerRegisterMainPrompt.js'
+import { getHandlerLookupResponse } from './action/getHandlerLookupResponse.js'
+import { getHandlerFileList } from './action/getHandlerFileList.js'
+import { getHandlerFileContent } from './action/getHandlerFileContent.js'
+import { getHandlerRegisterPrompt } from './action/getHandlerRegisterPrompt.js'
+import { getHandlerLookupChatgptResponse } from './action/getHandlerLookupChatgptResponse.js'
+import { getHandlerRegisterStoryPrompt } from './action/getHandlerRegisterStoryPrompt.js'
+import { getHandlerRegisterImagePrompt } from './action/getHandlerRegisterImagePrompt.js'
 
 export default {
   getHandlerFileUpload,
@@ -152,6 +23,7 @@ export default {
   getHandlerRegisterPrompt,
   getHandlerLookupChatgptResponse,
   getHandlerRegisterStoryPrompt,
+  getHandlerRegisterImagePrompt,
 }
 
 
