@@ -38,8 +38,10 @@ export const startConsumer = async () => {
         store[requestId].status = 'creating-movie'
         store[requestId].chatgpt = chatgptResponseBuffer.toString()
       } else if (requestType === 'image') {
-        const filePath = `${dirPath}image.png`
-        const imageResponseBuffer = splitResultList[2]
+        const _filePath = splitResultList[2].toString()
+        const filePath = `${dirPath}${_filePath.replace(/\.\./g, '')}`
+        mod.output.makeDir({ dirPath: mod.path.dirname(filePath) })
+        const imageResponseBuffer = splitResultList[3]
         mod.output.saveFile({ filePath, fileBuffer: imageResponseBuffer })
       } else {
         console.log(`invalid requestType: ${requestType}`)
