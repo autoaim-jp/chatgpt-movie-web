@@ -92,7 +92,8 @@ const _getFunctionRouter = () => {
   expressRouter.post(REGISTER_PROMPT, registerPromptHandler)
 
   const registerStoryPromptHandler = a.action.getHandlerRegisterStoryPrompt({
-    handleRegisterStoryPrompt: a.core.handleRegisterStoryPrompt
+    handleRegisterStoryPrompt: a.core.handleRegisterStoryPrompt,
+    startGenerateImageAndMovie: a.core.startGenerateImageAndMovie,
   })
   expressRouter.post(REGISTER_STORY_PROMPT, registerStoryPromptHandler)
 
@@ -107,7 +108,8 @@ const _getFunctionRouter = () => {
   expressRouter.post(REGISTER_IMAGE_PROMPT, registerImagePromptHandler)
 
   const registerChatPromptHandler = a.action.getHandlerRegisterChatPrompt({
-    handleRegisterChatPrompt: a.core.handleRegisterChatPrompt
+    handleRegisterChatPrompt: a.core.handleRegisterChatPrompt,
+    startGenerateImageAndMovie: a.core.startGenerateImageAndMovie,
   })
   expressRouter.post(REGISTER_CHAT_PROMPT, registerChatPromptHandler)
 

@@ -144,10 +144,10 @@ const getMainRequest = ({ requestId, fileList, title, narrationCsv }) => {
   return messageBuffer
 }
 
-const getImageRequest = ({ prompt, filePath }) => {
-  const requestId = getUlid()
+const getImageRequest = ({ prompt, filePath, requestId }) => {
+  const _requestId = requestId || getUlid()
   const requestObj = {
-    requestId,
+    requestId: _requestId,
     requestType: 'image',
     filePath,
     prompt,

@@ -1,9 +1,10 @@
-export const getHandlerRegisterChatPrompt = ({ handleRegisterChatPrompt }) => {
+export const getHandlerRegisterChatPrompt = ({ handleRegisterChatPrompt, startGenerateImageAndMovie }) => {
   return async (req, res) => {
     const { themeText } = req.body
 
     const handleResult = await handleRegisterChatPrompt({ 
-      themeText
+      themeText,
+      startGenerateImageAndMovie,
     })
 
     res.json({ result: handleResult })
