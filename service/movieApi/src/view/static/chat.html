@@ -38,8 +38,116 @@
           <label class="block text-gray-700 font-bold mb-2" for="titleText">動画のタイトル</label>
           <input type="text" id="titleText" x-model="titleText" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="" />
 
-          <label class="block text-gray-700 font-bold mb-2" for="narrationCsv">ナレーションテキスト</label>
-          <textarea rows="10" id="narrationCsv" x-model="narrationCsv" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder=""></textarea>
+
+<div 
+  class="space-y-8"
+>
+  <!-- タイトル部分 -->
+  <template x-if="titleItems.length > 0">
+    <div class="border-b pb-4">
+      <h2 class="text-xl font-bold mb-2">タイトル</h2>
+      <template x-for="(item, index) in titleItems" :key="index">
+        <div class="flex flex-col md:flex-row md:items-center mb-2 space-y-2 md:space-y-0 md:space-x-2">
+          <!-- 話し手選択 -->
+          <select 
+            class="border p-1 rounded" 
+            x-model="item.speaker"
+          >
+            <option value="m1">男性 (m1)</option>
+            <option value="f1">女性 (f1)</option>
+            <option value="n">ナレーター (n)</option>
+          </select>
+
+          <!-- スピード -->
+          <input 
+            type="text"
+            class="border p-1 rounded w-16"
+            x-model="item.speed" 
+            @keydown.enter.prevent
+          />
+
+          <!-- テキスト -->
+          <input 
+            type="text"
+            class="border p-1 rounded flex-1"
+            x-model="item.text" 
+            @keydown.enter.prevent
+          />
+        </div>
+      </template>
+    </div>
+  </template>
+
+  <!-- ページごとの表示 -->
+  <template x-for="(page, pageIndex) in pages" :key="pageIndex">
+    <div class="border-b pb-4">
+      <h2 class="text-xl font-bold mb-2">ページ <span x-text="pageIndex + 1"></span></h2>
+      <!-- ページ内の行を表示 -->
+      <template x-for="(item, itemIndex) in page" :key="itemIndex">
+        <div class="flex flex-col md:flex-row md:items-center mb-2 space-y-2 md:space-y-0 md:space-x-2">
+          <!-- 話し手 -->
+          <select 
+            class="border p-1 rounded" 
+            x-model="item.speaker"
+          >
+            <option value="m1">男性 (m1)</option>
+            <option value="f1">女性 (f1)</option>
+            <option value="n">ナレーター (n)</option>
+          </select>
+
+          <!-- スピード -->
+          <input 
+            type="text"
+            class="border p-1 rounded w-16"
+            x-model="item.speed" 
+            @keydown.enter.prevent
+          />
+
+          <!-- テキスト -->
+          <input 
+            type="text"
+            class="border p-1 rounded flex-1"
+            x-model="item.text" 
+            @keydown.enter.prevent
+          />
+
+          <!-- 削除ボタン -->
+          <button 
+            class="text-red-500 ml-2"
+            @click="removePageRow(pageIndex, itemIndex)"
+          >
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              class="h-5 w-5" 
+              viewBox="0 0 20 20" 
+              fill="currentColor"
+            >
+              <path fill-rule="evenodd" 
+                d="M10 9a1 1 0 011 1v6a1 1 0 11-2 0V10a1 1 0 011-1zm0-4a1 1 0 011 1v1a1 1 0 11-2 0V6a1 1 0 011-1z" 
+                clip-rule="evenodd" 
+              />
+              <path 
+                d="M2 10a8 8 0 1116 0 8 8 0 01-16 0z" 
+              />
+            </svg>
+          </button>
+        </div>
+      </template>
+
+      <!-- ページ末尾に追加ボタン -->
+      <div class="mt-4 text-center">
+        <button 
+          class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          @click="addRowToPage(pageIndex)"
+        >
+          + 行を追加
+        </button>
+      </div>
+    </div>
+  </template>
+  </div>
+
+
         </div>
 
         <div class="mb-4">
@@ -162,6 +270,8 @@
         async submitEditForm() {
           this.isSubmitting = true;
 
+          this.narrationCsv = this.generateCsv();
+
           const formData = new FormData();
           formData.append("requestId", this.requestId);
           formData.append("title", this.titleText);
@@ -209,6 +319,7 @@
                   if (json && json.title) {
                     this.titleText = json.title
                     this.narrationCsv = json.narrationCsv
+                    this.parseCsv()
                     clearInterval(this.assetStatusInterval)
                   }
                 })
@@ -351,10 +462,140 @@
             this.imageList[fileName] = files[0];
           }
         },
-        getImageBlob(fileName) {
-          console.log({ debug: 'getImageBlob', fileName })
-          return URL.createObjectURL(this.imageList[fileName])
-        }
+
+        titleItems: [],
+        pages: [],
+        currentPage: [],
+        isPageStarted: false,
+
+        parseCsv() {
+          this.titleItems = [];
+          this.pages = [];
+          this.currentPage = [];
+          this.isPageStarted = false;
+
+          const lines = this.narrationCsv
+            .split(/\r?\n/)
+            .map(l => l.trim())
+            .filter(l => l !== '' && !l.startsWith('#'));
+
+          for (let i = 0; i < lines.length; i++) {
+            const cols = lines[i].split(',');
+            const action = cols[0] ?? '';
+            const speaker = cols[1] ?? '';
+            const speed   = cols[2] ?? '';
+            const text    = cols[3] ?? '';
+
+            switch(action) {
+              case 'start-page':
+                this.isPageStarted = true;
+                this.currentPage = [];
+                break;
+              case 'end-page':
+                if (this.currentPage.length > 0) {
+                  this.pages.push(this.currentPage);
+                }
+                this.isPageStarted = false;
+                this.currentPage = [];
+                break;
+              case 'speak':
+                const item = {
+                  speaker: speaker || 'n',
+                  speed: speed || '1.0',
+                  text: text || ''
+                };
+                if (this.isPageStarted) {
+                  this.currentPage.push(item);
+                } else {
+                  this.titleItems.push(item);
+                }
+                break;
+                // 使わないアクションは無視
+              default:
+                break;
+            }
+          }
+        },
+
+        // -------------------------
+        // フォーム操作系メソッド
+        // -------------------------
+        // タイトルの1行を削除
+        removeTitleRow(index) {
+          this.titleItems.splice(index, 1);
+        },
+
+        // ページの1行を削除
+        removePageRow(pageIndex, itemIndex) {
+          this.pages[pageIndex].splice(itemIndex, 1);
+        },
+
+        // ページ末尾に行を1つ追加
+        addRowToPage(pageIndex) {
+          this.pages[pageIndex].push({
+            speaker: 'n',
+            speed: '1.0',
+            text: ''
+          });
+        },
+
+        // -------------------------
+        // CSV生成・送信系メソッド
+        // -------------------------
+        // テキストを句点「。」ごとに分割して配列にするサンプル
+        // 実際には「鍵括弧（「」）」なども含めて分割したい場合は、より複雑な処理が必要
+        splitTextToSentences(text) {
+          // 例: 「。」で改行し、空要素を除去
+          // 「。｣の直後で区切る => (。) の後に改行を入れて split
+          return text
+          // .replace(/。/g, '。\n') 
+            .split(/\n/)
+            .map(s => s.trim())
+            .filter(s => s); // 空文字除外
+        },
+
+        // CSV文字列を再構築
+        generateCsv() {
+          let csvLines = [];
+
+          // 1) 最初に engine,voicevox,,
+          csvLines.push('engine,voicevox,,');
+
+          // 2) タイトルは silent,1,, と silent,3,, で挟む
+          csvLines.push('silent,1,,');
+          // タイトル中の各行を句点で分割して speak => silent,1,, の組み合わせ
+          this.titleItems.forEach(item => {
+            const sentences = this.splitTextToSentences(item.text);
+            sentences.forEach(sentence => {
+              csvLines.push(`speak,${item.speaker},${item.speed},${sentence}`);
+              // 各文章の後は silent,1,,
+              csvLines.push('silent,1,,');
+            });
+          });
+          csvLines.push('silent,3,,');
+
+          // 3) ページ
+          //    各ページの最初は start-page,,, 
+          //    最後は end-page,,, → silent,3,,
+          //    ページ内の文章は speak 〜 → silent,1,, の繰り返し
+          this.pages.forEach(page => {
+            csvLines.push('start-page,,,');
+            page.forEach(item => {
+              // テキストを分割
+              const sentences = this.splitTextToSentences(item.text);
+              sentences.forEach(sentence => {
+                csvLines.push(`speak,${item.speaker},${item.speed},${sentence}`);
+                csvLines.push('silent,1,,');
+              });
+            });
+            csvLines.push('end-page,,,');
+            csvLines.push('silent,3,,');
+          });
+
+          // CSV文字列を連結
+          return csvLines.join('\n');
+        },
+
       };
     }
   </script>
