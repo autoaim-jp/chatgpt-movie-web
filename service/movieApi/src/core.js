@@ -13,6 +13,7 @@ import { extractFirstColonPart } from './core/extractFirstColonPart.js'
 import { handleRegisterStoryPrompt } from './core/handleRegisterStoryPrompt.js'
 import { handleRegisterImagePrompt } from './core/handleRegisterImagePrompt.js'
 import { startConsumer } from './core/startConsumer.js'
+import { handleRegisterChatPrompt } from './core/handleRegisterChatPrompt.js'
 
 
 export default {
@@ -28,5 +29,6 @@ export default {
   handleRegisterStoryPrompt,
   handleRegisterImagePrompt,
   startConsumer,
+  handleRegisterChatPrompt,
 }
 
