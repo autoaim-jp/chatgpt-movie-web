@@ -26,15 +26,15 @@ export const handleRegisterStoryPrompt = async ({ themeText, targetText, startGe
       console.log('====================chatgptの結果')
       console.log(result.chatgpt)
 
-      const narrationCsv = extractBetweenTag({ str: result.chatgpt })
+      const narrationCsv = mod.lib.extractBetweenTag({ str: result.chatgpt })
       console.log('====================narrationCsvの結果')
       console.log(narrationCsv)
 
-      const imagePromptList = extractLast5ColonPart({ str: result.chatgpt })
+      const imagePromptList = mod.lib.extractLast5ColonPart({ str: result.chatgpt })
       console.log('====================imagePromptListの結果')
       console.log(imagePromptList)
 
-      const title = extractFirstColonPart({ str: result.chatgpt })
+      const title = mod.lib.extractFirstColonPart({ str: result.chatgpt })
       console.log('====================titleの結果')
       console.log(title)
 

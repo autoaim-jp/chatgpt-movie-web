@@ -157,6 +157,40 @@ const getImageRequest = ({ prompt, filePath, requestId }) => {
   return { requestId, buffer: Buffer.from(requestObjStr) }
 }
 
+const extractBetweenTag = ({ str }) => {
+  const regex = /# ===\n([\s\S]*?)# ===/
+  const match = str.match(regex)
+  return match ? match[1].trim() : ''
+}
+
+const extractFirstColonPart = ({ str }) => {
+  const lines = str.split('\n')
+  const firstColonLine = lines.find(line => line.includes(':'))
+  return firstColonLine ? firstColonLine.split(':').slice(1).join(':').trim() : null
+}
+
+const extractLast5ColonPart = ({ str }) => {
+  const lineList = str.split('\n').filter(line => line.includes(':'))
+  const last5LineList = lineList.slice(-5)
+  return last5LineList.map(line => line.split(':').slice(1).join(':').trim())
+}
+
+const formatDate = ({ format, date }) => {
+  if (format === undefined) {
+    format = 'YYYY-MM-DD hh:mm:ss'
+  }
+  if (date === undefined) {
+    date = new Date()
+  }
+
+  return format.replace(/YYYY/g, date.getFullYear())
+    .replace(/MM/g, (`0${date.getMonth() + 1}`).slice(-2))
+    .replace(/DD/g, (`0${date.getDate()}`).slice(-2))
+    .replace(/hh/g, (`0${date.getHours()}`).slice(-2))
+    .replace(/mm/g, (`0${date.getMinutes()}`).slice(-2))
+    .replace(/ss/g, (`0${date.getSeconds()}`).slice(-2))
+}
+
 
 export default {
   init,
@@ -169,5 +203,10 @@ export default {
 
   getMainRequest,
   getImageRequest,
+
+  extractBetweenTag,
+  extractFirstColonPart,
+  extractLast5ColonPart,
+  formatDate,
 }
 

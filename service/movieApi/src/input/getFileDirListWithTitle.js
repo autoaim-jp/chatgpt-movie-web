@@ -10,7 +10,7 @@ export const getFileDirListWithTitle = ({ dirPath }) => {
     return []
   }
   const fileDirList = fileDirEntryList.reduce((acc, entry) => {
-    console.log(entry.name)
+    // console.log(entry.name)
     if (entry.isDirectory()) {
       const dirName = `${entry.name}/`
       const filePath = `${dirPath}/${entry.name}/chatgpt_result_json.txt`
@@ -20,7 +20,7 @@ export const getFileDirListWithTitle = ({ dirPath }) => {
           const fileContent = mod.fs.readFileSync(filePath, 'utf-8')
           const jsonContent = JSON.parse(fileContent)
 
-          console.log(jsonContent)
+          // console.log(jsonContent)
 
           if (jsonContent && jsonContent.title) {
             acc[dirName] = jsonContent.title
