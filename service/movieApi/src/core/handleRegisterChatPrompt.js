@@ -5,7 +5,7 @@ export const handleRegisterChatPrompt = async ({ themeText, startGenerateImageAn
   const queue = mod.setting.getValue('amqp.CHATGPT_PROMPT_QUEUE') 
   const prompt = mod.setting.getValue('prompt.STORY_VER2')
     .replace(/__THEME_TEXT__/g, themeText)
-  const resultFileName = 'chatgpt_result_json_chat.txt'
+  const resultFileName = mod.setting.getValue('path.CHAT_REQUEST_FILE_NAME')
 
   await mod.amqpChannel.assertQueue(queue)
 
