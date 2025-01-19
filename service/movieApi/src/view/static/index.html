@@ -43,7 +43,7 @@
     <div class="bg-white rounded shadow p-6 w-full max-w-4xl mx-auto mt-6" x-init="startInterval">
       <h2 class="text-xl font-semibold mb-4">これまでに作成した絵本</h2>
       <ul class="space-y-2">
-        <template x-for="title in titleList" :key="title">
+        <template x-for="(title, id) in titleList" :key="id">
           <li>
             <a href="#" @click.prevent="updateVideoUrl(title)"
                class="text-blue-500 hover:underline">
@@ -140,7 +140,7 @@
         },
 
         fetchFileList() {
-          fetch('/api/v1/file/list')
+          fetch('/api/v1/file/list?checkFileName=chatgpt_result_json.txt')
             .then(response => response.json())
             .then(data => {
               if (data.result && data.result.result && data.result.result.fileDirList) {
