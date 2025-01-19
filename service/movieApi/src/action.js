@@ -11,6 +11,7 @@ import { getHandlerLookupChatgptResponse } from './action/getHandlerLookupChatgp
 import { getHandlerRegisterStoryPrompt } from './action/getHandlerRegisterStoryPrompt.js'
 import { getHandlerRegisterImagePrompt } from './action/getHandlerRegisterImagePrompt.js'
 import { getHandlerRegisterChatPrompt } from './action/getHandlerRegisterChatPrompt.js'
+import { getHandlerLatestFileList } from './action/getHandlerLatestFileList.js'
 
 export default {
   getHandlerFileUpload,
@@ -26,6 +27,6 @@ export default {
   getHandlerRegisterStoryPrompt,
   getHandlerRegisterImagePrompt,
   getHandlerRegisterChatPrompt,
+  getHandlerLatestFileList,
 }
-
 

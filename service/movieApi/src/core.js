@@ -12,6 +12,7 @@ import { handleRegisterImagePrompt } from './core/handleRegisterImagePrompt.js'
 import { startConsumer } from './core/startConsumer.js'
 import { handleRegisterChatPrompt } from './core/handleRegisterChatPrompt.js'
 import { startGenerateImageAndMovie } from './core/startGenerateImageAndMovie.js'
+import { handleLatestFileList } from './core/handleLatestFileList.js'
 
 
 export default {
@@ -29,5 +30,6 @@ export default {
   startConsumer,
   handleRegisterChatPrompt,
   startGenerateImageAndMovie,
+  handleLatestFileList,
 }
 

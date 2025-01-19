@@ -33,6 +33,7 @@ setting.api.REGISTER_PROMPT_DUMMY = `${API_ROOT_PATH}/prompt/register/dummy`
 setting.api.REGISTER_PROMPT_MAIN = `${API_ROOT_PATH}/prompt/register/main`
 setting.api.LOOKUP_RESPONSE = `${API_ROOT_PATH}/file/response/lookup`
 setting.api.GET_FILE_LIST = `${API_ROOT_PATH}/file/list`
+setting.api.GET_LATEST_FILE_LIST = `${API_ROOT_PATH}/file/latest`
 setting.api.GET_FILE_CONTENT = `${API_ROOT_PATH}/file/content`
 
 // chatgpt
