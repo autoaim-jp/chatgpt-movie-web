@@ -114,10 +114,10 @@ const _getFunctionRouter = () => {
   })
   expressRouter.post(REGISTER_CHAT_PROMPT, registerChatPromptHandler)
 
-  const latestLatestFileListHandler = a.action.getHandlerLatestFileList({
+  const latestFileListHandler = a.action.getHandlerLatestFileList({
     handleLatestFileList: a.core.handleLatestFileList
   })
-  expressRouter.get(GET_LATEST_FILE_LIST, fileListHandler)
+  expressRouter.get(GET_LATEST_FILE_LIST, latestFileListHandler)
 
   return expressRouter
 }

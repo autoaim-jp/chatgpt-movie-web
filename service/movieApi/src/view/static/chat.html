@@ -118,9 +118,9 @@
         targetText: '',
         videoUrl: '',
         requestId: '',
-        intervalId: null,
         titleList: [],
         fileDirList: {},
+        imageList: {},
         isSubmitting: false,
 
         async submitForm() {
@@ -148,7 +148,7 @@
         },
 
         async checkAssetStatus() {
-          this.intervalId = setInterval(async () => {
+          const intervalId = setInterval(async () => {
             try {
               fetch(`/api/v1/file/content?requestId=${this.requestId}&fileName=chatgpt_result_json_chat.txt`)
                 .then(response => {
@@ -166,7 +166,9 @@
                   if (json && json.title) {
                     this.titleText = json.title
                     this.narrationText = json.narrationCsv
-                    clearInterval(this.intervalId)
+                    clearInterval(intervalId)
+
+                    this.checkImageStatus()
                   }
                 })
                 .catch(error => {
@@ -178,14 +180,49 @@
           }, 1000);
         },
 
+        async checkImageStatus() {
+          const intervalId = setInterval(async () => {
+            try {
+              fetch(`/api/v1/file/latest?requestId=${this.requestId}`)
+                .then(response => {
+                  if (!response.ok) {
+                    throw new Error('Network response was not ok')
+                  }
+                  return response.json()
+                })
+                .then(json => {
+                  console.log({ debug: 'checkImageStatus', json })
+                  const imageFileNameList = json.result.result.fileDirList.filter((fileName) => {
+                    return /\.png$/.test(fileName)
+                  })
+                  clearInterval(intervalId)
+
+                  imageFileNameList.forEach(async (fileName) => {
+                    const response = await fetch(`/api/v1/file/content?requestId=${this.requestId}&fileName=${fileName}`);
+                    const blob = await response.blob();
+
+                    this.imageList[fileName] = blob
+                  })
+                })
+                .catch(error => {
+                  console.error('Fetch error checking image status:', error)
+                })
+            } catch (error) {
+              console.error('Error checking image status:', error);
+            }
+          }, 1000);
+        },
+
+
+
         async checkVideoStatus() {
-          this.intervalId = setInterval(async () => {
+          const intervalId = setInterval(async () => {
             try {
               const response = await fetch(`/api/v1/file/content?requestId=${this.requestId}&fileName=output.mp4`);
               const blob = await response.blob();
 
               if (blob.size > 0) {
-                clearInterval(this.intervalId);
+                clearInterval(intervalId);
                 this.videoUrl = URL.createObjectURL(blob);
                 this.isSubmitting = false;
               }
