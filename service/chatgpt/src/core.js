@@ -89,7 +89,7 @@ const handleRequest = async ({ requestJson }) => {
     mod.amqpResponseChannel.sendToQueue(responseQueue, responseBuffer)
 
   } else if (requestType === 'image') {
-    const { requestId } = requestJson 
+    const { requestId, filePath } = requestJson 
     const prompt = requestJson.prompt
 
     const dirPath = `${mod.setting.getValue('server.DATA_DIR_PATH')}${requestId}/`
@@ -118,6 +118,7 @@ const handleRequest = async ({ requestJson }) => {
     const resultImageBuffer = mod.input.readFileBuffer({ filePath: resultImageFilePath })
     const responseBufferList = []
     responseBufferList.push(Buffer.from('image'))
+    responseBufferList.push(Buffer.from(filePath))
     responseBufferList.push(resultImageBuffer)
     const responseBuffer = _createResponseBuffer({ requestId, responseBufferList })
   

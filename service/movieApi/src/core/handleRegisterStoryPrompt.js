@@ -77,5 +77,15 @@ const _startGenerateImageAndMovie = async ({ requestId, title, themeText, target
     })
   })
 
+  await Promise.all(promiseList)
+
+  const fileList = imageFilePathList.map((filePath) => {
+    return { originalname: filePath, buffer: mod.input.getFileContent({ filePath }) }
+  })
+  const messageBuffer = mod.lib.getMainRequest({ requestId, fileList, title, narrationCsv })
+  const queue = mod.setting.getValue('amqp.REQUEST_QUEUE') 
+  mod.amqpChannel.sendToQueue(queue, messageBuffer)
+
+  console.log('done: _startGenerateImageAndMovie', requestId, title)
 }
 

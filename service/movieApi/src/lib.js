@@ -109,6 +109,53 @@ const fork = ({ commandList, resultList }) => {
   })
 }
 
+const getMainRequest = ({ requestId, fileList, title, narrationCsv }) => {
+  const requestType = 'main'
+
+  const currentDelimiter = Buffer.from(getUlid())
+  console.log(`delimiter: ${currentDelimiter.toString()}`)
+  const delimiterDelimiter = Buffer.from('|')
+  let messageBuffer = Buffer.concat([
+    currentDelimiter,
+    delimiterDelimiter,
+    Buffer.from(requestType),
+    currentDelimiter,
+    Buffer.from(requestId),
+    currentDelimiter,
+    Buffer.from(title),
+    currentDelimiter,
+    Buffer.from(narrationCsv),
+  ])
+
+  fileList.forEach((file) => {
+    console.log({ originalname: file.originalname })
+    messageBuffer = Buffer.concat([
+      messageBuffer,
+      currentDelimiter,
+      file.buffer
+    ])
+  })
+
+  messageBuffer = Buffer.concat([
+    messageBuffer,
+    currentDelimiter,
+  ])
+
+  return messageBuffer
+}
+
+const getImageRequest = ({ prompt, filePath }) => {
+  const requestId = getUlid()
+  const requestObj = {
+    requestId,
+    requestType: 'image',
+    filePath,
+    prompt,
+  }
+  const requestObjStr = JSON.stringify(requestObj)
+
+  return { requestId, buffer: Buffer.from(requestObjStr) }
+}
 
 
 export default {
@@ -119,5 +166,8 @@ export default {
   parseMultipartFileListUpload,
   parseBufferList,
   fork,
+
+  getMainRequest,
+  getImageRequest,
 }
 

@@ -6,9 +6,6 @@ export const handleRegisterChatPrompt = async ({ themeText }) => {
   const prompt = mod.setting.getValue('prompt.STORY_VER2')
     .replace(/__THEME_TEXT__/g, themeText)
 
-  console.log(prompt)
-  return { isRegistered: true, requestId: 'requestId' }
-
   await mod.amqpChannel.assertQueue(queue)
 
   const requestId = mod.lib.getUlid()

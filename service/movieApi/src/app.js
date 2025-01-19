@@ -138,7 +138,7 @@ const init = async () => {
   const { AMQP_USER: user, AMQP_PASS: pass, AMQP_HOST: host, AMQP_PORT: port } = a.setting.getList('env.AMQP_USER', 'env.AMQP_PASS', 'env.AMQP_HOST', 'env.AMQP_PORT')
   const amqpConnection = await a.lib.createAmqpConnection({ amqplib, user, pass, host, port })
   input.init({ fs })
-  await core.init({ setting, output, input, lib, amqpConnection })
+  await core.init({ setting, output, input, lib, amqpConnection, path })
   lib.init({ spawn, ulid, multer })
 }
 

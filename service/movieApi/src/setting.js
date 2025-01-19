@@ -13,6 +13,7 @@ const init = ({ env }) => {
 setting.path = {}
 setting.path.PUBLIC_STATIC_DIR = 'view/static'
 setting.path.MOVIE_DIR_PATH = '/app/data/output/'
+setting.path.DEFAULT_IMAGE_FILE_PATH = 'test/image_curltest.png'
 
 setting.amqp = {}
 setting.amqp.REQUEST_QUEUE = 'movie-request-queue'
