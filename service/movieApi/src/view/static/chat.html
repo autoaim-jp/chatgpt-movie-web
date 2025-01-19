@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<!-- https://chatgpt.com/share/6744c8ba-7d34-8008-a6db-aa3323a99adf -->
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,11 +15,28 @@
       <form @submit.prevent="submitForm">
         <div class="mb-4">
           <label class="block text-gray-700 font-bold mb-2" for="themeText">動画のテーマ</label>
-          <input type="text" id="themeText" x-model="themeText" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="森、宇宙、一石二鳥、笑う門には福来る":disabled="isSubmitting">
+          <textarea rows="10" id="themeText" x-model="themeText" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="社訓を社内に浸透させたい。そのための動画。
+社訓: 未来を切り拓く創造の心と力を持とう
+4ページ。現代社会について、未来を切り拓くとは、創造の心と力とは、まとめ、を1ページずつ。
+各ページはナレーターが説明し、男と女が一言ずつ発言する。" :disabled="isSubmitting"></textarea>
         </div>
+        <button type="submit" class="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700" x-show="!isSubmitting">Submit</button>
+        <div x-show="isSubmitting" class="flex justify-center items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="animate-spin h-6 w-6 text-blue-500" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+            <path d="M12 2a10 10 0 1 0 10 10H12V2z" fill="currentColor" />
+          </svg>
+        </div>
+
+      </form>
+    </div>
+
+    <div class="bg-white rounded-lg shadow-lg p-8 max-w-lg mx-auto mt-8" x-cloak>
+      <h2 class="text-2xl font-bold text-center mb-4">編集フォーム</h2>
+      <form @submit.prevent="submitForm">
         <div class="mb-4">
-          <label class="block text-gray-700 font-bold mb-2" for="targetText">動画のターゲット</label>
-          <input type="text" id="targetText" x-model="targetText" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="8歳の男の子、5歳の女の子" :disabled="isSubmitting">
+          <label class="block text-gray-700 font-bold mb-2" for="narrationText">ナレーションテキスト</label>
+          <textarea rows="10" id="narrationText" x-model="narrationText" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="" :disabled="isSubmitting"></textarea>
         </div>
         <button type="submit" class="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700" x-show="!isSubmitting">Submit</button>
         <div x-show="isSubmitting" class="flex justify-center items-center">
@@ -35,7 +51,7 @@
 
     <!-- Video Display Card -->
     <div class="bg-white rounded-lg shadow-lg p-8 max-w-lg mx-auto mt-8" x-cloak>
-      <h2 class="text-2xl font-bold text-center mb-4">生成AIで作成した絵本</h2>
+      <h2 class="text-2xl font-bold text-center mb-4">生成AIが作成した絵本</h2>
       <video controls class="w-full rounded-lg" :src="videoUrl"></video>
     </div>
 
@@ -58,11 +74,6 @@
       <h2 class="text-2xl font-bold text-center mb-4">リンク</h2>
 
       <ul>
-        <li>
-          <a href="/chat.html" target="_blank" class="text-blue-500 hover:underline">
-            新機能ページ</a>
-        </li>
- 
         <li>
           <a href="/slide.html" target="_blank" class="text-blue-500 hover:underline">
             社内イベント発表スライド</a>
@@ -90,6 +101,7 @@
     function formHandler() {
       return {
         themeText: '',
+        narrationText: '',
         targetText: '',
         videoUrl: '',
         requestId: '',
@@ -102,12 +114,11 @@
           this.isSubmitting = true;
 
           try {
-            const response = await fetch('/api/v1/prompt/register/story', {
+            const response = await fetch('/api/v1/prompt/register/chat', {
               method: 'POST',
               headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
               body: new URLSearchParams({
                 themeText: this.themeText,
-                targetText: this.targetText,
               }),
             });
 
