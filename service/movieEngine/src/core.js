@@ -13,7 +13,7 @@ const init = async ({ setting, output, input, lib, amqpConnection }) => {
   mod.lib = lib
 }
 
-const _callMainDummy = async ({ requestObj }) => {
+const _callMainDummy = async () => {
   const outputFilePath = '/app/data/output_file.mp4'
   const resultList = []
   const commandList = ['cd', '/app/lib/xmodule-movie-core', '&&', './main_dummy.sh', outputFilePath]
