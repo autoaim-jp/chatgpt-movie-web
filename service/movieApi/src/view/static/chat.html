@@ -8,6 +8,13 @@
   <script src="https://unpkg.com/alpinejs" defer></script>
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen" x-data="formHandler()">
+  <!-- Notification Message -->
+  <div x-show="showNotification"
+       class="fixed top-4 ml-2 right-4 bg-blue-500 text-white py-2 px-4 rounded transition-opacity duration-500 z-50"
+       x-transition>
+    <p x-text="notificationMessage"></p>
+  </div>
+
   <div class="container mx-auto">
     <!-- Form Card -->
     <div class="bg-white rounded-lg shadow-lg p-8 max-w-4xl mx-auto">
@@ -20,7 +27,7 @@
 4ページ。現代社会について、未来を切り拓くとは、創造の心と力とは、まとめ、を1ページずつ。
 各ページはナレーターが説明し、男と女が一言ずつ発言する。" :disabled="isSubmitting"></textarea>
         </div>
-        <button type="submit" class="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700" x-show="!isSubmitting">Submit</button>
+        <button type="submit" class="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700" x-show="!isSubmitting">動画を新規作成</button>
         <div x-show="isSubmitting" class="flex justify-center items-center">
           <svg xmlns="http://www.w3.org/2000/svg" class="animate-spin h-6 w-6 text-blue-500" viewBox="0 0 24 24" fill="none">
             <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
@@ -33,7 +40,7 @@
 
     <div class="bg-white rounded-lg shadow-lg p-8 max-w-4xl mx-auto mt-8">
       <h2 class="text-2xl font-bold text-center mb-4">編集フォーム</h2>
-      <form @submit.prevent="submitEditForm">
+      <div>
         <div class="mb-4">
           <label class="block text-gray-700 font-bold mb-2" for="titleText">動画のタイトル</label>
           <input type="text" id="titleText" x-model="titleText" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="" />
@@ -163,14 +170,14 @@
           </div>
         </div>
 
-        <button type="submit" class="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700" x-show="!isSubmitting">Submit</button>
+        <button @click='submitEditForm' class="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700" x-show="!isSubmitting">動画を更新</button>
         <div x-show="isSubmitting" class="flex justify-center items-center">
           <svg xmlns="http://www.w3.org/2000/svg" class="animate-spin h-6 w-6 text-blue-500" viewBox="0 0 24 24" fill="none">
             <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
             <path d="M12 2a10 10 0 1 0 10 10H12V2z" fill="currentColor" />
           </svg>
         </div>
-      </form>
+      </div>
     </div>
 
     <!-- Video Display Card -->
@@ -183,9 +190,9 @@
     <div class="bg-white rounded shadow p-6 w-full max-w-4xl mx-auto mt-6" x-init="startInterval" x-cloak>
       <h2 class="text-xl font-semibold mb-4">これまでに作成した絵本</h2>
       <ul class="space-y-2">
-        <template x-for="(title, id) in titleList" :key="id">
+        <template x-for="(title, requestId) in fileDirList" :key="requestId">
           <li>
-            <a href="#" @click.prevent="updateVideoUrl(title)"
+            <a href="#" @click.prevent="updateVideoUrl(requestId)"
                class="text-blue-500 hover:underline">
               <span x-text="title"></span>
             </a>
@@ -224,16 +231,21 @@
   <script>
     function formHandler() {
       return {
+        /*
         themeText: `社訓を社内に浸透させたい。社員に見てもらうための動画。
 社訓: どんな時でも約束を守り、責任の持てる完全な仕事をしよう
 4ページ。それぞれのページは、現代社会について、約束とはなにか、責任とはなにか、まとめ、を1ページずつ。
+各ページはナレーターが説明し、男と女が一言ずつ発言する。`,
+*/
+        themeText: `社訓を社内に浸透させたい。社員に見てもらうための動画。
+社訓: お互いに相手の身になって助け合い、心のつながりを持とう
+4ページ。それぞれのページは、相手の身になるとはどういうことか、助け合いとはなにか、心のつながりとはなにか、まとめ、を1ページずつ。
 各ページはナレーターが説明し、男と女が一言ずつ発言する。`,
         titleText: '',
         narrationCsv: '',
         targetText: '',
         videoUrl: '',
-        requestId: '',
-        titleList: {},
+        currentRequestId: '',
         fileDirList: {},
         imageList: {},
         isSubmitting: false,
@@ -255,11 +267,14 @@
 
             const data = await response.json();
             if (data.result && data.result.isRegistered) {
-              this.requestId = data.result.requestId;
+              this.currentRequestId = data.result.requestId;
               this.imageList = {}
+              this.narrationCsv = ''
+              this.parseCsv()
               this.checkVideoStatus();
               this.checkAssetStatus();
               this.checkImageStatus();
+              this.showMessage('開始: 動画の作成')
             }
           } catch (error) {
             console.error('Error during form submission:', error);
@@ -273,7 +288,7 @@
           this.narrationCsv = this.generateCsv();
 
           const formData = new FormData();
-          formData.append("requestId", this.requestId);
+          formData.append("requestId", this.currentRequestId);
           formData.append("title", this.titleText);
           formData.append("narrationCsv", this.narrationCsv);
           Object.entries(this.imageList).forEach(([fileName, blob]) => {
@@ -288,9 +303,11 @@
 
             const data = await response.json();
             if (data.result && data.result.isRegistered) {
+              this.imageList = {}
               this.checkVideoStatus();
               this.checkAssetStatus();
               this.checkImageStatus();
+              this.showMessage('開始: 動画の更新')
             }
           } catch (error) {
             console.error('Error during form submission:', error);
@@ -303,7 +320,7 @@
           clearInterval(this.assetStatusInterval)
           this.assetStatusInterval = setInterval(async () => {
             try {
-              fetch(`/api/v1/file/content?requestId=${this.requestId}&fileName=chatgpt_result_json_chat.txt`)
+              fetch(`/api/v1/file/content?requestId=${this.currentRequestId}&fileName=chatgpt_result_json_chat.txt`)
                 .then(response => {
                   if (!response.ok) {
                     throw new Error('Network response was not ok')
@@ -336,7 +353,7 @@
           clearInterval(this.imageStatusInterval)
           this.imageStatusInterval = setInterval(async () => {
             try {
-              fetch(`/api/v1/file/latest?requestId=${this.requestId}`)
+              fetch(`/api/v1/file/latest?requestId=${this.currentRequestId}`)
                 .then(response => {
                   if (!response.ok) {
                     throw new Error('Network response was not ok')
@@ -356,10 +373,11 @@
                       // ファイルをすでにダウンロード済みならば終了
                       return
                     }
-                    const response = await fetch(`/api/v1/file/content?requestId=${this.requestId}&fileName=${fileName}`);
+                    const response = await fetch(`/api/v1/file/content?requestId=${this.currentRequestId}&fileName=${fileName}`);
                     const blob = await response.blob();
 
                     console.log({ debug: 'checkImageStatus', fileName })
+                    this.showMessage('完了: 画像の読み込み')
                     this.imageList[fileName] = blob
                   })
                 })
@@ -376,12 +394,13 @@
           clearInterval(this.videoStatusInterval)
           this.videoStatusInterval = setInterval(async () => {
             try {
-              const response = await fetch(`/api/v1/file/content?requestId=${this.requestId}&fileName=output.mp4`);
+              const response = await fetch(`/api/v1/file/content?requestId=${this.currentRequestId}&fileName=output.mp4`);
               const blob = await response.blob();
 
               if (blob.size > 0) {
                 clearInterval(this.videoStatusInterval);
                 this.videoUrl = URL.createObjectURL(blob);
+                this.showMessage('完了: 動画の読み込み')
                 this.isSubmitting = false;
               }
             } catch (error) {
@@ -396,7 +415,6 @@
             .then(data => {
               if (data.result && data.result.result && data.result.result.fileDirList) {
                 this.fileDirList = data.result.result.fileDirList;
-                this.titleList = Object.values(this.fileDirList);
               }
             })
             .catch(error => console.error('Error fetching file list:', error));
@@ -408,30 +426,21 @@
           }, 10*1000); // 10秒間隔で実行
         },
 
-        updateVideoUrl(title) {
-          let titleRequestId = null
-          for (const [requestId, currentTitle] of Object.entries(this.fileDirList)) {
-            if (currentTitle === title) {
-              titleRequestId = requestId
-            }
-          }
-          if (!titleRequestId) {
-            return alert('動画が見つかりません。')
-          }
+        updateVideoUrl(requestId) {
 
           // debug
-          this.videoUrl = `/api/v1/file/content?requestId=${titleRequestId}&fileName=output.mp4`;
+          this.videoUrl = `/api/v1/file/content?requestId=${requestId}&fileName=output.mp4`;
 
-          this.requestId = titleRequestId
+          this.currentRequestId = requestId 
           this.imageList = {}
           this.checkVideoStatus();
           this.checkAssetStatus();
           this.checkImageStatus();
 
           return
-
+          
           try {
-            fetch(`/api/v1/file/latest?requestId=${this.requestId}`)
+            fetch(`/api/v1/file/latest?requestId=${this.currentRequestId}`)
               .then(response => {
                 if (!response.ok) {
                   throw new Error('Network response was not ok')
@@ -558,8 +567,9 @@
         generateCsv() {
           let csvLines = [];
 
-          // 1) 最初に engine,voicevox,,
-          csvLines.push('engine,voicevox,,');
+          // 1) 最初に engine,openai,,
+          // csvLines.push('engine,voicevox,,');
+          csvLines.push('engine,openai,,');
 
           // 2) タイトルは silent,1,, と silent,3,, で挟む
           csvLines.push('silent,1,,');
@@ -596,6 +606,15 @@
           return csvLines.join('\n');
         },
 
+        showNotification: false,  // Add this property to control visibility
+        notificationMessage: '',  // Add this property for the message text
+        messageTimeout: null,
+        showMessage(message) {
+          clearTimeout(this.messageTimeout)
+          this.notificationMessage = message
+          this.showNotification = true
+          this.messageTimeout = setTimeout(() => this.showNotification = false, 5 * 1000)  // Hide after 5 seconds
+        },
       };
     }
   </script>
