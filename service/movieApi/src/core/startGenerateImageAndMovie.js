@@ -5,30 +5,34 @@ export const startGenerateImageAndMovie = async ({ requestId, title, themeText, 
   const OPENAI_CHATGPT_API_KEY = mod.setting.getValue('env.OPENAI_CHATGPT_API_KEY')
   const MOVIE_DIR_PATH = mod.setting.getValue('path.MOVIE_DIR_PATH') 
   const IMAGE_EXT = '.png'
-  const dirPath = `${MOVIE_DIR_PATH}${requestId}/`
+  const dateStr = mod.lib.formatDate({ format: 'YYYYMMDD_hhmmss' })
+  const dirPath = `${MOVIE_DIR_PATH}${requestId}/${dateStr}/`
   mod.output.makeDir({ dirPath, })
   const tmpJsonDirPath = `${dirPath}tmpJson/`
   mod.output.makeDir({ dirPath: tmpJsonDirPath, })
   const chatgptResultJsonFilePath = `${dirPath}chatgpt_result_json.txt`
   mod.output.saveFile({ filePath: chatgptResultJsonFilePath, fileBuffer: Buffer.from(JSON.stringify({ requestId, title, themeText, targetText, prompt, chatgptResponse, narrationCsv, imagePromptList }, null, 2)) })
 
-  await mod.amqpChannel.assertQueue(queue)
+  const chatgptQueue = mod.setting.getValue('amqp.CHATGPT_PROMPT_QUEUE') 
+  await mod.amqpChannel.assertQueue(chatgptQueue)
 
   const imageFilePathList = []
   const promiseList = imagePromptList.map((imagePrompt, i) => {
-    const imageFilePath = `${dirPath}image_${i}${IMAGE_EXT}`
+    const fileName = `image_${i}${IMAGE_EXT}`
+    const imageFilePath = `${dirPath}${fileName}`
     imageFilePathList.push(imageFilePath)
 
+    const filePath = `${dateStr}/${fileName}`
     const _requestId = `${requestId}-${i}`
-    const { buffer } = mod.lib.getImageRequest({ prompt: imagePrompt.replace(/"/g, ''), filePath: imageFilePath, requestId: _requestId })
-    mod.amqpChannel.sendToQueue(queue, buffer)
+    const { buffer } = mod.lib.getImageRequest({ prompt: imagePrompt.replace(/"/g, ''), filePath, requestId: _requestId })
+    mod.amqpChannel.sendToQueue(chatgptQueue, buffer)
     return new Promise((resolve) => {
       const waitChatgptResponseInterval = setInterval(() => {
         if(mod.input.getFileContent({ filePath: imageFilePath }) !== null) {
           clearInterval(waitChatgptResponseInterval)
           resolve()
         } else {
-          console.log('checking...:', _requestId)
+          console.log('checking...:', _requestId, fileName, imageFilePath, filePath)
         }
       }, 1 * 1000)
     })

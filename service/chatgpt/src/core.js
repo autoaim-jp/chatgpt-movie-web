@@ -89,26 +89,26 @@ const handleRequest = async ({ requestJson }) => {
     mod.amqpResponseChannel.sendToQueue(responseQueue, responseBuffer)
 
   } else if (requestType === 'image') {
-    const { requestId, filePath } = requestJson 
-    const prompt = requestJson.prompt
+    const { requestId, filePath, prompt } = requestJson 
+    const requestIdReplaced = requestJson.requestId.replace(/-.*/g, '')
 
-    const dirPath = `${mod.setting.getValue('server.DATA_DIR_PATH')}${requestId}/`
+    const dirPath = `${mod.setting.getValue('server.DATA_DIR_PATH')}${requestIdReplaced}/`
     mod.output.mkdir({ dirPath })
 
     const dateStr = mod.lib.formatDate({ format: 'YYYYMMDD_hhmmss' })
-    const promptJsonFilePath = `${dirPath}${dateStr}_prompt.json`
-    const tmpJsonFilePath = `${dirPath}${dateStr}_tmp.json`
-    const resultImageFilePath = `${dirPath}${dateStr}_image.png`
+    const promptJsonFilePath = `${dirPath}${requestId}_${dateStr}_prompt.json`
+    const tmpJsonFilePath = `${dirPath}${requestId}_${dateStr}_tmp.json`
+    const resultImageFilePath = `${dirPath}${requestId}_${dateStr}_image.png`
 
     const IMAGE_AI_PLATFORM = mod.setting.getValue('env.IMAGE_AI_PLATFORM')
     if (IMAGE_AI_PLATFORM === 'openai') {
       const OPENAI_CHATGPT_API_KEY = mod.setting.getValue('env.OPENAI_CHATGPT_API_KEY')
-      const commandList = [`OPENAI_CHATGPT_API_KEY="${OPENAI_CHATGPT_API_KEY}"`, '/app/lib/openai_image.sh', resultImageFilePath, tmpJsonFilePath, promptJsonFilePath]
+      const commandList = [`OPENAI_CHATGPT_API_KEY="${OPENAI_CHATGPT_API_KEY}"`, '/app/lib/openai_image.sh', resultImageFilePath, tmpJsonFilePath, promptJsonFilePath, `"${prompt.replace(/["']/g, '')}"`]
       await mod.lib.fork({ commandList, resultList: [] })
     } else if (IMAGE_AI_PLATFORM === 'azureai') {
       const AZUREAI_GPT4_API_KEY = mod.setting.getValue('env.AZUREAI_GPT4_API_KEY')
       const AZUREAI_ENDPOINT = mod.setting.getValue('env.AZUREAI_ENDPOINT')
-      const commandList = [`AZUREAI_ENDPOINT=${AZUREAI_ENDPOINT}`, `AZUREAI_GPT4_API_KEY="${AZUREAI_GPT4_API_KEY}"`, '/app/lib/azureai_image.sh', resultImageFilePath, tmpJsonFilePath, promptJsonFilePath, prompt.replace(/"/g, '')]
+      const commandList = [`AZUREAI_ENDPOINT=${AZUREAI_ENDPOINT}`, `AZUREAI_GPT4_API_KEY="${AZUREAI_GPT4_API_KEY}"`, '/app/lib/azureai_image.sh', resultImageFilePath, tmpJsonFilePath, promptJsonFilePath, `"${prompt.replace(/["']/g, '')}"`]
       await mod.lib.fork({ commandList, resultList: [] })
     } else {
       console.log(`invalid ai platform: ${IMAGE_AI_PLATFORM}`)
