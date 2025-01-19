@@ -1,9 +1,0 @@
-{
-  "created": 1732589711,
-  "data": [
-    {
-      "revised_prompt": "Conjure an image of a rich forest scene, delicately lightened up by the otherworldly glow of azure fungi. Varying creatures are serenely meandering along a trail, adding a touch of life to the scene. A brave, Caucasian male figure named Leon stands poised, observing fondly as the thriving ecosystem rejoices in his groundbreaking revelation. The entire composition must be rendered in black-and-white line art, exuding a sense of security and harmony. There is no text included in this visual interpretation.",
-      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-J4b0kPj9veJYF2rqNuKGtDrW.png?st=2024-11-26T01%3A55%3A11Z&se=2024-11-26T03%3A55%3A11Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-25T04%3A53%3A59Z&ske=2024-11-26T04%3A53%3A59Z&sks=b&skv=2024-08-04&sig=Sbf%2BI8LJ3ufq7U00hLg56D0I5LZ3Tx%2BZWwyinwY85Xo%3D"
-    }
-  ]
-}

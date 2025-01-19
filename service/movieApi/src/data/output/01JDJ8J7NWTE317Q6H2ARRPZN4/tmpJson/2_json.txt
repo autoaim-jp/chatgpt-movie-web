@@ -1,9 +1,0 @@
-{
-  "created": 1732558576,
-  "data": [
-    {
-      "revised_prompt": "Create an image in black and white line art capturing a boy and his animal friends, a rabbit and an owl, collecting coins in the forest. They're working together amid a multitude of fallen leaves and around unusually hued fungi. The scene exudes joy and the spirit of cooperation, with no text featured.",
-      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-avliQo7QKYz5qQxrTiOflUXG.png?st=2024-11-25T17%3A16%3A15Z&se=2024-11-25T19%3A16%3A15Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-25T04%3A50%3A24Z&ske=2024-11-26T04%3A50%3A24Z&sks=b&skv=2024-08-04&sig=cv4UX0CApO3kJPQ9pL25qV9gCKpmiWNm59YUtDgoutw%3D"
-    }
-  ]
-}

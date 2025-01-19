@@ -1,9 +1,0 @@
-{
-  "created": 1732597708,
-  "data": [
-    {
-      "revised_prompt": "A high contrast black-and-white line art illustration of a lush forest. The scene is full of towering trees, featuring diverse varieties with different bark patterns and leaf shapes. A sense of depth is provided by an intricate web of branches reaching out into multiple directions. The ground is covered with shrubs, ferns, and patches of rich, leaf-littered soil, creating a complex undergrowth. Details such as twisted roots emerging from the ground, mushrooms growing on tree trunks, and random patches of dappled light penetrating the canopy add a touch of nature's charm to the scene.",
-      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-RN1AglQSi2wmVOeDHVB3M2wL.png?st=2024-11-26T04%3A08%3A28Z&se=2024-11-26T06%3A08%3A28Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-26T02%3A26%3A29Z&ske=2024-11-27T02%3A26%3A29Z&sks=b&skv=2024-08-04&sig=uTqDm7umjyjlrrjsgP6ZkBw7oSxR85w6bYFJB3p%2B7RM%3D"
-    }
-  ]
-}

@@ -1,9 +1,0 @@
-{
-  "created": 1732675317,
-  "data": [
-    {
-      "revised_prompt": "In a monochromatic scene, visualize two travelers, one younger female showing determination and the other an older male radiating wisdom, braving a stormy mountain path. Allow the illustrating bond between them to shine through, as they navigate the challenges presented by the hostile environment. Convey a strong sense of teamwork and struggle in their interactions. Ensure that their mutual dependence and strength are evident, with no text included in the depiction.",
-      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-3aM2mUDEOF9x5gT7kRSNca6d.png?st=2024-11-27T01%3A41%3A57Z&se=2024-11-27T03%3A41%3A57Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-27T00%3A17%3A32Z&ske=2024-11-28T00%3A17%3A32Z&sks=b&skv=2024-08-04&sig=/uIEiSfQb%2BZrxnCYZdRPb7OzgO2u1OfIB7y9Qz3Ze%2BE%3D"
-    }
-  ]
-}

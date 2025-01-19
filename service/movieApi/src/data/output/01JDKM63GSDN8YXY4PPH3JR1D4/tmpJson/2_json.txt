@@ -1,9 +1,0 @@
-{
-  "created": 1732604308,
-  "data": [
-    {
-      "revised_prompt": "Create an image of a joyful woman named Luna sailing through the cosmos on her yacht. The universe around her is filled with colorful stars that sparkle like a planetarium, radiating yellow starlight, peaceful blue, and distant red flames. The galaxy around her is reminiscent of a vibrant, stunning light show. Luna herself is depicted in strong black and white line art, her laughter and joy being the center of contrast in this multicolored universe. No text is involved in the image.",
-      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-qhCv2AltPmMkIDFeJHRyBk80.png?st=2024-11-26T05%3A58%3A28Z&se=2024-11-26T07%3A58%3A28Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-26T00%3A33%3A50Z&ske=2024-11-27T00%3A33%3A50Z&sks=b&skv=2024-08-04&sig=qHM3nudcHqX76a3BjCPbn7xJQAs6M4LU5mgD5cEhZ8c%3D"
-    }
-  ]
-}

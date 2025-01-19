@@ -1,9 +1,0 @@
-{
-  "created": 1732589731,
-  "data": [
-    {
-      "revised_prompt": "In black-and-white line art, depict a scene set in a bright and lush forest. A male character named Leon is presenting findings to a collection of forest animals who look intrigued and amazed. He is explaining the glowing properties of a blue mushroom. Capture the engaging communal spirit of this forest gathering. The image should be devoid of any text.",
-      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-oYZyWlrLL8QjoUOstuxLHrFe.png?st=2024-11-26T01%3A55%3A31Z&se=2024-11-26T03%3A55%3A31Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-25T19%3A00%3A32Z&ske=2024-11-26T19%3A00%3A32Z&sks=b&skv=2024-08-04&sig=hlIizhBO/P5AMXm0LRy0KQCkRFC4O2kickfT%2BNMsuyg%3D"
-    }
-  ]
-}

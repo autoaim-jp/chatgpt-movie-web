@@ -1,9 +1,0 @@
-{
-  "created": 1732597704,
-  "data": [
-    {
-      "revised_prompt": "Create a black and white line art style illustration of a lush forest scene. In the centre of the image, portray a wise, tall tree with an array of intricate details. Perched at the base of the tree is Rick, a squirrel, shown in a gesture of thoughtful listening. The image does not include any text.",
-      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-ypu0D2pw97R0JC7LwAcMsLUQ.png?st=2024-11-26T04%3A08%3A24Z&se=2024-11-26T06%3A08%3A24Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-26T00%3A53%3A20Z&ske=2024-11-27T00%3A53%3A20Z&sks=b&skv=2024-08-04&sig=PWoXyUvSTyezcCCQQhidcHSbhun0UK7uLJySQX53AS8%3D"
-    }
-  ]
-}

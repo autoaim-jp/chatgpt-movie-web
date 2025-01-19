@@ -1,9 +1,0 @@
-{
-  "created": 1732604308,
-  "data": [
-    {
-      "revised_prompt": "Illustrate a black and white line art image of a committed woman named Luna, navigating her yacht back to a welcoming space station. The woman's facial expressions manifest determination and a profound realization of the essence of family. The distinct space station seen from the distance looks inviting. There is no text included in the picture.",
-      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-IUfdfx8L86ks5R2a6vTvJKBY.png?st=2024-11-26T05%3A58%3A28Z&se=2024-11-26T07%3A58%3A28Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-25T19%3A41%3A57Z&ske=2024-11-26T19%3A41%3A57Z&sks=b&skv=2024-08-04&sig=OZmtrpKi2DJUCHEDo8UnLjfGTvK5uHOj7reAOsysbus%3D"
-    }
-  ]
-}

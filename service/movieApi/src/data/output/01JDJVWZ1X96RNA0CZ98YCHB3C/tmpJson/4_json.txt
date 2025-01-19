@@ -1,9 +1,0 @@
-{
-  "created": 1732578869,
-  "data": [
-    {
-      "revised_prompt": "A profoundly joyous scene of camaraderie unfolds in a verdant woodland setting. Various animals, such as foxes, rabbits, squirrels, and birds, exhibit expressions of bliss and mutual understanding. The creatures are engrossed in a moment of shared enlightenment on the significance of cooperation. As they engage in lively, pleasant interactions, the mood is cheerful and heartwarming. The composition should evoke a sense of reflection and profound joy. The entire scene is depicted in a resplendent array of strong yet gentle line art, featuring black-and-white tones that lend an ethereal quality to the woodland tableau. This serene panorama contains no textual components.",
-      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-YCe3ICHGO3R4fipfl3i3jt7k.png?st=2024-11-25T22%3A54%3A29Z&se=2024-11-26T00%3A54%3A29Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-25T19%3A26%3A52Z&ske=2024-11-26T19%3A26%3A52Z&sks=b&skv=2024-08-04&sig=h2pKcTUWtXX2h2uSIIo2QA/I/kTDhxHJz9/pXTqE5ak%3D"
-    }
-  ]
-}

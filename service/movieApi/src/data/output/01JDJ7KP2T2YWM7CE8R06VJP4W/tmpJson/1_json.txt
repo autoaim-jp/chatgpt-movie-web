@@ -1,9 +1,0 @@
-{
-  "created": 1732557576,
-  "data": [
-    {
-      "revised_prompt": "Capture a detailed black and white line art image of a determined and creative fox named Mimi working on constructing a piano out of twigs and stones in a magical forest. The uniqueness of her bright orange and white fur along with a simple ribbon gives her a personal touch. The background should consist of ancient trees, adding to the lushness of the natural setting. Although the image is black and white, the representation should still manage to convey the charm and gentleness of the situation and characters. Note: the image should not include any text.",
-      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b30oWbsKnWksqfc6sh1SI4Tg/user-B1URMzxu1DuPXTIQIfX3fTi3/img-dZkcxFJ54kpDFBPaqlqMlndh.png?st=2024-11-25T16%3A59%3A36Z&se=2024-11-25T18%3A59%3A36Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-11-24T21%3A13%3A27Z&ske=2024-11-25T21%3A13%3A27Z&sks=b&skv=2024-08-04&sig=1xE8%2B2E8bbe%2BYvM6MWaVJU52PkiiEc0DkbBQF0XzhM0%3D"
-    }
-  ]
-}
