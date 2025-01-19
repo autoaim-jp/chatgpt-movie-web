@@ -32,7 +32,7 @@ const _callMain = async ({ requestId, titleBuffer, narrationCsvBuffer, imageBuff
   const outputFilePath = '/app/data/output_file.mp4'
   const IMAGE_EXT = '.png'
   const TEAM_NAME = '"Tempra\nTitans"'
-  const VOICE_ENGINE = 'voicevox'
+  const VOICE_ENGINE = 'openai'
 
   const title = titleBuffer.toString()
   mod.output.saveFile({ filePath: narrationCsvFilePath, fileBuffer: narrationCsvBuffer })
