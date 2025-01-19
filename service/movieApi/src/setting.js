@@ -14,6 +14,8 @@ setting.path = {}
 setting.path.PUBLIC_STATIC_DIR = 'view/static'
 setting.path.MOVIE_DIR_PATH = '/app/data/output/'
 setting.path.DEFAULT_IMAGE_FILE_PATH = 'test/image_curltest.png'
+setting.path.STORY_REQUEST_FILE_NAME = 'chatgpt_result_json.txt'
+setting.path.CHAT_REQUEST_FILE_NAME = 'chatgpt_result_json_chat.txt'
 
 setting.amqp = {}
 setting.amqp.REQUEST_QUEUE = 'movie-request-queue'

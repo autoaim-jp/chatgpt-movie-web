@@ -127,8 +127,11 @@ const getMainRequest = ({ requestId, fileList, title, narrationCsv }) => {
     Buffer.from(narrationCsv),
   ])
 
-  fileList.forEach((file) => {
-    console.log({ originalname: file.originalname })
+  fileList.sort((a, b) => {
+    if (a.originalname < b.originalname) return -1;
+    if (a.originalname > b.originalname) return 1;
+    return 0;
+  }).forEach((file) => {
     messageBuffer = Buffer.concat([
       messageBuffer,
       currentDelimiter,
