@@ -15,7 +15,7 @@
     <p x-text="notificationMessage"></p>
   </div>
 
-  <div x-show="narrationCsv !== ''" class="fixed bottom-0 left-0 right-0 shadow-lg text-white py-2 px-4 mx-auto max-w-4xl rounded z-50 bg-gray-700">
+  <div x-show="narrationCsv !== ''" class="fixed bottom-2 left-0 right-0 shadow-lg text-white py-2 px-4 mx-auto max-w-5xl rounded z-50 bg-gray-700">
     <label class="block font-bold mb-2" for="updatePromptText">動画の修正</label>
     <div class="flex items-center space-x-4">
       <textarea 
@@ -29,7 +29,7 @@
         <button 
            @click="updateNarrationCsv" 
            class="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700" 
-           x-show="!isSubmittingPrompt">修正リクエスト送信</button>
+           x-show="!isSubmittingPrompt">修正リクエスト<br/>送信</button>
         <div x-show="isSubmittingPrompt" class="flex justify-center items-center">
           <svg xmlns="http://www.w3.org/2000/svg" class="animate-spin h-6 w-6 text-blue-500" viewBox="0 0 24 24" fill="none">
             <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
@@ -40,15 +40,22 @@
     </div>
   </div>
 
+    
 
   <div class="container mx-auto">
+    <div class="fixed left-5 top-5">
+      <a href="/">
+        <img src="/narration_studio.png" width="200">
+      </a>
+    </div>
+
     <!-- Form Card -->
-    <div class="bg-white rounded-lg shadow-lg p-8 max-w-4xl mx-auto">
+    <div class="bg-white rounded-lg shadow-lg p-8 max-w-4xl mx-auto mt-24">
       <h2 class="text-2xl font-bold text-center mb-4">動画生成フォーム</h2>
       <form @submit.prevent="submitForm">
         <div class="mb-4">
           <label class="block text-gray-700 font-bold mb-2" for="themeText">動画のテーマ</label>
-          <textarea rows="10" id="themeText" x-model="themeText" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="社訓を社内に浸透させたい。社員に見てもらうための動画。
+          <textarea @keydown.ctrl.enter="submitForm" rows="10" id="themeText" x-model="themeText" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="社訓を社内に浸透させたい。社員に見てもらうための動画。
 社訓: 未来を切りひらく創造の心と力を持とう
 4ページ。現代社会について、未来を切りひらくとは、創造の心と力とは、まとめ、を1ページずつ。
 各ページはナレーターが説明し、男と女が一言ずつ発言する。" :disabled="isSubmitting"></textarea>
@@ -413,17 +420,18 @@
                   // clearInterval(this.imageStatusInterval)
 
                     const promiseList = imageFileNameList.map((fileName) => {
-                    return new Promise(async (resolve) => {
-                    if(this.imageList[fileName]) {
-                      // ファイルをすでにダウンロード済みならば終了
-                      return
-                    }
-                    const response = await fetch(`/api/v1/file/content?requestId=${this.currentRequestId}&fileName=${fileName}`);
-                    const blob = await response.blob();
+                      return new Promise(async (resolve) => {
+                        if(this.imageList[fileName]) {
+                          // ファイルをすでにダウンロード済みならば終了
+                          return resolve()
+                        }
+                        const response = await fetch(`/api/v1/file/content?requestId=${this.currentRequestId}&fileName=${fileName}`);
+                        const blob = await response.blob();
 
-                    this.showMessage('完了: 画像を読み込みました')
-                    this.imageList[fileName] = blob
-                    })
+                        this.showMessage('完了: 画像を読み込みました')
+                        this.imageList[fileName] = blob
+                        return resolve()
+                      })
                     })
 
                     await Promise.all(promiseList)
@@ -436,7 +444,7 @@
             } catch (error) {
               console.error('Error checking image status:', error);
             }
-          }, 1000);
+          }, 5000);
         },
 
         async checkVideoStatus() {
@@ -687,6 +695,7 @@
           try {
             const updatePromptText = this.updatePromptText
             this.updatePromptText = ''
+            this.narrationCsv = this.generateCsv();
             const response = await fetch('/api/v1/prompt/register/chatgpt', {
               method: 'POST',
               headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
