@@ -10,7 +10,7 @@ export const handleRegisterPrompt = async ({ narrationCsv, prompt }) => {
   const requestId = mod.lib.getUlid()
   const requestObj = {
     requestId,
-    requestType: 'narrationCsv',
+    requestType: 'text',
     prompt: `${prompt}\n${NARRATION_CSV_RULE}\n\`\`\`\n${narrationCsv}\n\`\`\``,
   }
   const requestObjStr = JSON.stringify(requestObj)

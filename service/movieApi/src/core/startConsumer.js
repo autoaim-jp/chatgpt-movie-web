@@ -29,7 +29,7 @@ export const startConsumer = async () => {
         store[requestId].status = 'complete'
       } else if (requestType === 'chatgpt') {
         // chatgpt
-        const filePath = `${dirPath}story-by-chatgpt.txt`
+        const filePath = `${dirPath}chatgpt.txt`
         const chatgptResponseBuffer = splitResultList[2]
         mod.output.saveFile({ filePath, fileBuffer: chatgptResponseBuffer })
         if (!store[requestId]) {
@@ -37,13 +37,6 @@ export const startConsumer = async () => {
         }
         store[requestId].status = 'creating-movie'
         store[requestId].chatgpt = chatgptResponseBuffer.toString()
-      } else if (requestType === 'narrationCsv') {
-        const chatgptResponseBuffer = splitResultList[2]
-        if (!store[requestId]) {
-          store[requestId] = {}
-        }
-        store[requestId].status = 'narrationCsv'
-        store[requestId].narrationCsv = chatgptResponseBuffer.toString()
       } else if (requestType === 'image') {
         const _filePath = splitResultList[2].toString()
         const filePath = `${dirPath}${_filePath.replace(/\.\./g, '')}`

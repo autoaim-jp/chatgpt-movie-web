@@ -16,18 +16,27 @@
   </div>
 
   <div x-show="narrationCsv !== ''" class="fixed bottom-0 left-0 right-0 shadow-lg text-white py-2 px-4 mx-auto max-w-4xl rounded z-50 bg-gray-700">
-    <label class="block font-bold mb-2" for="updatePromptText">動画の修正相談</label>
+    <label class="block font-bold mb-2" for="updatePromptText">動画の修正</label>
     <div class="flex items-center space-x-4">
-      <input 
-         type="text" 
+      <textarea 
          id="updatePromptText" 
          x-model="updatePromptText" 
          class="flex-grow text-black px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
-         placeholder=""/>
-      <button 
-         @click="updateNarrationCsv" 
-         class="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700" 
-         x-show="!isSubmittingPrompt">修正リクエスト送信</button>
+         @keydown.ctrl.enter="updateNarrationCsv"
+         placeholder="2ページ目のナレーションを、もう少し充実させて。
+あと、3ページ目の男女の会話のあとに、もうひとこと会話を続けて。"></textarea>
+      <div class="w-40">
+        <button 
+           @click="updateNarrationCsv" 
+           class="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700" 
+           x-show="!isSubmittingPrompt">修正リクエスト送信</button>
+        <div x-show="isSubmittingPrompt" class="flex justify-center items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="animate-spin h-6 w-6 text-blue-500" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+            <path d="M12 2a10 10 0 1 0 10 10H12V2z" fill="currentColor" />
+          </svg>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -272,6 +281,7 @@
         videoStatusInterval: null,
         assetStatusInterval: null,
         imageStatusInterval: null,
+        responseStatusInterval: null,
 
         async submitForm() {
           this.isSubmitting = true;
@@ -294,7 +304,7 @@
               this.checkVideoStatus();
               this.checkAssetStatus();
               this.checkImageStatus();
-              this.showMessage('開始: 動画の作成')
+              this.showMessage('開始: 動画を作成します')
             }
           } catch (error) {
             console.error('Error during form submission:', error);
@@ -327,7 +337,7 @@
               this.checkVideoStatus();
               this.checkAssetStatus();
               this.checkImageStatus();
-              this.showMessage('開始: 動画の更新')
+              this.showMessage('開始: 動画を更新します')
             }
           } catch (error) {
             console.error('Error during form submission:', error);
@@ -411,7 +421,7 @@
                     const response = await fetch(`/api/v1/file/content?requestId=${this.currentRequestId}&fileName=${fileName}`);
                     const blob = await response.blob();
 
-                    this.showMessage('完了: 画像の読み込み')
+                    this.showMessage('完了: 画像を読み込みました')
                     this.imageList[fileName] = blob
                     })
                     })
@@ -445,7 +455,7 @@
               if (blob.size > 0) {
                 clearInterval(this.videoStatusInterval);
                 this.videoUrl = URL.createObjectURL(blob);
-                this.showMessage('完了: 動画の読み込み')
+                this.showMessage('完了: 動画を読み込んでいます')
                 this.isSubmitting = false;
               }
             } catch (error) {
@@ -525,6 +535,10 @@
         isPageStarted: false,
 
         parseCsv() {
+          console.log('==============================')
+          console.log('parse start')
+          console.log(this.narrationCsv)
+          console.log('==============================')
           this.titleItems = [];
           this.pages = [];
           this.currentPage = [];
@@ -671,11 +685,13 @@
           this.isSubmittingPrompt = true
 
           try {
+            const updatePromptText = this.updatePromptText
+            this.updatePromptText = ''
             const response = await fetch('/api/v1/prompt/register/chatgpt', {
               method: 'POST',
               headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
               body: new URLSearchParams({
-                prompt: this.updatePromptText,
+                prompt: updatePromptText,
                 narrationCsv: this.narrationCsv,
               }),
             });
@@ -684,15 +700,66 @@
             if (data.result && data.result.isRegistered) {
               this.updateRequestId = data.result.requestId;
 
-              this.showMessage('開始: 修正相談リクエスト送信')
+              this.showMessage('開始: 修正リクエストを送信しました')
+              this.checkResponseStatus()
             }
           } catch (error) {
             console.error('Error during form submission:', error);
             this.isSubmittingPrompt = false;
           }
-        }
-      };
-    }
+        },
+
+        async checkResponseStatus() {
+          clearInterval(this.responseStatusInterval)
+          let isFetching = false
+          this.responseStatusInterval = setInterval(async () => {
+            if(isFetching) {
+              return
+            }
+            isFetching = true
+
+            try {
+              fetch(`/api/v1/chatgpt/response/lookup?requestId=${this.updateRequestId}`)
+                .then(response => {
+                  if (!response.ok) {
+                    throw new Error('Network response was not ok')
+                  }
+                  return response.text()
+                })
+                .then(body => {
+                  if (!body.trim()) {
+                    return
+                  }
+
+                  const json = JSON.parse(body);
+                  if (json && json.result && json.result.status && json.result.status !== "waiting" && json.result.chatgpt) {
+                    this.narrationCsv = this.extractBetweenTag(json.result.chatgpt)
+                    this.parseCsv()
+                    this.showMessage('完了: ナレーションテキストを更新しました')
+                    clearInterval(this.responseStatusInterval)
+
+                    this.isSubmittingPrompt = false;
+                  }
+                })
+                .catch(error => {
+                  console.error("Fetch error checking asset status:", error)
+                }).finally(() => {
+                  isFetching = false
+                })
+            } catch (error) {
+              console.error("Error checking asset status:", error);
+            }
+          }, 1000);
+        },
+
+        extractBetweenTag(str) {
+          const regex = /```[^\n]*\n([\s\S]*?)```/
+          const match = str.match(regex)
+          return match ? match[1].trim() : ''
+        },
+
+    };
+  }
   </script>
 </body>
 </html>
