@@ -15,6 +15,23 @@
     <p x-text="notificationMessage"></p>
   </div>
 
+  <div x-show="narrationCsv !== ''" class="fixed bottom-0 left-0 right-0 shadow-lg text-white py-2 px-4 mx-auto max-w-4xl rounded z-50 bg-gray-700">
+    <label class="block font-bold mb-2" for="updatePromptText">動画の修正相談</label>
+    <div class="flex items-center space-x-4">
+      <input 
+         type="text" 
+         id="updatePromptText" 
+         x-model="updatePromptText" 
+         class="flex-grow text-black px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
+         placeholder=""/>
+      <button 
+         @click="updateNarrationCsv" 
+         class="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700" 
+         x-show="!isSubmittingPrompt">修正リクエスト送信</button>
+    </div>
+  </div>
+
+
   <div class="container mx-auto">
     <!-- Form Card -->
     <div class="bg-white rounded-lg shadow-lg p-8 max-w-4xl mx-auto">
@@ -23,8 +40,8 @@
         <div class="mb-4">
           <label class="block text-gray-700 font-bold mb-2" for="themeText">動画のテーマ</label>
           <textarea rows="10" id="themeText" x-model="themeText" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="社訓を社内に浸透させたい。社員に見てもらうための動画。
-社訓: 未来を切り拓く創造の心と力を持とう
-4ページ。現代社会について、未来を切り拓くとは、創造の心と力とは、まとめ、を1ページずつ。
+社訓: 未来を切りひらく創造の心と力を持とう
+4ページ。現代社会について、未来を切りひらくとは、創造の心と力とは、まとめ、を1ページずつ。
 各ページはナレーターが説明し、男と女が一言ずつ発言する。" :disabled="isSubmitting"></textarea>
         </div>
         <button type="submit" class="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700" x-show="!isSubmitting">動画を新規作成</button>
@@ -40,7 +57,10 @@
 
     <div class="bg-white rounded-lg shadow-lg p-8 max-w-4xl mx-auto mt-8">
       <h2 class="text-2xl font-bold text-center mb-4">編集フォーム</h2>
-      <div>
+      <div x-show="!narrationCsv">
+        <p class="block text-gray-700 font-bold mb-2">動画を作成、または選択してください。</p>
+      </div>
+      <div x-show="narrationCsv">
         <div class="mb-4">
           <label class="block text-gray-700 font-bold mb-2" for="titleText">動画のタイトル</label>
           <input type="text" id="titleText" x-model="titleText" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="" />
@@ -201,7 +221,7 @@
       </ul>
     </div>
 
-    <div class="bg-white rounded-lg shadow-lg p-8 max-w-4xl mx-auto mt-8">
+    <div class="bg-white rounded-lg shadow-lg p-8 max-w-4xl mx-auto mt-8 mb-32">
       <h2 class="text-2xl font-bold text-center mb-4">リンク</h2>
 
       <ul>
@@ -318,7 +338,13 @@
 
         async checkAssetStatus() {
           clearInterval(this.assetStatusInterval)
+          let isFetching = false
           this.assetStatusInterval = setInterval(async () => {
+            if(isFetching) {
+              return
+            }
+            isFetching = true
+
             try {
               fetch(`/api/v1/file/content?requestId=${this.currentRequestId}&fileName=chatgpt_result_json_chat.txt`)
                 .then(response => {
@@ -342,6 +368,8 @@
                 })
                 .catch(error => {
                   console.error('Fetch error checking asset status:', error)
+                }).finally(() => {
+                  isFetching = false
                 })
             } catch (error) {
               console.error('Error checking asset status:', error);
@@ -351,7 +379,13 @@
 
         async checkImageStatus() {
           clearInterval(this.imageStatusInterval)
+          let isFetching = false
           this.imageStatusInterval = setInterval(async () => {
+            if(isFetching) {
+              return
+            }
+            isFetching = true
+ 
             try {
               fetch(`/api/v1/file/latest?requestId=${this.currentRequestId}`)
                 .then(response => {
@@ -360,7 +394,7 @@
                   }
                   return response.json()
                 })
-                .then(json => {
+                .then(async (json) => {
                   // console.log({ debug: 'checkImageStatus', json })
                   const imageFileNameList = json.result.result.fileDirList.filter((fileName) => {
                     return /\.png$/.test(fileName)
@@ -368,7 +402,8 @@
                   // 常に更新し続けるためclearしない
                   // clearInterval(this.imageStatusInterval)
 
-                  imageFileNameList.forEach(async (fileName) => {
+                    const promiseList = imageFileNameList.map((fileName) => {
+                    return new Promise(async (resolve) => {
                     if(this.imageList[fileName]) {
                       // ファイルをすでにダウンロード済みならば終了
                       return
@@ -376,13 +411,17 @@
                     const response = await fetch(`/api/v1/file/content?requestId=${this.currentRequestId}&fileName=${fileName}`);
                     const blob = await response.blob();
 
-                    console.log({ debug: 'checkImageStatus', fileName })
                     this.showMessage('完了: 画像の読み込み')
                     this.imageList[fileName] = blob
-                  })
+                    })
+                    })
+
+                    await Promise.all(promiseList)
                 })
                 .catch(error => {
                   console.error('Fetch error checking image status:', error)
+                }).finally(() => {
+                  isFetching = false
                 })
             } catch (error) {
               console.error('Error checking image status:', error);
@@ -392,7 +431,13 @@
 
         async checkVideoStatus() {
           clearInterval(this.videoStatusInterval)
+          let isFetching = false
           this.videoStatusInterval = setInterval(async () => {
+            if (isFetching) {
+              return
+            }
+            isFetching = true
+
             try {
               const response = await fetch(`/api/v1/file/content?requestId=${this.currentRequestId}&fileName=output.mp4`);
               const blob = await response.blob();
@@ -405,6 +450,8 @@
               }
             } catch (error) {
               console.error('Error checking video status:', error);
+            } finally {
+              isFetching = false
             }
           }, 1000);
         },
@@ -615,6 +662,35 @@
           this.showNotification = true
           this.messageTimeout = setTimeout(() => this.showNotification = false, 5 * 1000)  // Hide after 5 seconds
         },
+
+        updatePromptText: '',
+        isSubmittingPrompt: false,
+        updateRequestId: '',
+
+        async updateNarrationCsv() {
+          this.isSubmittingPrompt = true
+
+          try {
+            const response = await fetch('/api/v1/prompt/register/chatgpt', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+              body: new URLSearchParams({
+                prompt: this.updatePromptText,
+                narrationCsv: this.narrationCsv,
+              }),
+            });
+
+            const data = await response.json();
+            if (data.result && data.result.isRegistered) {
+              this.updateRequestId = data.result.requestId;
+
+              this.showMessage('開始: 修正相談リクエスト送信')
+            }
+          } catch (error) {
+            console.error('Error during form submission:', error);
+            this.isSubmittingPrompt = false;
+          }
+        }
       };
     }
   </script>
