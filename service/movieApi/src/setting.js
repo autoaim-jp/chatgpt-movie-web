@@ -180,7 +180,7 @@ __THEME_TEXT__
 # タイトルはsilent,1,,とsilent,3,,の行で挟む
 # 各ページの最初はstart-page,,,の行
 # 文章は句点や鍵括弧ごとに行を分ける。その後、各文章の先頭にspeak,話し手ID,読み上げのスピード,をつける。
-# 話し手ID: ナレーターはn、登場人物の中で1人目の女性の発言ならばf1、登場人物の中で2人目の男性の発言ならばm2のような規則。n、f1〜f3、m1〜m3が利用可能。
+# 話し手ID: ナレーターはn、女性の登場人物の発言ならばf1、男性の登場人物の発言ならばm1。
 # 読み上げのスピード: 1.0が基本。早くするなら最大1.25。遅くするなら最低で0.75。
 # 各文章のあとはsilent,1,,の行
 # 各ページの最後はend-page,,,の行、その後にsilent,3,,の行
@@ -225,6 +225,22 @@ page1: Create an image...
 画像生成プロンプトは、以下のsafetyシステムのエラーが出ないような内容にしてください。
 safetyシステムのエラー: Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.
 `
+
+setting.prompt.NARRATION_CSV_RULE = `
+
+【ナレーションcsvのルール】
+# まず最初はengine,openai,,を表示
+# タイトルはsilent,1,,とsilent,3,,の行で挟む
+# 各ページの最初はstart-page,,,の行
+# 文章は句点や鍵括弧ごとに行を分ける。その後、各文章の先頭にspeak,話し手ID,読み上げのスピード,をつける。
+# 話し手ID: ナレーターはn、女性の登場人物の発言ならばf1、男性の登場人物の発言ならばm1。
+# 読み上げのスピード: 1.0が基本。早くするなら最大1.25。遅くするなら最低で0.75。
+# 各文章のあとはsilent,1,,の行
+# 各ページの最後はend-page,,,の行、その後にsilent,3,,の行
+
+`
+
+
 const getList = (...keyList) => {
   /* eslint-disable no-param-reassign */
   const constantList = keyList.reduce((prev, key) => {
