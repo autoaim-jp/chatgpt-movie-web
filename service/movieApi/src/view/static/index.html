@@ -1,28 +1,67 @@
 <!DOCTYPE html>
-<!-- https://chatgpt.com/share/6744c8ba-7d34-8008-a6db-aa3323a99adf -->
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Form with Video Fetch</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <title>なれスタ！</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/alpinejs" defer></script>
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen" x-data="formHandler()">
+  <!-- Notification Message -->
+  <div x-show="showNotification"
+       class="fixed top-4 ml-2 right-4 bg-blue-500 text-white py-2 px-4 rounded transition-opacity duration-500 z-50"
+       x-transition>
+    <p x-text="notificationMessage"></p>
+  </div>
+
+  <div x-show="narrationCsv !== ''" class="fixed bottom-2 left-0 right-0 shadow-lg text-white py-2 px-4 mx-auto max-w-5xl rounded z-50 bg-gray-700">
+    <label class="block font-bold mb-2" for="updatePromptText">動画の修正</label>
+    <div class="flex items-center space-x-4">
+      <textarea 
+         id="updatePromptText" 
+         x-model="updatePromptText" 
+         class="flex-grow text-black px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
+         @keydown.ctrl.enter="updateNarrationCsv"
+         placeholder="2ページ目のナレーションを、もう少し充実させて。
+あと、3ページ目の男女の会話のあとに、もうひとこと会話を続けて。"></textarea>
+      <div class="w-40">
+        <button 
+           @click="updateNarrationCsv" 
+           class="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700" 
+           x-show="!isSubmittingPrompt">修正リクエスト<br/>送信</button>
+        <div x-show="isSubmittingPrompt" class="flex justify-center items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="animate-spin h-6 w-6 text-blue-500" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+            <path d="M12 2a10 10 0 1 0 10 10H12V2z" fill="currentColor" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    
+
   <div class="container mx-auto">
+    <div class="fixed left-5 top-5">
+      <a href="/">
+        <img src="/narration_studio.png" width="200">
+      </a>
+    </div>
+
     <!-- Form Card -->
-    <div class="bg-white rounded-lg shadow-lg p-8 max-w-4xl mx-auto">
+    <div class="bg-white rounded-lg shadow-lg p-8 max-w-4xl mx-auto mt-24">
       <h2 class="text-2xl font-bold text-center mb-4">動画生成フォーム</h2>
       <form @submit.prevent="submitForm">
         <div class="mb-4">
           <label class="block text-gray-700 font-bold mb-2" for="themeText">動画のテーマ</label>
-          <input type="text" id="themeText" x-model="themeText" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="森、宇宙、一石二鳥、笑う門には福来る":disabled="isSubmitting">
+          <textarea @keydown.ctrl.enter="submitForm" rows="10" id="themeText" x-model="themeText" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="社訓を社内に浸透させたい。社員に見てもらうための動画。
+社訓: 未来を切りひらく創造の心と力を持とう
+4ページ。現代社会について、未来を切りひらくとは、創造の心と力とは、まとめ、を1ページずつ。
+各ページはナレーターが説明し、男と女が一言ずつ発言する。" :disabled="isSubmitting"></textarea>
         </div>
-        <div class="mb-4">
-          <label class="block text-gray-700 font-bold mb-2" for="targetText">動画のターゲット</label>
-          <input type="text" id="targetText" x-model="targetText" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="8歳の男の子、5歳の女の子" :disabled="isSubmitting">
-        </div>
-        <button type="submit" class="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700" x-show="!isSubmitting">Submit</button>
+        <button type="submit" class="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700" x-show="!isSubmitting">動画を新規作成</button>
         <div x-show="isSubmitting" class="flex justify-center items-center">
           <svg xmlns="http://www.w3.org/2000/svg" class="animate-spin h-6 w-6 text-blue-500" viewBox="0 0 24 24" fill="none">
             <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
@@ -33,19 +72,164 @@
       </form>
     </div>
 
+    <div class="bg-white rounded-lg shadow-lg p-8 max-w-4xl mx-auto mt-8">
+      <h2 class="text-2xl font-bold text-center mb-4">編集フォーム</h2>
+      <div x-show="!narrationCsv">
+        <p class="block text-gray-700 font-bold mb-2">動画を作成、または選択してください。</p>
+      </div>
+      <div x-show="narrationCsv">
+        <div class="mb-4">
+          <label class="block text-gray-700 font-bold mb-2" for="titleText">動画のタイトル</label>
+          <input type="text" id="titleText" x-model="titleText" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="" />
+
+
+<div 
+  class="space-y-8"
+>
+  <!-- タイトル部分 -->
+  <template x-if="titleItems.length > 0">
+    <div class="border-b pb-4">
+      <h2 class="text-xl font-bold mb-2">タイトル</h2>
+      <template x-for="(item, index) in titleItems" :key="index">
+        <div class="flex flex-col md:flex-row md:items-center mb-2 space-y-2 md:space-y-0 md:space-x-2">
+          <!-- 話し手選択 -->
+          <select 
+            class="border p-1 rounded" 
+            x-model="item.speaker"
+          >
+            <option value="m1">男性 (m1)</option>
+            <option value="f1">女性 (f1)</option>
+            <option value="n">ナレーター (n)</option>
+          </select>
+
+          <!-- スピード -->
+          <input 
+            type="text"
+            class="border p-1 rounded w-16"
+            x-model="item.speed" 
+            @keydown.enter.prevent
+          />
+
+          <!-- テキスト -->
+          <input 
+            type="text"
+            class="border p-1 rounded flex-1"
+            x-model="item.text" 
+            @keydown.enter.prevent
+          />
+        </div>
+      </template>
+    </div>
+  </template>
+
+  <!-- ページごとの表示 -->
+  <template x-for="(page, pageIndex) in pages" :key="pageIndex">
+    <div class="border-b pb-4">
+      <h2 class="text-xl font-bold mb-2">ページ <span x-text="pageIndex + 1"></span></h2>
+      <!-- ページ内の行を表示 -->
+      <template x-for="(item, itemIndex) in page" :key="itemIndex">
+        <div class="flex flex-col md:flex-row md:items-center mb-2 space-y-2 md:space-y-0 md:space-x-2">
+          <!-- 話し手 -->
+          <select 
+            class="border p-1 rounded" 
+            x-model="item.speaker"
+          >
+            <option value="m1">男性 (m1)</option>
+            <option value="f1">女性 (f1)</option>
+            <option value="n">ナレーター (n)</option>
+          </select>
+
+          <!-- スピード -->
+          <input 
+            type="text"
+            class="border p-1 rounded w-16"
+            x-model="item.speed" 
+            @keydown.enter.prevent
+          />
+
+          <!-- テキスト -->
+          <input 
+            type="text"
+            class="border p-1 rounded flex-1"
+            x-model="item.text" 
+            @keydown.enter.prevent
+          />
+
+          <!-- 削除ボタン -->
+          <button 
+            class="text-red-500 ml-2"
+            @click="removePageRow(pageIndex, itemIndex)"
+          >
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              class="h-5 w-5" 
+              viewBox="0 0 20 20" 
+              fill="currentColor"
+            >
+              <path fill-rule="evenodd" 
+                d="M10 9a1 1 0 011 1v6a1 1 0 11-2 0V10a1 1 0 011-1zm0-4a1 1 0 011 1v1a1 1 0 11-2 0V6a1 1 0 011-1z" 
+                clip-rule="evenodd" 
+              />
+              <path 
+                d="M2 10a8 8 0 1116 0 8 8 0 01-16 0z" 
+              />
+            </svg>
+          </button>
+        </div>
+      </template>
+
+      <!-- ページ末尾に追加ボタン -->
+      <div class="mt-4 text-center">
+        <button 
+          class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          @click="addRowToPage(pageIndex)"
+        >
+          + 行を追加
+        </button>
+      </div>
+    </div>
+  </template>
+  </div>
+
+
+        </div>
+
+        <div class="mb-4">
+          <p class="block text-gray-700 font-bold mb-2">画像</p>
+          <div class='grid grid-cols-2 gap-4'>
+            <template x-for="fileName in Object.keys(imageList).sort()" :key="fileName">
+              <div class='mb-4 border rounded-lg p-2'>
+                <p class="block text-gray-700 mb-1 ml-2" x-text="fileName.replace(/^.*\//g, '')"></p>
+                <img :src="URL.createObjectURL(imageList[fileName])" class="rounded-lg mb-2" alt="Uploaded Image" />
+                <input type="file" @change="onFileChange($event, fileName)" class="mt-1 p-2 w-full" />
+              </div>
+            </template>
+          </div>
+        </div>
+
+        <button @click='submitEditForm' class="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700" x-show="!isSubmitting">動画を更新</button>
+        <div x-show="isSubmitting" class="flex justify-center items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="animate-spin h-6 w-6 text-blue-500" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+            <path d="M12 2a10 10 0 1 0 10 10H12V2z" fill="currentColor" />
+          </svg>
+        </div>
+      </div>
+    </div>
+
     <!-- Video Display Card -->
     <div class="bg-white rounded-lg shadow-lg p-8 max-w-4xl mx-auto mt-8" x-cloak>
-      <h2 class="text-2xl font-bold text-center mb-4">生成AIで作成した絵本</h2>
+      <h2 class="text-2xl font-bold text-center mb-4">生成AIが作成した動画</h2>
       <video controls class="w-full rounded-lg" :src="videoUrl"></video>
     </div>
 
     <!-- File List Card -->
-    <div class="bg-white rounded shadow p-6 w-full max-w-4xl mx-auto mt-6" x-init="startInterval">
+    <div class="bg-white rounded shadow p-6 w-full max-w-4xl mx-auto mt-6" x-init="startInterval" x-cloak>
       <h2 class="text-xl font-semibold mb-4">これまでに作成した絵本</h2>
       <ul class="space-y-2">
-        <template x-for="(title, id) in titleList" :key="id">
+        <template x-for="(title, requestId) in fileDirList" :key="requestId">
           <li>
-            <a href="#" @click.prevent="updateVideoUrl(title)"
+            <a href="#" @click.prevent="updateVideoUrl(requestId)"
                class="text-blue-500 hover:underline">
               <span x-text="title"></span>
             </a>
@@ -54,13 +238,13 @@
       </ul>
     </div>
 
-    <div class="bg-white rounded-lg shadow-lg p-8 max-w-4xl mx-auto mt-8">
+    <div class="bg-white rounded-lg shadow-lg p-8 max-w-4xl mx-auto mt-8 mb-32">
       <h2 class="text-2xl font-bold text-center mb-4">リンク</h2>
 
       <ul>
         <li>
-          <a href="/chat.html" target="_blank" class="text-blue-500 hover:underline">
-            新機能ページ</a>
+          <a href="/hackathon.html" target="_blank" class="text-blue-500 hover:underline">
+            旧機能ページ</a>
         </li>
  
         <li>
@@ -89,32 +273,52 @@
   <script>
     function formHandler() {
       return {
-        themeText: '',
+        /*
+        themeText: `社訓を社内に浸透させたい。社員に見てもらうための動画。
+社訓: どんな時でも約束を守り、責任の持てる完全な仕事をしよう
+4ページ。それぞれのページは、現代社会について、約束とはなにか、責任とはなにか、まとめ、を1ページずつ。
+各ページはナレーターが説明し、男と女が一言ずつ発言する。`,
+*/
+        themeText: `社訓を社内に浸透させたい。社員に見てもらうための動画。
+社訓: お互いに相手の身になって助け合い、心のつながりを持とう
+4ページ。それぞれのページは、相手の身になるとはどういうことか、助け合いとはなにか、心のつながりとはなにか、まとめ、を1ページずつ。
+各ページはナレーターが説明し、男と女が一言ずつ発言する。`,
+        titleText: '',
+        narrationCsv: '',
         targetText: '',
         videoUrl: '',
-        requestId: '',
-        intervalId: null,
-        titleList: [],
+        currentRequestId: '',
         fileDirList: {},
+        imageList: {},
         isSubmitting: false,
+        videoStatusInterval: null,
+        assetStatusInterval: null,
+        imageStatusInterval: null,
+        responseStatusInterval: null,
+        updateStatusInterval: null,
 
         async submitForm() {
           this.isSubmitting = true;
 
           try {
-            const response = await fetch('/api/v1/prompt/register/story', {
+            const response = await fetch('/api/v1/prompt/register/chat', {
               method: 'POST',
               headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
               body: new URLSearchParams({
                 themeText: this.themeText,
-                targetText: this.targetText,
               }),
             });
 
             const data = await response.json();
             if (data.result && data.result.isRegistered) {
-              this.requestId = data.result.requestId;
+              this.currentRequestId = data.result.requestId;
+              this.imageList = {}
+              this.narrationCsv = ''
+              this.parseCsv()
               this.checkVideoStatus();
+              this.checkAssetStatus();
+              this.checkImageStatus();
+              this.showMessage('開始: 動画を作成します')
             }
           } catch (error) {
             console.error('Error during form submission:', error);
@@ -122,31 +326,170 @@
           }
         },
 
-        async checkVideoStatus() {
-          this.intervalId = setInterval(async () => {
+        async submitEditForm() {
+          this.isSubmitting = true;
+
+          this.narrationCsv = this.generateCsv();
+
+          const formData = new FormData();
+          formData.append("requestId", this.currentRequestId);
+          formData.append("title", this.titleText);
+          formData.append("narrationCsv", this.narrationCsv);
+          Object.entries(this.imageList).forEach(([fileName, blob]) => {
+            formData.append("fileList[]", new File([blob], fileName.replace(/^.*\//g, '')))
+          })
+
+          try {
+            const response = await fetch('/api/v1/prompt/register/main', {
+              method: 'POST',
+              body: formData
+            });
+
+            const data = await response.json();
+            if (data.result && data.result.isRegistered) {
+              this.imageList = {}
+              this.checkVideoStatus();
+              this.checkAssetStatus();
+              this.checkImageStatus();
+              this.showMessage('開始: 動画を更新します')
+              setTimeout(() => {
+                this.checkUpdateStatus()
+              }, 10 * 1000)
+            }
+          } catch (error) {
+            console.error('Error during form submission:', error);
+            this.isSubmitting = false;
+          }
+        },
+
+
+        async checkAssetStatus() {
+          clearInterval(this.assetStatusInterval)
+          let isFetching = false
+          this.assetStatusInterval = setInterval(async () => {
+            if(isFetching) {
+              return
+            }
+            isFetching = true
+
             try {
-              const response = await fetch(`/api/v1/file/content?requestId=${this.requestId}&fileName=output.mp4`);
+              fetch(`/api/v1/file/content?requestId=${this.currentRequestId}&fileName=chatgpt_result_json_chat.txt`)
+                .then(response => {
+                  if (!response.ok) {
+                    throw new Error('Network response was not ok')
+                  }
+                  return response.text()
+                })
+                .then(body => {
+                  if (!body.trim()) {
+                    return
+                  }
+
+                  const json = JSON.parse(body);
+                  if (json && json.title) {
+                    this.titleText = json.title
+                    this.narrationCsv = json.narrationCsv
+                    this.parseCsv()
+                    clearInterval(this.assetStatusInterval)
+                  }
+                })
+                .catch(error => {
+                  console.error('Fetch error checking asset status:', error)
+                }).finally(() => {
+                  isFetching = false
+                })
+            } catch (error) {
+              console.error('Error checking asset status:', error);
+            }
+          }, 1000);
+        },
+
+        async checkImageStatus() {
+          clearInterval(this.imageStatusInterval)
+          let isFetching = false
+          this.imageStatusInterval = setInterval(async () => {
+            if(isFetching) {
+              return
+            }
+            isFetching = true
+ 
+            try {
+              fetch(`/api/v1/file/latest?requestId=${this.currentRequestId}`)
+                .then(response => {
+                  if (!response.ok) {
+                    throw new Error('Network response was not ok')
+                  }
+                  return response.json()
+                })
+                .then(async (json) => {
+                  // console.log({ debug: 'checkImageStatus', json })
+                  const imageFileNameList = json.result.result.fileDirList.filter((fileName) => {
+                    return /\.png$/.test(fileName)
+                  })
+                  // 常に更新し続けるためclearしない
+                  // clearInterval(this.imageStatusInterval)
+
+                    const promiseList = imageFileNameList.map((fileName) => {
+                      return new Promise(async (resolve) => {
+                        if(this.imageList[fileName]) {
+                          // ファイルをすでにダウンロード済みならば終了
+                          return resolve()
+                        }
+                        const response = await fetch(`/api/v1/file/content?requestId=${this.currentRequestId}&fileName=${fileName}`);
+                        const blob = await response.blob();
+
+                        this.showMessage('完了: 画像を読み込みました')
+                        this.imageList[fileName] = blob
+                        return resolve()
+                      })
+                    })
+
+                    await Promise.all(promiseList)
+                })
+                .catch(error => {
+                  console.error('Fetch error checking image status:', error)
+                }).finally(() => {
+                  isFetching = false
+                })
+            } catch (error) {
+              console.error('Error checking image status:', error);
+            }
+          }, 5000);
+        },
+
+        async checkVideoStatus() {
+          clearInterval(this.videoStatusInterval)
+          let isFetching = false
+          this.videoStatusInterval = setInterval(async () => {
+            if (isFetching) {
+              return
+            }
+            isFetching = true
+
+            try {
+              const response = await fetch(`/api/v1/file/content?requestId=${this.currentRequestId}&fileName=output.mp4`);
               const blob = await response.blob();
 
               if (blob.size > 0) {
-                clearInterval(this.intervalId);
+                clearInterval(this.videoStatusInterval);
                 this.videoUrl = URL.createObjectURL(blob);
+                this.showMessage('完了: 動画を読み込んでいます')
                 this.isSubmitting = false;
               }
             } catch (error) {
               console.error('Error checking video status:', error);
+            } finally {
+              isFetching = false
             }
           }, 1000);
         },
 
         fetchFileList() {
-          fetch('/api/v1/file/list?checkFileName=chatgpt_result_json.txt')
+          fetch('/api/v1/file/list?checkFileName=chatgpt_result_json_chat.txt')
             .then(response => response.json())
             .then(data => {
               if (data.result && data.result.result && data.result.result.fileDirList) {
-                // :TODO
                 this.fileDirList = data.result.result.fileDirList;
-                this.titleList = Object.values(this.fileDirList);
               }
             })
             .catch(error => console.error('Error fetching file list:', error));
@@ -157,21 +500,329 @@
             this.fetchFileList()
           }, 10*1000); // 10秒間隔で実行
         },
-    
-        updateVideoUrl(title) {
-          let titleRequestId = null
-          for (const [requestId, currentTitle] of Object.entries(this.fileDirList)) {
-            if (currentTitle === title) {
-              titleRequestId = requestId
+
+        updateVideoUrl(requestId) {
+
+          // debug
+          this.videoUrl = `/api/v1/file/content?requestId=${requestId}&fileName=output.mp4`;
+
+          this.currentRequestId = requestId 
+          this.imageList = {}
+          this.checkVideoStatus();
+          this.checkAssetStatus();
+          this.checkImageStatus();
+
+          return
+          
+          try {
+            fetch(`/api/v1/file/latest?requestId=${this.currentRequestId}`)
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error('Network response was not ok')
+                }
+                return response.json()
+              })
+              .then(json => {
+                console.log({ debug: 'updateVideoUrl', json })
+                const imageFileNameList = json.result.result.fileDirList.filter((fileName) => {
+                  return /\.mp4/.test(fileName)
+                })
+                if (imageFileNameList.length === 0) {
+                  alert('動画は作成中です。')
+                }
+                this.videoUrl = `/api/v1/file/content?requestId=${titleRequestId}&fileName=${imageFileNameList[0]}`;
+              })
+              .catch(error => {
+                console.error('Fetch error checking image status:', error)
+              })
+          } catch (error) {
+            console.error('Error checking image status:', error);
+          }
+
+        },
+        onFileChange(event, fileName) {
+          const files = event.target.files;
+          if (files && files[0]) {
+            this.imageList[fileName] = files[0];
+          }
+        },
+
+        titleItems: [],
+        pages: [],
+        currentPage: [],
+        isPageStarted: false,
+
+        parseCsv() {
+          console.log('==============================')
+          console.log('parse start')
+          console.log(this.narrationCsv)
+          console.log('==============================')
+          this.titleItems = [];
+          this.pages = [];
+          this.currentPage = [];
+          this.isPageStarted = false;
+
+          const lines = this.narrationCsv
+            .split(/\r?\n/)
+            .map(l => l.trim())
+            .filter(l => l !== '' && !l.startsWith('#'));
+
+          for (let i = 0; i < lines.length; i++) {
+            const cols = lines[i].split(',');
+            const action = cols[0] ?? '';
+            const speaker = cols[1] ?? '';
+            const speed   = cols[2] ?? '';
+            const text    = cols[3] ?? '';
+
+            switch(action) {
+              case 'start-page':
+                this.isPageStarted = true;
+                this.currentPage = [];
+                break;
+              case 'end-page':
+                if (this.currentPage.length > 0) {
+                  this.pages.push(this.currentPage);
+                }
+                this.isPageStarted = false;
+                this.currentPage = [];
+                break;
+              case 'speak':
+                const item = {
+                  speaker: speaker || 'n',
+                  speed: speed || '1.0',
+                  text: text || ''
+                };
+                if (this.isPageStarted) {
+                  this.currentPage.push(item);
+                } else {
+                  this.titleItems.push(item);
+                }
+                break;
+                // 使わないアクションは無視
+              default:
+                break;
             }
           }
-          if (!titleRequestId) {
-            return alert('動画が見つかりません。')
-          }
-          this.videoUrl = `/api/v1/file/content?requestId=${titleRequestId}&fileName=output.mp4`;
         },
-      };
-    }
+
+        // -------------------------
+        // フォーム操作系メソッド
+        // -------------------------
+        // タイトルの1行を削除
+        removeTitleRow(index) {
+          this.titleItems.splice(index, 1);
+        },
+
+        // ページの1行を削除
+        removePageRow(pageIndex, itemIndex) {
+          this.pages[pageIndex].splice(itemIndex, 1);
+        },
+
+        // ページ末尾に行を1つ追加
+        addRowToPage(pageIndex) {
+          this.pages[pageIndex].push({
+            speaker: 'n',
+            speed: '1.0',
+            text: ''
+          });
+        },
+
+        // -------------------------
+        // CSV生成・送信系メソッド
+        // -------------------------
+        // テキストを句点「。」ごとに分割して配列にするサンプル
+        // 実際には「鍵括弧（「」）」なども含めて分割したい場合は、より複雑な処理が必要
+        splitTextToSentences(text) {
+          // 例: 「。」で改行し、空要素を除去
+          // 「。｣の直後で区切る => (。) の後に改行を入れて split
+          return text
+          // .replace(/。/g, '。\n') 
+            .split(/\n/)
+            .map(s => s.trim())
+            .filter(s => s); // 空文字除外
+        },
+
+        // CSV文字列を再構築
+        generateCsv() {
+          let csvLines = [];
+
+          // 1) 最初に engine,openai,,
+          // csvLines.push('engine,voicevox,,');
+          csvLines.push('engine,openai,,');
+
+          // 2) タイトルは silent,1,, と silent,3,, で挟む
+          csvLines.push('silent,1,,');
+          // タイトル中の各行を句点で分割して speak => silent,1,, の組み合わせ
+          this.titleItems.forEach(item => {
+            const sentences = this.splitTextToSentences(item.text);
+            sentences.forEach(sentence => {
+              csvLines.push(`speak,${item.speaker},${item.speed},${sentence}`);
+              // 各文章の後は silent,1,,
+              csvLines.push('silent,1,,');
+            });
+          });
+          csvLines.push('silent,3,,');
+
+          // 3) ページ
+          //    各ページの最初は start-page,,, 
+          //    最後は end-page,,, → silent,3,,
+          //    ページ内の文章は speak 〜 → silent,1,, の繰り返し
+          this.pages.forEach(page => {
+            csvLines.push('start-page,,,');
+            page.forEach(item => {
+              // テキストを分割
+              const sentences = this.splitTextToSentences(item.text);
+              sentences.forEach(sentence => {
+                csvLines.push(`speak,${item.speaker},${item.speed},${sentence}`);
+                csvLines.push('silent,1,,');
+              });
+            });
+            csvLines.push('end-page,,,');
+            csvLines.push('silent,3,,');
+          });
+
+          // CSV文字列を連結
+          return csvLines.join('\n');
+        },
+
+        showNotification: false,  // Add this property to control visibility
+        notificationMessage: '',  // Add this property for the message text
+        messageTimeout: null,
+        showMessage(message) {
+          clearTimeout(this.messageTimeout)
+          this.notificationMessage = message
+          this.showNotification = true
+          this.messageTimeout = setTimeout(() => this.showNotification = false, 5 * 1000)  // Hide after 5 seconds
+        },
+
+        updatePromptText: '',
+        isSubmittingPrompt: false,
+        updateRequestId: '',
+
+        async updateNarrationCsv() {
+          this.isSubmittingPrompt = true
+
+          try {
+            const updatePromptText = this.updatePromptText
+            this.updatePromptText = ''
+            this.narrationCsv = this.generateCsv();
+            const response = await fetch('/api/v1/prompt/register/chatgpt', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+              body: new URLSearchParams({
+                prompt: updatePromptText,
+                narrationCsv: this.narrationCsv,
+              }),
+            });
+
+            const data = await response.json();
+            if (data.result && data.result.isRegistered) {
+              this.updateRequestId = data.result.requestId;
+
+              this.showMessage('開始: 修正リクエストを送信しました')
+              this.checkResponseStatus()
+            }
+          } catch (error) {
+            console.error('Error during form submission:', error);
+            this.isSubmittingPrompt = false;
+          }
+        },
+
+        async checkResponseStatus() {
+          clearInterval(this.responseStatusInterval)
+          let isFetching = false
+          this.responseStatusInterval = setInterval(async () => {
+            if(isFetching) {
+              return
+            }
+            isFetching = true
+
+            try {
+              fetch(`/api/v1/chatgpt/response/lookup?requestId=${this.updateRequestId}`)
+                .then(response => {
+                  if (!response.ok) {
+                    throw new Error('Network response was not ok')
+                  }
+                  return response.text()
+                })
+                .then(body => {
+                  if (!body.trim()) {
+                    return
+                  }
+
+                  const json = JSON.parse(body);
+                  if (json && json.result && json.result.status && json.result.status !== "waiting" && json.result.chatgpt) {
+                    this.narrationCsv = this.extractBetweenTag(json.result.chatgpt)
+                    this.parseCsv()
+                    this.showMessage('完了: ナレーションテキストを更新しました')
+                    clearInterval(this.responseStatusInterval)
+
+                    this.isSubmittingPrompt = false;
+                  }
+                })
+                .catch(error => {
+                  console.error("Fetch error checking asset status:", error)
+                }).finally(() => {
+                  isFetching = false
+                })
+            } catch (error) {
+              console.error("Error checking asset status:", error);
+            }
+          }, 1000);
+        },
+
+        extractBetweenTag(str) {
+          const regex = /```[^\n]*\n([\s\S]*?)```/
+          const match = str.match(regex)
+          return match ? match[1].trim() : ''
+        },
+
+
+        async checkUpdateStatus() {
+          clearInterval(this.updateStatusInterval)
+          let isFetching = false
+          this.updateStatusInterval = setInterval(async () => {
+            if(isFetching) {
+              return
+            }
+            isFetching = true
+
+            try {
+              fetch(`/api/v1/chatgpt/response/lookup?requestId=${this.currentRequestId}`)
+                .then(response => {
+                  if (!response.ok) {
+                    throw new Error('Network response was not ok')
+                  }
+                  return response.text()
+                })
+                .then(body => {
+                  if (!body.trim()) {
+                    return
+                  }
+
+                  const json = JSON.parse(body);
+                  if (json && json.result && json.result.status && json.result.status === "complete") {
+                    this.showMessage('完了: 動画が更新されました')
+                    clearInterval(this.updateStatusInterval)
+                    this.updateVideoUrl(this.currentRequestId)
+
+                  }
+                })
+                .catch(error => {
+                  console.error("Fetch error checking asset status:", error)
+                }).finally(() => {
+                  isFetching = false
+                })
+            } catch (error) {
+              console.error("Error checking asset status:", error);
+            }
+          }, 1000);
+        },
+
+
+
+    };
+  }
   </script>
 </body>
 </html>

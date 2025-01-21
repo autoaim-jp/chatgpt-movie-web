@@ -5,8 +5,12 @@ export const handleRegisterMainPrompt = async ({ requestId, fileList, title, nar
   const queue = mod.setting.getValue('amqp.REQUEST_QUEUE') 
   await mod.amqpChannel.assertQueue(queue)
 
-  const _narrationCsv = narrationCsv.replace(/\r/g, '')
+  if (!store[requestId]) {
+    store[requestId] = {}
+  }
+  store[requestId].status = 'main'
 
+  const _narrationCsv = narrationCsv.replace(/\r/g, '')
   const resultFileName = mod.setting.getValue('path.CHAT_REQUEST_FILE_NAME')
   const MOVIE_DIR_PATH = mod.setting.getValue('path.MOVIE_DIR_PATH') 
   const IMAGE_EXT = '.png'
