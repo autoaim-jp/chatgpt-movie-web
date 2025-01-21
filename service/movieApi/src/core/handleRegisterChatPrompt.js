@@ -1,12 +1,11 @@
 import { mod, store } from './init.js'
 export default {}
 
-export const handleRegisterStoryPrompt = async ({ themeText, targetText, startGenerateImageAndMovie }) => {
+export const handleRegisterChatPrompt = async ({ themeText, startGenerateImageAndMovie }) => {
   const queue = mod.setting.getValue('amqp.CHATGPT_PROMPT_QUEUE') 
-  const prompt = mod.setting.getValue('prompt.STORY_VER1')
+  const prompt = mod.setting.getValue('prompt.STORY_VER2')
     .replace(/__THEME_TEXT__/g, themeText)
-    .replace(/__TARGET_TEXT__/g, targetText)
-  const resultFileName = mod.setting.getValue('path.STORY_REQUEST_FILE_NAME')
+  const resultFileName = mod.setting.getValue('path.CHAT_REQUEST_FILE_NAME')
 
   await mod.amqpChannel.assertQueue(queue)
 
@@ -39,7 +38,7 @@ export const handleRegisterStoryPrompt = async ({ themeText, targetText, startGe
       console.log('====================titleの結果')
       console.log(title)
 
-      startGenerateImageAndMovie({ requestId, title, themeText, targetText, prompt, chatgptResponse: result.chatgpt, narrationCsv, imagePromptList, resultFileName })
+      startGenerateImageAndMovie({ requestId, title, themeText, prompt, chatgptResponse: result.chatgpt, narrationCsv, imagePromptList, resultFileName })
 
       clearInterval(waitChatgptResponseInterval)
     } else {
@@ -50,5 +49,4 @@ export const handleRegisterStoryPrompt = async ({ themeText, targetText, startGe
   const handleResult = { isRegistered: true, requestId }
   return handleResult
 }
-
 

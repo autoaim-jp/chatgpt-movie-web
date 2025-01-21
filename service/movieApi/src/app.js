@@ -40,6 +40,7 @@ const _getFunctionRouter = () => {
   const { REGISTER_PROMPT_PING, REGISTER_PROMPT_DUMMY, REGISTER_PROMPT_MAIN, LOOKUP_RESPONSE, GET_FILE_LIST, GET_FILE_CONTENT, FORM_UPLOAD, FILE_LIST_UPLOAD, } = a.setting.getList('api.REGISTER_PROMPT_PING', 'api.REGISTER_PROMPT_DUMMY', 'api.REGISTER_PROMPT_MAIN', 'api.LOOKUP_RESPONSE', 'api.GET_FILE_LIST', 'api.GET_FILE_CONTENT', 'key.FORM_UPLOAD', 'key.FILE_LIST_UPLOAD')
   // chatgpt
   const { REGISTER_PROMPT, LOOKUP_CHATGPT_RESPONSE, REGISTER_STORY_PROMPT, REGISTER_IMAGE_PROMPT } = a.setting.getList('api.REGISTER_PROMPT', 'api.LOOKUP_CHATGPT_RESPONSE', 'api.REGISTER_STORY_PROMPT', 'api.REGISTER_IMAGE_PROMPT')
+  const { REGISTER_CHAT_PROMPT, GET_LATEST_FILE_LIST } = a.setting.getList('api.REGISTER_CHAT_PROMPT', 'api.GET_LATEST_FILE_LIST')
 
   const fileUploadHandler = a.action.getHandlerFileUpload({
     FORM_UPLOAD,
@@ -91,7 +92,8 @@ const _getFunctionRouter = () => {
   expressRouter.post(REGISTER_PROMPT, registerPromptHandler)
 
   const registerStoryPromptHandler = a.action.getHandlerRegisterStoryPrompt({
-    handleRegisterStoryPrompt: a.core.handleRegisterStoryPrompt
+    handleRegisterStoryPrompt: a.core.handleRegisterStoryPrompt,
+    startGenerateImageAndMovie: a.core.startGenerateImageAndMovie,
   })
   expressRouter.post(REGISTER_STORY_PROMPT, registerStoryPromptHandler)
 
@@ -104,6 +106,18 @@ const _getFunctionRouter = () => {
     handleRegisterImagePrompt: a.core.handleRegisterImagePrompt
   })
   expressRouter.post(REGISTER_IMAGE_PROMPT, registerImagePromptHandler)
+
+  // chat page
+  const registerChatPromptHandler = a.action.getHandlerRegisterChatPrompt({
+    handleRegisterChatPrompt: a.core.handleRegisterChatPrompt,
+    startGenerateImageAndMovie: a.core.startGenerateImageAndMovie,
+  })
+  expressRouter.post(REGISTER_CHAT_PROMPT, registerChatPromptHandler)
+
+  const latestFileListHandler = a.action.getHandlerLatestFileList({
+    handleLatestFileList: a.core.handleLatestFileList
+  })
+  expressRouter.get(GET_LATEST_FILE_LIST, latestFileListHandler)
 
   return expressRouter
 }
@@ -132,7 +146,7 @@ const init = async () => {
   const { AMQP_USER: user, AMQP_PASS: pass, AMQP_HOST: host, AMQP_PORT: port } = a.setting.getList('env.AMQP_USER', 'env.AMQP_PASS', 'env.AMQP_HOST', 'env.AMQP_PORT')
   const amqpConnection = await a.lib.createAmqpConnection({ amqplib, user, pass, host, port })
   input.init({ fs })
-  await core.init({ setting, output, input, lib, amqpConnection })
+  await core.init({ setting, output, input, lib, amqpConnection, path })
   lib.init({ spawn, ulid, multer })
 }
 

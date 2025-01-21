@@ -14,7 +14,7 @@ export const startConsumer = async () => {
       const delimiterDelimiterBuffer = Buffer.from('|')
       const splitResultList = mod.lib.parseBufferList({ buffer: responseBuffer, delimiterDelimiterBuffer })
 
-      const requestId = splitResultList[0].toString()
+      const requestId = splitResultList[0].toString().replace(/-.*/, '')
       const requestType = splitResultList[1].toString()
 
       const dirPath = `${MOVIE_DIR_PATH}${requestId}/`
@@ -29,7 +29,7 @@ export const startConsumer = async () => {
         store[requestId].status = 'complete'
       } else if (requestType === 'chatgpt') {
         // chatgpt
-        const filePath = `${dirPath}story-by-chatgpt.txt`
+        const filePath = `${dirPath}chatgpt.txt`
         const chatgptResponseBuffer = splitResultList[2]
         mod.output.saveFile({ filePath, fileBuffer: chatgptResponseBuffer })
         if (!store[requestId]) {
@@ -38,8 +38,10 @@ export const startConsumer = async () => {
         store[requestId].status = 'creating-movie'
         store[requestId].chatgpt = chatgptResponseBuffer.toString()
       } else if (requestType === 'image') {
-        const filePath = `${dirPath}image.png`
-        const imageResponseBuffer = splitResultList[2]
+        const _filePath = splitResultList[2].toString()
+        const filePath = `${dirPath}${_filePath.replace(/\.\./g, '')}`
+        mod.output.makeDir({ dirPath: mod.path.dirname(filePath) })
+        const imageResponseBuffer = splitResultList[3]
         mod.output.saveFile({ filePath, fileBuffer: imageResponseBuffer })
       } else {
         console.log(`invalid requestType: ${requestType}`)
