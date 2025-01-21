@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>CSV Parser Example</title>
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Alpine.js -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body class="p-4">
+
+<!-- Alpineコンポーネントは1つだけにする -->
+<div 
+  x-data="csvParser()"
+  x-init="init()"
+  class="space-y-8"
+>
+  <!-- タイトル部分 -->
+  <template x-if="titleItems.length > 0">
+    <div class="border-b pb-4">
+      <h2 class="text-xl font-bold mb-2">タイトル</h2>
+      <template x-for="(item, index) in titleItems" :key="index">
+        <div class="flex flex-col md:flex-row md:items-center mb-2 space-y-2 md:space-y-0 md:space-x-2">
+          <select 
+            class="border p-1 rounded" 
+            x-model="item.speaker"
+          >
+            <option value="m1">男性</option>
+            <option value="f1">女性</option>
+            <option value="n">ナレーター</option>
+          </select>
+          <input 
+            type="text"
+            class="border p-1 rounded w-16"
+            x-model="item.speed" 
+          />
+          <input 
+            type="text"
+            class="border p-1 rounded flex-1"
+            x-model="item.text" 
+          />
+        </div>
+      </template>
+    </div>
+  </template>
+
+  <!-- ページごとの表示 -->
+  <template x-for="(page, pageIndex) in pages" :key="pageIndex">
+    <div class="border-b pb-4">
+      <h2 class="text-xl font-bold mb-2">ページ <span x-text="pageIndex + 1"></span></h2>
+      <template x-for="(item, itemIndex) in page" :key="itemIndex">
+        <div class="flex flex-col md:flex-row md:items-center mb-2 space-y-2 md:space-y-0 md:space-x-2">
+          <select 
+            class="border p-1 rounded" 
+            x-model="item.speaker"
+          >
+            <option value="m1">男性</option>
+            <option value="f1">女性</option>
+            <option value="n">ナレーター</option>
+          </select>
+          <input 
+            type="text"
+            class="border p-1 rounded w-16"
+            x-model="item.speed" 
+          />
+          <input 
+            type="text"
+            class="border p-1 rounded flex-1"
+            x-model="item.text" 
+          />
+        </div>
+      </template>
+    </div>
+  </template>
+</div>
+
+<script>
+document.addEventListener('alpine:init', () => {
+  Alpine.data('csvParser', () => ({
+
+    // ここでは埋め込みで定義していますが、実際にはファイル等から読み込む想定
+    rawCSV: `
+# Action,Speaker,Speed,Text
+engine,voicevox
+silent,1,,
+speak,n,1.0,シマリス兄弟とふしぎなショッピングモール。3
+silent,3,,
+start-page,,,
+speak,m1,1.0,シマリスの兄弟リッキーとトビーは、ショッピングモールで新しいおもちゃを探していました。
+silent,1,,
+speak,m1,1.0,モールには大きな滑り台の形をしたキッズゾーンがあり、リッキーはそこで何か楽しいことが起きる予感がすると言いました。
+silent,1,,
+end-page,,,
+silent,3,,
+start-page,,,
+speak,f1,1.0,ふしぎな箱を見つけたよ！
+silent,1,,
+speak,n,1.0,その箱には開けると宝物が見つかると書かれています。
+silent,1,,
+speak,m1,1.0,ふたりが箱を開けると、中からおもちゃと、大好きなドングリクッキーが飛び出しました。
+silent,1,,
+speak,f1,1.0,これで一石二鳥だね！
+silent,1,,
+end-page,,,
+silent,3,,
+start-page,,,
+speak,m1,1.0,突然、キッズゾーンの滑り台が壊れてしまい、他の子リスたちが遊べなくなってしまいました。
+silent,1,,
+speak,m1,1.0,なんとかしなくちゃ！とリッキーとトビーは急いで滑り台を直す方法を探します。
+silent,1,,
+end-page,,,
+silent,3,,
+start-page,,,
+speak,m1,1.0,ふたりはモール内のペットショップで直すのに使ってと工具を借りてきました。
+silent,1,,
+speak,m1,1.0,他の子リスたちも協力して、滑り台を直しました。
+silent,1,,
+speak,m1,1.0,リッキーとトビーは、みんなと一緒に楽しい時間を過ごしました。
+silent,1,,
+speak,m1,1.0,やっぱり、一石二鳥だね！
+silent,1,,
+end-page,,,
+silent,3,,
+`.trim(),
+
+    // ページのパース結果を格納する配列
+    titleItems: [],
+    pages: [],
+    currentPage: [],
+    isPageStarted: false,
+
+    init() {
+      // 初期化時にデータを空にしてからパースする
+      this.resetData();
+      this.parseCSV();
+    },
+
+    resetData() {
+      // 念のため配列を初期化（ダブりを防ぐ）
+      this.titleItems = [];
+      this.pages = [];
+      this.currentPage = [];
+      this.isPageStarted = false;
+    },
+
+    parseCSV() {
+      // 改行で行ごとに分割
+      // 不要な空行は除去し、# から始まる行はコメントとして除外
+      const lines = this.rawCSV
+        .split(/\r?\n/)                // 改行コードを吸収
+        .map(line => line.trim())      // 前後の空白をトリム
+        .filter(line => line !== '' && !line.startsWith('#'));
+
+      for (let i = 0; i < lines.length; i++) {
+        // カンマ区切りで分割（列数は可変なので一旦配列で受け取る）
+        const columns = lines[i].split(',');
+
+        // action (columns[0]) を取り出し、なければ次へ
+        const action = columns[0] ?? '';
+        // 以降の列を必要に応じて取り出す
+        const speaker = columns[1] ?? '';
+        const speed   = columns[2] ?? '';
+        const text    = columns[3] ?? '';
+
+        switch (action) {
+          case 'start-page':
+            // 新しいページの開始
+            this.isPageStarted = true;
+            this.currentPage = [];
+            break;
+
+          case 'end-page':
+            // ページ終了
+            if (this.currentPage.length > 0) {
+              this.pages.push(this.currentPage);
+            }
+            this.isPageStarted = false;
+            this.currentPage = [];
+            break;
+
+          case 'speak':
+            // speak のときだけフォームの項目として扱う
+            const item = {
+              speaker: speaker || 'n',
+              speed: speed || '1.0',
+              text: text || ''
+            };
+            if (this.isPageStarted) {
+              // ページ内
+              this.currentPage.push(item);
+            } else {
+              // ページ外（つまりタイトル部分）
+              this.titleItems.push(item);
+            }
+            break;
+
+          // それ以外のaction（engine, silentなど）は使わないので無視
+          default:
+            // 何もしない
+            break;
+        }
+      }
+    },
+  }))
+});
+</script>
+</body>
+</html>
+

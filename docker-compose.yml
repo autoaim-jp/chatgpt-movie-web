@@ -17,6 +17,9 @@ services:
     build:
       context: ./
       dockerfile: ./service/movieApi/docker/Dockerfile
+    environment:
+      - UID=${UID}
+      - GID=${GID}
     tty: true
     volumes:
       - ./service/movieApi/src:/app

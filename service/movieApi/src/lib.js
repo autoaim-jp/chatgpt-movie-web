@@ -109,6 +109,90 @@ const fork = ({ commandList, resultList }) => {
   })
 }
 
+const getMainRequest = ({ requestId, fileList, title, narrationCsv }) => {
+  const requestType = 'main'
+
+  const currentDelimiter = Buffer.from(getUlid())
+  console.log(`delimiter: ${currentDelimiter.toString()}`)
+  const delimiterDelimiter = Buffer.from('|')
+  let messageBuffer = Buffer.concat([
+    currentDelimiter,
+    delimiterDelimiter,
+    Buffer.from(requestType),
+    currentDelimiter,
+    Buffer.from(requestId),
+    currentDelimiter,
+    Buffer.from(title),
+    currentDelimiter,
+    Buffer.from(narrationCsv),
+  ])
+
+  fileList.sort((a, b) => {
+    if (a.originalname < b.originalname) return -1;
+    if (a.originalname > b.originalname) return 1;
+    return 0;
+  }).forEach((file) => {
+    messageBuffer = Buffer.concat([
+      messageBuffer,
+      currentDelimiter,
+      file.buffer
+    ])
+  })
+
+  messageBuffer = Buffer.concat([
+    messageBuffer,
+    currentDelimiter,
+  ])
+
+  return messageBuffer
+}
+
+const getImageRequest = ({ prompt, filePath, requestId }) => {
+  const _requestId = requestId || getUlid()
+  const requestObj = {
+    requestId: _requestId,
+    requestType: 'image',
+    filePath,
+    prompt,
+  }
+  const requestObjStr = JSON.stringify(requestObj)
+
+  return { requestId, buffer: Buffer.from(requestObjStr) }
+}
+
+const extractBetweenTag = ({ str }) => {
+  const regex = /# ===\n([\s\S]*?)# ===/
+  const match = str.match(regex)
+  return match ? match[1].trim() : ''
+}
+
+const extractFirstColonPart = ({ str }) => {
+  const lines = str.split('\n')
+  const firstColonLine = lines.find(line => line.includes(':'))
+  return firstColonLine ? firstColonLine.split(':').slice(1).join(':').trim() : null
+}
+
+const extractLast5ColonPart = ({ str }) => {
+  const lineList = str.split('\n').filter(line => line.includes(':'))
+  const last5LineList = lineList.slice(-5)
+  return last5LineList.map(line => line.split(':').slice(1).join(':').trim())
+}
+
+const formatDate = ({ format, date }) => {
+  if (format === undefined) {
+    format = 'YYYY-MM-DD hh:mm:ss'
+  }
+  if (date === undefined) {
+    date = new Date()
+  }
+
+  return format.replace(/YYYY/g, date.getFullYear())
+    .replace(/MM/g, (`0${date.getMonth() + 1}`).slice(-2))
+    .replace(/DD/g, (`0${date.getDate()}`).slice(-2))
+    .replace(/hh/g, (`0${date.getHours()}`).slice(-2))
+    .replace(/mm/g, (`0${date.getMinutes()}`).slice(-2))
+    .replace(/ss/g, (`0${date.getSeconds()}`).slice(-2))
+}
 
 
 export default {
@@ -119,5 +203,13 @@ export default {
   parseMultipartFileListUpload,
   parseBufferList,
   fork,
+
+  getMainRequest,
+  getImageRequest,
+
+  extractBetweenTag,
+  extractFirstColonPart,
+  extractLast5ColonPart,
+  formatDate,
 }
 

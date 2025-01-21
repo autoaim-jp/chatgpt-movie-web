@@ -7,12 +7,12 @@ import { handleFileList } from './core/handleFileList.js'
 import { handleFileContent } from './core/handleFileContent.js'
 import { handleRegisterPrompt } from './core/handleRegisterPrompt.js'
 import { handleLookupChatgptResponse } from './core/handleLookupChatgptResponse.js'
-import { extractBetweenTag } from './core/extractBetweenTag.js'
-import { extractLast5ColonPart } from './core/extractLast5ColonPart.js'
-import { extractFirstColonPart } from './core/extractFirstColonPart.js'
 import { handleRegisterStoryPrompt } from './core/handleRegisterStoryPrompt.js'
 import { handleRegisterImagePrompt } from './core/handleRegisterImagePrompt.js'
 import { startConsumer } from './core/startConsumer.js'
+import { handleRegisterChatPrompt } from './core/handleRegisterChatPrompt.js'
+import { startGenerateImageAndMovie } from './core/startGenerateImageAndMovie.js'
+import { handleLatestFileList } from './core/handleLatestFileList.js'
 
 
 export default {
@@ -28,5 +28,8 @@ export default {
   handleRegisterStoryPrompt,
   handleRegisterImagePrompt,
   startConsumer,
+  handleRegisterChatPrompt,
+  startGenerateImageAndMovie,
+  handleLatestFileList,
 }
 
