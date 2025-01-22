@@ -43,6 +43,10 @@ services:
     depends_on:
       rabbitmq:
         condition: service_healthy
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,video,utility
 
   voicevox:
     image: voicevox/voicevox_engine:cpu-0.21.1
