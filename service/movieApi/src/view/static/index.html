@@ -638,9 +638,9 @@
         generateCsv() {
           let csvLines = [];
 
-          // 1) 最初に engine,openai,,
-          // csvLines.push('engine,voicevox,,');
-          csvLines.push('engine,openai,,');
+          // 1) 最初に engine,voicevox,,
+          csvLines.push('engine,voicevox,,');
+          // csvLines.push('engine,openai,,');
 
           // 2) タイトルは silent,1,, と silent,3,, で挟む
           csvLines.push('silent,1,,');
