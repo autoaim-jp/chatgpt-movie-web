@@ -54,6 +54,14 @@ services:
       - RUN_MODE=production
     restart: unless-stopped
 
+  aivisspeech:
+    image: ghcr.io/aivis-project/aivisspeech-engine:cpu-latest
+    environment:
+      - RUN_MODE=production
+    volumes:
+      - ./service/aivisspeech/AivisSpeech-Engine-Dev:/home/user/.local/share/AivisSpeech-Engine-Dev
+    restart: unless-stopped
+
   chatgpt:
     build:
       context: ./
