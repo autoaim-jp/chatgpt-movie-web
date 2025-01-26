@@ -28,17 +28,16 @@ const _callMainDummy = async () => {
 }
 
 const _callMain = async ({ requestId, titleBuffer, narrationCsvBuffer, imageBufferList }) => {
-  const narrationCsvFilePath = '/app/data/narration.csv'
-  const outputFilePath = '/app/data/output_file.mp4'
+  const narrationCsvFilePath = `/app/data/${requestId}/narration.csv`
+  const outputFilePath = `/app/data/${requestId}/output_file.mp4`
   const IMAGE_EXT = '.png'
   const TEAM_NAME = '"Tempra\nTitans"'
-  const VOICE_ENGINE = 'openai'
-
-  const title = titleBuffer.toString()
-  mod.output.saveFile({ filePath: narrationCsvFilePath, fileBuffer: narrationCsvBuffer })
+  const VOICE_ENGINE = 'aivisspeech'
 
   const requestDirPath = `/app/data/${requestId}/`
   mod.output.makeDir({ dirPath: requestDirPath })
+  const title = titleBuffer.toString()
+  mod.output.saveFile({ filePath: narrationCsvFilePath, fileBuffer: narrationCsvBuffer })
   const titleImageFilePath = `${requestDirPath}title${IMAGE_EXT}`
   mod.output.saveFile({ filePath: titleImageFilePath, fileBuffer: imageBufferList[0] })
 
