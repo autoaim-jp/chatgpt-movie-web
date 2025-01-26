@@ -43,11 +43,23 @@ services:
     depends_on:
       rabbitmq:
         condition: service_healthy
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,video,utility
 
   voicevox:
     image: voicevox/voicevox_engine:cpu-0.21.1
     environment:
       - RUN_MODE=production
+    restart: unless-stopped
+
+  aivisspeech:
+    image: ghcr.io/aivis-project/aivisspeech-engine:cpu-latest
+    environment:
+      - RUN_MODE=production
+    volumes:
+      - ./service/aivisspeech/AivisSpeech-Engine-Dev:/home/user/.local/share/AivisSpeech-Engine-Dev
     restart: unless-stopped
 
   chatgpt:

@@ -6,6 +6,8 @@ service/movieEngine/src/data/
 service/chatgpt/src/data/
 service/movieApi/src/data/
 
+service/aivisspeech/AivisSpeech-Engine-Dev/
+
 *.swp
 *.swo
 

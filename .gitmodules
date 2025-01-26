@@ -1,5 +1,5 @@
 [submodule "xmodule-movie-core"]
 	path = service/movieEngine/src/lib/xmodule-movie-core
 	url = https://github.com/autoaim-jp/xmodule-movie-core
-	branch = feature/v0.2-20250110
+	branch = feature/v0.4-20250122
 

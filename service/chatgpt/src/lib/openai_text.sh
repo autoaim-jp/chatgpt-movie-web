@@ -28,5 +28,5 @@ if [ $? -eq 0 ]; then
 else
   echo "Error: Request failed."
   exit 1
-if
+fi
 
