@@ -52,165 +52,36 @@ HTML, CSS, JavaScript, Tailwind CSS, Alpine.js
 ChatGPT (OpenAI API), Azure AI, VOICEVOX  
 
 
-### tree
+## tree
 
-`tree -Fa --filesfirst -I ".git/|.xdevkit/|*.swp|rabbitmq|xdevkit-movie-maker|data|aivisspeech"`
+`tree -Fd --filesfirst -I ".git/|.xdevkit/|*.swp|rabbitmq|xdevkit-movie-maker|data|aivisspeech"`
 
 ```
-./
-├── .dockerignore
-├── .gitignore
-├── .gitmodules
-├── Makefile
-├── README.md
-├── docker-compose.yml
-├── .github/
-│   └── workflows/
-│       └── chatgpt-code-review.yml
-├── app/
-│   └── test/
-│       ├── curl_get_content.sh*
-│       ├── curl_get_latest.sh*
-│       ├── curl_get_list.sh*
-│       ├── curl_get_lookup_chatgpt.sh*
-│       ├── curl_get_lookup_file.sh*
-│       ├── curl_post_chatgpt.sh*
-│       ├── curl_post_dummy.sh*
-│       ├── curl_post_image.sh*
-│       ├── curl_post_main.sh*
-│       ├── curl_post_ping.sh*
-│       ├── curl_post_story.sh*
-│       └── asset/
-│           ├── dummy_image0.png
-│           ├── dummy_image1.png
-│           ├── dummy_image2.png
-│           ├── dummy_image3.png
-│           ├── dummy_image4.png
-│           ├── narration.csv
-│           └── prompt.txt
-├── service/
-│   ├── chatgpt/
-│   │   ├── docker/
-│   │   │   └── Dockerfile
-│   │   └── src/
-│   │       ├── .env
-│   │       ├── .env.sample
-│   │       ├── app.js
-│   │       ├── core.js
-│   │       ├── input.js
-│   │       ├── lib.js
-│   │       ├── output.js
-│   │       ├── package.json
-│   │       ├── setting.js
-│   │       ├── lib/
-│   │       │   ├── azureai_image.sh*
-│   │       │   ├── azureai_text.sh*
-│   │       │   ├── openai_image.sh*
-│   │       │   └── openai_text.sh*
-│   │       └── node_modules/
-│   ├── movieApi/
-│   │   ├── docker/
-│   │   │   └── Dockerfile
-│   │   └── src/
-│   │       ├── .env
-│   │       ├── .env.sample
-│   │       ├── action.js
-│   │       ├── app.js
-│   │       ├── core.js
-│   │       ├── input.js
-│   │       ├── lib.js
-│   │       ├── output.js
-│   │       ├── package.json
-│   │       ├── setting.js
-│   │       ├── yarn.lock
-│   │       ├── action/
-│   │       │   ├── getHandlerFileContent.js
-│   │       │   ├── getHandlerFileList.js
-│   │       │   ├── getHandlerFileListUpload.js
-│   │       │   ├── getHandlerFileUpload.js
-│   │       │   ├── getHandlerLatestFileList.js
-│   │       │   ├── getHandlerLookupChatgptResponse.js
-│   │       │   ├── getHandlerLookupResponse.js
-│   │       │   ├── getHandlerRegisterChatPrompt.js
-│   │       │   ├── getHandlerRegisterDummyPrompt.js
-│   │       │   ├── getHandlerRegisterImagePrompt.js
-│   │       │   ├── getHandlerRegisterMainPrompt.js
-│   │       │   ├── getHandlerRegisterPingPrompt.js
-│   │       │   ├── getHandlerRegisterPrompt.js
-│   │       │   └── getHandlerRegisterStoryPrompt.js
-│   │       ├── core/
-│   │       │   ├── handleFileContent.js
-│   │       │   ├── handleFileList.js
-│   │       │   ├── handleLatestFileList.js
-│   │       │   ├── handleLookupChatgptResponse.js
-│   │       │   ├── handleLookupResponse.js
-│   │       │   ├── handleRegisterChatPrompt.js
-│   │       │   ├── handleRegisterDummyPrompt.js
-│   │       │   ├── handleRegisterImagePrompt.js
-│   │       │   ├── handleRegisterMainPrompt.js
-│   │       │   ├── handleRegisterPingPrompt.js
-│   │       │   ├── handleRegisterPrompt.js
-│   │       │   ├── handleRegisterStoryPrompt.js
-│   │       │   ├── init.js
-│   │       │   ├── startConsumer.js
-│   │       │   └── startGenerateImageAndMovie.js
-│   │       ├── input/
-│   │       │   ├── getFileContent.js
-│   │       │   ├── getFileDirList.js
-│   │       │   ├── getFileDirListWithTitle.js
-│   │       │   ├── getLatestFileList.js
-│   │       │   └── init.js
-│   │       ├── lib/
-│   │       │   └── dalle3/
-│   │       │       └── generate.sh*
-│   │       ├── node_modules/
-│   │       ├── output/
-│   │       │   ├── copyFile.js
-│   │       │   ├── init.js
-│   │       │   ├── makeDir.js
-│   │       │   └── saveFile.js
-│   │       └── view/
-│   │           └── static/
-│   │               ├── favicon.png
-│   │               ├── favicon.webp
-│   │               ├── hackathon.html
-│   │               ├── index.html
-│   │               ├── logo.png
-│   │               ├── narration_studio.png
-│   │               ├── narrator.html
-│   │               ├── narrator2.html
-│   │               ├── slide.html
-│   │               └── audio/
-│   │                   ├── gen.sh*
-│   │                   ├── query.json
-│   │                   ├── test1.wav
-│   │                   ├── test2.wav
-│   │                   ├── test3.wav
-│   │                   ├── test4.wav
-│   │                   ├── test5.wav
-│   │                   ├── test6.wav
-│   │                   ├── test7.wav
-│   │                   └── test8.wav
-│   └── movieEngine/
-│       ├── docker/
-│       │   └── Dockerfile
-│       └── src/
-│           ├── .env
-│           ├── .env.sample
-│           ├── app.js
-│           ├── core.js
-│           ├── input.js
-│           ├── lib.js
-│           ├── output.js
-│           ├── package.json
-│           ├── setting.js
-│           ├── lib/
-│           └── node_modules/
-└── setting/
-    ├── .env
-    ├── .env.sample
-    └── version.conf
-
-30 directories, 122 files
+.
+├── app テスト用
+│   └── test
+│       └── asset
+├── service マイクロサービス docker-compose.ymlのサービス名と一致
+│   ├── chatgpt OpenAI APIへの問い合わせを管理 ストーリー作成、画像作成、ナレーションcsv修正 ただし音声合成は除く
+│   │   ├── docker Dockerfileがある。imageはnode:20-slim
+│   │   └── src
+│   │       ├── lib OpenAI APIへの問い合わせシェルスクリプトを4種格納
+│   │       └── node_modules
+│   ├── movieApi
+│   │   ├── docker Dockerfileがある。imageはnode:20-slim
+│   │   └── src
+│   │       ├── action app.jsから呼び出されるリクエストハンドラ
+│   │       ├── core actionが使用するビジネスロジック
+│   │       ├── input アプリへの入力データハンドラ
+│   │       ├── node_modules
+│   │       ├── output アプリからの出力データハンドラ
+│   │       └── view ブラウザ側コード
+│   │           └── static
+│   └── movieEngine
+│       ├── docker Dockerfileがある。imageはnvidia/cuda:11.8.0-devel-ubuntu22.04。gpuを使ってffmpegを高速化
+│       └── src
+│           ├── lib
+│           └── node_modules
+└── setting .envで環境ごとのコンテナ名を管理
 ```
 
