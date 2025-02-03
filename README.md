@@ -25,7 +25,7 @@ Webブラウザは、ステータスが変わったかどうかを定期的にWe
 ```
 
 ## コアモジュール  
-[xmodule-movie-core](https://github.com/autoaim-jp/xmodule-movie-core)  
+[xdevkit-movie-maker](https://github.com/autoaim-jp/xdevkit-movie-maker)  
   
 ## 関連リポジトリ  
 [chatgpt-rabbitmq ChatGPT APIの利用](https://github.com/autoaim-jp/chatgpt-rabbitmq)  
@@ -54,7 +54,7 @@ ChatGPT (OpenAI API), Azure AI, VOICEVOX
 
 ### tree
 
-`tree -Fa --filesfirst -I ".git/|.xdevkit/|*.swp|rabbitmq|xmodule-movie-core|data|aivisspeech"`
+`tree -Fa --filesfirst -I ".git/|.xdevkit/|*.swp|rabbitmq|xdevkit-movie-maker|data|aivisspeech"`
 
 ```
 ./

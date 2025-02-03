@@ -16,7 +16,7 @@ const init = async ({ setting, output, input, lib, amqpConnection }) => {
 const _callMainDummy = async () => {
   const outputFilePath = '/app/data/output_file.mp4'
   const resultList = []
-  const commandList = ['cd', '/app/lib/xmodule-movie-core', '&&', './main_dummy.sh', outputFilePath]
+  const commandList = ['cd', '/app/lib/xdevkit-movie-maker', '&&', './main_dummy.sh', outputFilePath]
 
   await mod.lib.fork({ commandList, resultList })
 
@@ -54,7 +54,7 @@ const _callMain = async ({ requestId, titleBuffer, narrationCsvBuffer, imageBuff
   })
   const resultList = []
 
-  const commandList = ['cd', '/app/lib/xmodule-movie-core', '&&', './main.sh', outputFilePath, narrationCsvFilePath, title, titleImageFilePath, TEAM_NAME, imageDirPath, VOICE_ENGINE]
+  const commandList = ['cd', '/app/lib/xdevkit-movie-maker', '&&', './main.sh', outputFilePath, narrationCsvFilePath, title, titleImageFilePath, TEAM_NAME, imageDirPath, VOICE_ENGINE]
 
   console.log({ commandList })
   await mod.lib.fork({ commandList, resultList })
