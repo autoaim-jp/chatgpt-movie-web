@@ -1,0 +1,5 @@
+[submodule "xdevkit-movie-maker"]
+	path = service/movieEngine/src/lib/xdevkit-movie-maker
+	url = https://github.com/autoaim-jp/xdevkit-movie-maker
+	branch = feature/v0.5-20250127
+
