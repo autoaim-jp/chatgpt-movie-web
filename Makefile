@@ -29,11 +29,11 @@ help:
 	@echo "Usage: make help"
 
 init-submodule:
-	git config -f .gitmodules submodule.xmodule-movie-core.branch master
+	git config -f .gitmodules submodule.xdevkit-movie-maker.branch master
 	git submodule update --remote --init --recursive
 
 init-module:
-	cd ./service/movieEngine/src/lib/xmodule-movie-core/ && \
+	cd ./service/movieEngine/src/lib/xdevkit-movie-maker/ && \
 	git checkout . && \
 	git clean -df
 
