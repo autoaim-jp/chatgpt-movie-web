@@ -49,7 +49,6 @@ init-env:
 	@if [ ! -f service/movieApi/src/.env ]; then \
 		echo "Copying .env.sample to .env for movieApi"; \
 		cp service/movieApi/src/.env{.sample,}; \
-		echo "EDIT service/movieApi/src/.env AND SET OPENAI_API_KEY!"; \
 	fi
 	@if [ ! -f service/movieEngine/src/.env ]; then \
 		echo "Copying .env.sample to .env for movieEngine"; \
@@ -58,8 +57,9 @@ init-env:
 	@if [ ! -f service/chatgpt/src/.env ]; then \
 		echo "Copying .env.sample to .env for chatgpt"; \
 		cp service/chatgpt/src/.env{.sample,}; \
-		echo "EDIT service/chatgpt/src/.env AND SET OPENAI_API_KEY!"; \
+		echo "EDIT service/chatgpt/src/.env AND SET OPENAI_CHATGPT_API_KEY!"; \
 	fi
+	echo "EDIT service/movieEngine/src/lib/xdevkit-movie-maker/.env AND SET OPENAI_CHATGPT_API_KEY!"; \
 
 docker-compose-up-detatch:
 	UID=$(UID) GID=$(GID) docker compose --env-file setting/.env -p ${DOCKER_PROJECT_NAME}_${APP_ENV} up -d

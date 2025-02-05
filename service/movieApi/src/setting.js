@@ -165,7 +165,7 @@ __THEME_TEXT__
 
 【ナレーションcsvのルール】
 # ファイルの、最初の行と最後の行は# ===を表示
-# まず最初はengine,aivisspeech,,を表示
+# まず最初はengine,voicevox,,を表示
 # タイトルはsilent,1,,とsilent,3,,の行で挟む
 # 各ページの最初はstart-page,,,の行
 # 文章は句点や鍵括弧ごとに行を分ける。その後、各文章の先頭にspeak,話し手ID,読み上げのスピード,をつける。
@@ -176,7 +176,7 @@ __THEME_TEXT__
 
 【ナレーションcsvの例】
 # ===
-engine,aivisspeech,,
+engine,voicevox,,
 # タイトル
 silent,1,,
 speak,f1,1.0,森の冒険者、タケルと、ふしぎなタネ。
@@ -225,7 +225,7 @@ safetyシステムのエラー: Your request was rejected as a result of our saf
 setting.prompt.NARRATION_CSV_RULE = `
 
 【ナレーションcsvのルール】
-# まず最初はengine,aivisspeech,,を表示
+# まず最初はengine,voicevox,,を表示
 # タイトルはsilent,1,,とsilent,3,,の行で挟む
 # 各ページの最初はstart-page,,,の行
 # 文章は句点や鍵括弧ごとに行を分ける。その後、各文章の先頭にspeak,話し手ID,読み上げのスピード,をつける。
