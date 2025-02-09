@@ -19,7 +19,7 @@ export const startConsumer = async () => {
 
       const dirPath = `${MOVIE_DIR_PATH}${requestId}/`
       mod.output.makeDir({ dirPath, })
-      if (requestType === 'main') {
+      if (requestType === 'main' || requestType === 'part1') {
         const filePath = `${dirPath}output.mp4`
         const fileBuffer = splitResultList[2]
         mod.output.saveFile({ filePath, fileBuffer })

@@ -28,8 +28,15 @@ export const handleRegisterMainPrompt = async ({ requestId, fileList, title, nar
     mod.output.saveFile({ filePath: `${dirPath}/${file.originalname}`, fileBuffer: file.buffer })
   })
 
-  const messageBuffer = mod.lib.getMainRequest({ requestId, fileList, title, narrationCsv: _narrationCsv })
-  mod.amqpChannel.sendToQueue(queue, messageBuffer)
+  // 高速化のためコメントアウト
+  // const messageBuffer = mod.lib.getMainRequest({ requestId, fileList, title, narrationCsv: _narrationCsv })
+  // mod.amqpChannel.sendToQueue(queue, messageBuffer)
+  // 音声だけ先に作成
+  const part1MessageBuffer = mod.lib.getPart1Request({ requestId, narrationCsv: _narrationCsv })
+  mod.amqpChannel.sendToQueue(queue, part1MessageBuffer)
+  // 動画を作成
+  const part2MessageBuffer = mod.lib.getPart2Request({ requestId, fileList, title })
+  mod.amqpChannel.sendToQueue(queue, part2MessageBuffer)
 
   const handleResult = { isRegistered: true, requestId }
   return handleResult

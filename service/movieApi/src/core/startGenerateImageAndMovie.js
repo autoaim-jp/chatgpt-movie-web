@@ -48,7 +48,6 @@ export const startGenerateImageAndMovie = async ({ requestId, title, themeText, 
   // 画像を作成
   await Promise.all(promiseList)
 
-
   // 動画を作成
   const fileList = imageFilePathList.map((filePath) => {
     return { originalname: filePath, buffer: mod.input.getFileContent({ filePath }) }

@@ -83,24 +83,32 @@ const _callPart1 = async ({ requestId, narrationCsvBuffer }) => {
   const fast1CommandList = ['cd', '/app/lib/xdevkit-movie-maker', '&&', './fast_part1.sh', soundFilePath, subtitleFilePath, imageListFilePath, imageDirPath, narrationCsvFilePath, VOICE_ENGINE]
 
   console.log({ fast1CommandList })
-  await mod.lib.fork({ fast1CommandList, part1ResultList })
+  await mod.lib.fork({ commandList: fast1CommandList, resultList: part1ResultList })
 
   mod.output.saveFile({ filePath: '/app/data/fork_fast_part1.log', fileBuffer: Buffer.from(part1ResultList.join('\n')) })
 
   // 画像が送られてくるまで待つ
+  console.log({ debug: true })
+  /*
   while (!store[requestId]?.isReady) {
     await mod.lib.awaitSleep({ ms: 0.1 * 1000 })
   }
+  */
 
   const part2ResultList = []
+  console.log({ debug: true })
+  // const title = store[requestId].title
+  const title = "共に歩む心の道。"
   const outputFilePath = `/app/data/${requestId}/output_file.mp4`
   const TITLE_SEC = 6
   const TEAM_TELOP_IMAGE_FILE_PATH = '/app/lib/xdevkit-movie-maker/asset/src/project/fast/telop.png'
   const ENDING_MOVIE_INDEX = -1
+  const IMAGE_EXT = '.png'
+  const titleImageFilePath = `${requestDirPath}title${IMAGE_EXT}`
   const fast2CommandList = ['cd', '/app/lib/xdevkit-movie-maker', '&&', './fast_part2.sh', outputFilePath, soundFilePath, subtitleFilePath, imageListFilePath, imageDirPath, title, titleImageFilePath, TITLE_SEC, TEAM_TELOP_IMAGE_FILE_PATH, ENDING_MOVIE_INDEX]
 
   console.log({ fast2CommandList })
-  await mod.lib.fork({ fast2CommandList, part2ResultList })
+  await mod.lib.fork({ commandList: fast2CommandList, resultList: part2ResultList })
 
   mod.output.saveFile({ filePath: '/app/data/fork_fast_part2.log', fileBuffer: Buffer.from(part2ResultList.join('\n')) })
 
