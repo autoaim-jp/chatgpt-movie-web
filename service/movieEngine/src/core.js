@@ -66,6 +66,68 @@ const _callMain = async ({ requestId, titleBuffer, narrationCsvBuffer, imageBuff
   return resultMovieBuffer
 }
 
+const _callPart1 = async ({ requestId, narrationCsvBuffer }) => {
+  const narrationCsvFilePath = `/app/data/${requestId}/narration.csv`
+  const VOICE_ENGINE = 'voicevox'
+
+  const requestDirPath = `/app/data/${requestId}/`
+  const imageDirPath = `${requestDirPath}image/`
+  mod.output.makeDir({ dirPath: imageDirPath })
+  mod.output.saveFile({ filePath: narrationCsvFilePath, fileBuffer: narrationCsvBuffer })
+
+  // 音声と２つのcsvファイルを作成
+  const part1ResultList = []
+  const soundFilePath = `/app/data/${requestId}/sound.wav`
+  const subtitleFilePath = `/app/data/${requestId}/subtitle.csv`
+  const imageListFilePath = `/app/data/${requestId}/image_list.csv`
+  const fast1CommandList = ['cd', '/app/lib/xdevkit-movie-maker', '&&', './fast_part1.sh', soundFilePath, subtitleFilePath, imageListFilePath, imageDirPath, narrationCsvFilePath, VOICE_ENGINE]
+
+  console.log({ fast1CommandList })
+  await mod.lib.fork({ fast1CommandList, part1ResultList })
+
+  mod.output.saveFile({ filePath: '/app/data/fork_fast_part1.log', fileBuffer: Buffer.from(part1ResultList.join('\n')) })
+
+  // 画像が送られてくるまで待つ
+  while (!store[requestId]?.isReady) {
+    await mod.lib.awaitSleep({ ms: 0.1 * 1000 })
+  }
+
+  const part2ResultList = []
+  const outputFilePath = `/app/data/${requestId}/output_file.mp4`
+  const TITLE_SEC = 6
+  const TEAM_TELOP_IMAGE_FILE_PATH = '/app/lib/xdevkit-movie-maker/asset/src/project/fast/telop.png'
+  const ENDING_MOVIE_INDEX = -1
+  const fast2CommandList = ['cd', '/app/lib/xdevkit-movie-maker', '&&', './fast_part2.sh', outputFilePath, soundFilePath, subtitleFilePath, imageListFilePath, imageDirPath, title, titleImageFilePath, TITLE_SEC, TEAM_TELOP_IMAGE_FILE_PATH, ENDING_MOVIE_INDEX]
+
+  console.log({ fast2CommandList })
+  await mod.lib.fork({ fast2CommandList, part2ResultList })
+
+  mod.output.saveFile({ filePath: '/app/data/fork_fast_part2.log', fileBuffer: Buffer.from(part2ResultList.join('\n')) })
+
+  const resultMovieBuffer = mod.input.readFile({ filePath: outputFilePath })
+
+  return resultMovieBuffer
+}
+
+const _part2Ready = ({ requestId, titleBuffer, imageBufferList }) => {
+  const requestDirPath = `/app/data/${requestId}/`
+  const imageDirPath = `${requestDirPath}image/`
+  const IMAGE_EXT = '.png'
+  const title = titleBuffer.toString()
+  const titleImageFilePath = `${requestDirPath}title${IMAGE_EXT}`
+  mod.output.saveFile({ filePath: titleImageFilePath, fileBuffer: imageBufferList[0] })
+
+  imageBufferList.forEach((fileBuffer, i) => {
+    // 0 is title image
+    if(i === 0 || fileBuffer === null) {
+      return
+    }
+    const filePath = `${imageDirPath}${i}${IMAGE_EXT}`
+    mod.output.saveFile({ filePath, fileBuffer })
+  })
+ 
+  store[requestId] = { isReady: true, title, }
+}
 
 const handleRequest = async ({ requestBuffer }) => {
   const delimiterDelimiterBuffer = Buffer.from('|')
@@ -96,6 +158,15 @@ const handleRequest = async ({ requestBuffer }) => {
     const resultMovieBuffer = await _callMain({ requestId, titleBuffer, narrationCsvBuffer, imageBufferList })
     responseBufferList.push(Buffer.from(requestType))
     responseBufferList.push(resultMovieBuffer)
+  } else if (requestType === 'part1') {
+    const narrationCsvBuffer = splitResultList[2]
+    const resultMovieBuffer = await _callPart1({ requestId, narrationCsvBuffer })
+    responseBufferList.push(Buffer.from(requestType))
+    responseBufferList.push(resultMovieBuffer)
+  } else if (requestType === 'part2') {
+    const titleBuffer = splitResultList[2]
+    const imageBufferList = splitResultList.slice(3)
+    await _part2Ready({ requestId, titleBuffer, imageBufferList })
   } else {
     console.log('invalid requestType:', requestType)
   }
@@ -147,8 +218,10 @@ const startConsumer = async () => {
       const { requestId, responseBufferList } = await handleRequest({ requestBuffer })
       console.log('movie response:', responseBufferList.length)
 
-      const responseBuffer = _createResponseBuffer({ requestId, responseBufferList })
-      mod.amqpResponseChannel.sendToQueue(responseQueue, responseBuffer)
+      if(responseBufferList.length !== 0) {
+        const responseBuffer = _createResponseBuffer({ requestId, responseBufferList })
+        mod.amqpResponseChannel.sendToQueue(responseQueue, responseBuffer)
+      }
 
       mod.amqpPromptChannel.ack(msg)
     } else {
