@@ -53,6 +53,7 @@
     <!-- Form Card -->
     <div class="bg-white rounded-lg shadow-lg p-8 max-w-4xl mx-auto mt-24">
       <h2 class="text-2xl font-bold text-center mb-4">動画生成フォーム</h2>
+      <p class="text-center mb-4">動画の作成処理は1分30秒かかります。</p>
       <form @submit.prevent="submitForm">
         <div class="mb-4">
           <label class="block text-gray-700 font-bold mb-2" for="themeText">動画の概要</label>
@@ -74,6 +75,7 @@
 
     <div class="bg-white rounded-lg shadow-lg p-8 max-w-4xl mx-auto mt-8">
       <h2 class="text-2xl font-bold text-center mb-4">編集フォーム</h2>
+      <p class="text-center mb-4">動画の更新処理は1分かかります。</p>
       <div x-show="!narrationCsv">
         <p class="block text-gray-700 font-bold mb-2">動画を作成、または選択してください。</p>
       </div>
@@ -214,6 +216,7 @@
     <!-- Video Display Card -->
     <div class="bg-white rounded-lg shadow-lg p-8 max-w-4xl mx-auto mt-8" x-cloak>
       <h2 class="text-2xl font-bold text-center mb-4">生成AIが作成した動画</h2>
+      <p class="text-center mb-4">動画はChromeまたはFirefoxで再生できます。</p>
       <video controls class="w-full rounded-lg" :src="videoUrl"></video>
     </div>
 
