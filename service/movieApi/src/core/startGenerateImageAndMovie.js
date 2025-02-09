@@ -38,14 +38,23 @@ export const startGenerateImageAndMovie = async ({ requestId, title, themeText, 
     })
   })
 
+
+  const queue = mod.setting.getValue('amqp.REQUEST_QUEUE') 
+
+  // 音声だけ先に作成
+  const part1MessageBuffer = mod.lib.getPart1Request({ requestId, narrationCsv })
+  mod.amqpChannel.sendToQueue(queue, part1MessageBuffer)
+
+  // 画像を作成
   await Promise.all(promiseList)
 
+
+  // 動画を作成
   const fileList = imageFilePathList.map((filePath) => {
     return { originalname: filePath, buffer: mod.input.getFileContent({ filePath }) }
   })
-  const messageBuffer = mod.lib.getMainRequest({ requestId, fileList, title, narrationCsv })
-  const queue = mod.setting.getValue('amqp.REQUEST_QUEUE') 
-  mod.amqpChannel.sendToQueue(queue, messageBuffer)
+  const part2MessageBuffer = mod.lib.getPart2Request({ requestId, fileList, title })
+  mod.amqpChannel.sendToQueue(queue, part2MessageBuffer)
 
   console.log('done: _startGenerateImageAndMovie', requestId, title)
 }

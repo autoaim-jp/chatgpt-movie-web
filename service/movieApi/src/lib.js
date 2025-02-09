@@ -160,6 +160,70 @@ const getImageRequest = ({ prompt, filePath, requestId }) => {
   return { requestId, buffer: Buffer.from(requestObjStr) }
 }
 
+const getPart1Request = ({ requestId, narrationCsv }) => {
+  const requestType = 'part1'
+
+  const currentDelimiter = Buffer.from(getUlid())
+  console.log(`delimiter: ${currentDelimiter.toString()}`)
+  const delimiterDelimiter = Buffer.from('|')
+  let messageBuffer = Buffer.concat([
+    currentDelimiter,
+    delimiterDelimiter,
+    Buffer.from(requestType),
+    currentDelimiter,
+    Buffer.from(requestId),
+    currentDelimiter,
+    Buffer.from(narrationCsv),
+  ])
+
+  messageBuffer = Buffer.concat([
+    messageBuffer,
+    currentDelimiter,
+  ])
+
+  return messageBuffer
+}
+
+const getPart2Request = ({ requestId, fileList, title }) => {
+  const requestType = 'part2'
+
+  const currentDelimiter = Buffer.from(getUlid())
+  console.log(`delimiter: ${currentDelimiter.toString()}`)
+  const delimiterDelimiter = Buffer.from('|')
+  let messageBuffer = Buffer.concat([
+    currentDelimiter,
+    delimiterDelimiter,
+    Buffer.from(requestType),
+    currentDelimiter,
+    Buffer.from(requestId),
+    currentDelimiter,
+    Buffer.from(title),
+  ])
+
+  fileList.sort((a, b) => {
+    if (a.originalname < b.originalname) return -1;
+    if (a.originalname > b.originalname) return 1;
+    return 0;
+  }).forEach((file) => {
+    messageBuffer = Buffer.concat([
+      messageBuffer,
+      currentDelimiter,
+      file.buffer
+    ])
+  })
+
+  messageBuffer = Buffer.concat([
+    messageBuffer,
+    currentDelimiter,
+  ])
+
+  return messageBuffer
+}
+
+
+
+
+
 const extractBetweenTag = ({ str }) => {
   const regex = /# ===\n([\s\S]*?)# ===/
   const match = str.match(regex)
@@ -206,6 +270,8 @@ export default {
 
   getMainRequest,
   getImageRequest,
+  getPart1Request,
+  getPart2Request,
 
   extractBetweenTag,
   extractFirstColonPart,

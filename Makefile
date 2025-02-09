@@ -29,7 +29,7 @@ help:
 	@echo "Usage: make help"
 
 init-submodule:
-	git config -f .gitmodules submodule.xdevkit-movie-maker.branch master
+	git config -f .gitmodules submodule.xdevkit-movie-maker.branch ${XDEVKIT_MOVIE_MAKER_VERSION}
 	git submodule update --remote --init --recursive
 
 init-module:
