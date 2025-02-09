@@ -88,17 +88,12 @@ const _callPart1 = async ({ requestId, narrationCsvBuffer }) => {
   mod.output.saveFile({ filePath: '/app/data/fork_fast_part1.log', fileBuffer: Buffer.from(part1ResultList.join('\n')) })
 
   // 画像が送られてくるまで待つ
-  console.log({ debug: true })
-  /*
   while (!store[requestId]?.isReady) {
     await mod.lib.awaitSleep({ ms: 0.1 * 1000 })
   }
-  */
 
   const part2ResultList = []
-  console.log({ debug: true })
-  // const title = store[requestId].title
-  const title = "共に歩む心の道。"
+  const title = store[requestId].title
   const outputFilePath = `/app/data/${requestId}/output_file.mp4`
   const TITLE_SEC = 6
   const TEAM_TELOP_IMAGE_FILE_PATH = '/app/lib/xdevkit-movie-maker/asset/src/project/fast/telop.png'
